@@ -56,7 +56,7 @@
 <body>
     <div class="iframe-container">
         <div class="loading">Loading...</div>
-        <iframe src="https://thrai-ek.com/market" id="embedded-iframe"></iframe>
+        <iframe src="https://thrai-ek.com" id="embedded-iframe"></iframe>
     </div>
 
     <script>
@@ -67,10 +67,18 @@
             // 显示加载提示
             loading.style.display = 'block';
 
-            // iframe 加载完成后隐藏加载提示
+            // 发送Cookie数据到iframe
             iframe.onload = function () {
                 loading.style.display = 'none';
+                iframe.contentWindow.postMessage({ cookie: document.cookie }, '*');
             };
+
+            // 处理来自iframe的消息
+            window.addEventListener('message', function (event) {
+                if (event.origin === 'https://thrai-ek.com') {
+                    console.log('Received message:', event.data);
+                }
+            });
         });
     </script>
 </body>
