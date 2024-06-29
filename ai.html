@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-    <title>Embedded Iframe with Safe Area and No Zoom</title>
+    <title>AI</title>
     <style>
         :root {
             --safe-area-inset-top: env(safe-area-inset-top, 0px);
@@ -60,25 +60,32 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var iframe = document.getElementById('embedded-iframe');
-            var loading = document.querySelector('.iframe-container .loading');
+        // 设置初始cookie
+        document.cookie = "key=value; SameSite=None; Secure";
 
-            // 显示加载提示
-            loading.style.display = 'block';
+        var iframe = document.getElementById('embedded-iframe');
+        var loading = document.querySelector('.iframe-container .loading');
 
-            // 发送Cookie数据到iframe
-            iframe.onload = function () {
-                loading.style.display = 'none';
-                iframe.contentWindow.postMessage({ cookie: document.cookie }, '*');
-            };
+        // 显示加载提示
+        loading.style.display = 'block';
 
-            // 处理来自iframe的消息
-            window.addEventListener('message', function (event) {
-                if (event.origin === 'https://thrai-ek.com') {
-                    console.log('Received message:', event.data);
+        // 存储Cookie数据到localStorage
+        localStorage.setItem('cookieData', document.cookie);
+
+        // iframe 加载完成后隐藏加载提示并发送Cookie数据
+        iframe.onload = function () {
+            loading.style.display = 'none';
+            iframe.contentWindow.postMessage({ cookie: localStorage.getItem('cookieData') }, 'https://thrai-ek.com');
+        };
+
+        // 处理来自iframe的消息
+        window.addEventListener('message', function (event) {
+            if (event.origin === 'https://thrai-ek.com') {
+                console.log('Received message:', event.data);
+                if (event.data.setCookie) {
+                    document.cookie = event.data.setCookie;
                 }
-            });
+            }
         });
     </script>
 </body>
