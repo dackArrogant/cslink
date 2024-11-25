@@ -1,0 +1,9512 @@
+var GameConfig,
+  console,
+  GameLib,
+  CreateGame,
+  TransformUtil,
+  MouseUtil,
+  GameOver,
+  loadRec,
+  GameMenu,
+  GameHelp,
+  GamePlay,
+  languageUI,
+  languageData,
+  GameSound;
+(function () {
+  function _0x114CB(_0x1153D, _0x11621, _0x115E8) {
+    if (_0x1153D) {
+      return;
+    }
+    var _0x11576 = this.location.href
+      .split("\x3A\x2F\x2F")[1]
+      .split("\x2F")[0]
+      .split("\x3A")[0];
+    var _0x114CB = _0x1153D.split("\x2C");
+    for (var _0x115AF = 0; _0x115AF < _0x114CB.length; _0x115AF++) {
+      var _0x11504 = _0x114CB[_0x115AF];
+      if (_0x11504 == _0x11576) {
+        return;
+      }
+      if (!_0x11621) {
+        continue;
+      }
+      _0x11504 = _0x11576.split("\x2E" + _0x11504);
+      if (_0x11504.length == 2 && !_0x11504[1]) {
+        return;
+      }
+    }
+    throw _0x115E8 || "\x65\x72\x72\x6F\x72";
+  }
+  function _0x11504() {
+    function _0x11504(_0x114CB, _0x11504, _0x1153D) {
+      return _0x114CB.call.apply(_0x114CB.bind, arguments);
+    }
+    function _0x115AF(_0x114CB, _0x11504, _0x1153D) {
+      if (!_0x114CB) {
+        throw Error();
+      }
+      if (2 < arguments.length) {
+        var _0x11576 = Array.prototype.slice.call(arguments, 2);
+        return function () {
+          var _0x1153D = Array.prototype.slice.call(arguments);
+          Array.prototype.unshift.apply(_0x1153D, _0x11576);
+          return _0x114CB.apply(_0x11504, _0x1153D);
+        };
+      }
+      return function () {
+        return _0x114CB.apply(_0x11504, arguments);
+      };
+    }
+    function _0x11D41(_0x114CB, _0x1153D, _0x11576) {
+      _0x11D41 =
+        Function.prototype.bind &&
+        -1 !=
+          Function.prototype.bind
+            .toString()
+            .indexOf("\x6E\x61\x74\x69\x76\x65\x20\x63\x6F\x64\x65")
+          ? _0x11504
+          : _0x115AF;
+      return _0x11D41.apply(null, arguments);
+    }
+    var _0x11DEC =
+      Date.now ||
+      function () {
+        return +new Date();
+      };
+    function _0x1165A(_0x114CB, _0x11504) {
+      this.a = _0x114CB;
+      this.o = _0x11504 || _0x114CB;
+      this.c = this.o.document;
+    }
+    var _0x11705 = !!window.FontFace;
+    function _0x11F7B(_0x114CB, _0x11504, _0x1153D, _0x11576) {
+      _0x11504 = _0x114CB.c.createElement(_0x11504);
+      if (_0x1153D) {
+        for (var _0x115AF in _0x1153D) {
+          _0x1153D.hasOwnProperty(_0x115AF) &&
+            ("\x73\x74\x79\x6C\x65" == _0x115AF
+              ? (_0x11504.style.cssText = _0x1153D[_0x115AF])
+              : _0x11504.setAttribute(_0x115AF, _0x1153D[_0x115AF]));
+        }
+      }
+      _0x11576 && _0x11504.appendChild(_0x114CB.c.createTextNode(_0x11576));
+      return _0x11504;
+    }
+    function _0x12026(_0x114CB, _0x11504, _0x1153D) {
+      _0x114CB = _0x114CB.c.getElementsByTagName(_0x11504)[0];
+      _0x114CB || (_0x114CB = document.documentElement);
+      _0x114CB.insertBefore(_0x1153D, _0x114CB.lastChild);
+    }
+    function _0x120D1(_0x114CB) {
+      _0x114CB.parentNode && _0x114CB.parentNode.removeChild(_0x114CB);
+    }
+    function _0x1217C(_0x114CB, _0x11504, _0x1153D) {
+      _0x11504 = _0x11504 || [];
+      _0x1153D = _0x1153D || [];
+      for (
+        var _0x11576 = _0x114CB.className.split(/\s+/), _0x115AF = 0;
+        _0x115AF < _0x11504.length;
+        _0x115AF += 1
+      ) {
+        for (
+          var _0x115E8 = !1, _0x11621 = 0;
+          _0x11621 < _0x11576.length;
+          _0x11621 += 1
+        ) {
+          if (_0x11504[_0x115AF] === _0x11576[_0x11621]) {
+            _0x115E8 = !0;
+            break;
+          }
+        }
+        _0x115E8 || _0x11576.push(_0x11504[_0x115AF]);
+      }
+      _0x11504 = [];
+      for (_0x115AF = 0; _0x115AF < _0x11576.length; _0x115AF += 1) {
+        _0x115E8 = !1;
+        for (_0x11621 = 0; _0x11621 < _0x1153D.length; _0x11621 += 1) {
+          if (_0x11576[_0x115AF] === _0x1153D[_0x11621]) {
+            _0x115E8 = !0;
+            break;
+          }
+        }
+        _0x115E8 || _0x11504.push(_0x11576[_0x115AF]);
+      }
+      _0x114CB.className = _0x11504
+        .join("\x20")
+        .replace(/\s+/g, "\x20")
+        .replace(/^\s+|\s+$/, "");
+    }
+    function _0x12260(_0x114CB, _0x11504) {
+      for (
+        var _0x1153D = _0x114CB.className.split(/\s+/),
+          _0x11576 = 0,
+          _0x115AF = _0x1153D.length;
+        _0x11576 < _0x115AF;
+        _0x11576++
+      ) {
+        if (_0x1153D[_0x11576] == _0x11504) {
+          return !0;
+        }
+      }
+      return !1;
+    }
+    function _0x117B0(_0x114CB) {
+      return _0x114CB.o.location.hostname || _0x114CB.a.location.hostname;
+    }
+    function _0x1230B(_0x114CB, _0x11504, _0x1153D) {
+      function _0x11576() {
+        _0x1165A &&
+          _0x115AF &&
+          _0x115E8 &&
+          (_0x1165A(_0x11621), (_0x1165A = null));
+      }
+      _0x11504 = _0x11F7B(_0x114CB, "\x6C\x69\x6E\x6B", {
+        rel: "\x73\x74\x79\x6C\x65\x73\x68\x65\x65\x74",
+        href: _0x11504,
+        media: "\x61\x6C\x6C",
+      });
+      var _0x115AF = !1,
+        _0x115E8 = !0,
+        _0x11621 = null,
+        _0x1165A = _0x1153D || null;
+      _0x11705
+        ? ((_0x11504.onload = function () {
+            _0x115AF = !0;
+            _0x11576();
+          }),
+          (_0x11504.onerror = function () {
+            _0x115AF = !0;
+            _0x11621 = Error(
+              "\x53\x74\x79\x6C\x65\x73\x68\x65\x65\x74\x20\x66\x61\x69\x6C\x65\x64\x20\x74\x6F\x20\x6C\x6F\x61\x64"
+            );
+            _0x11576();
+          }))
+        : setTimeout(function () {
+            _0x115AF = !0;
+            _0x11576();
+          }, 0);
+      _0x12026(_0x114CB, "\x68\x65\x61\x64", _0x11504);
+    }
+    function _0x114CB(_0x114CB, _0x11504, _0x1153D, _0x11576) {
+      var _0x115AF = _0x114CB.c.getElementsByTagName("\x68\x65\x61\x64")[0];
+      if (_0x115AF) {
+        var _0x115E8 = _0x11F7B(_0x114CB, "\x73\x63\x72\x69\x70\x74", {
+            src: _0x11504,
+          }),
+          _0x11621 = !1;
+        _0x115E8.onload = _0x115E8.onreadystatechange = function () {
+          _0x11621 ||
+            (this.readyState &&
+              "\x6C\x6F\x61\x64\x65\x64" != this.readyState &&
+              "\x63\x6F\x6D\x70\x6C\x65\x74\x65" != this.readyState) ||
+            ((_0x11621 = !0),
+            _0x1153D && _0x1153D(null),
+            (_0x115E8.onload = _0x115E8.onreadystatechange = null),
+            "\x48\x45\x41\x44" == _0x115E8.parentNode.tagName &&
+              _0x115AF.removeChild(_0x115E8));
+        };
+        _0x115AF.appendChild(_0x115E8);
+        setTimeout(function () {
+          _0x11621 ||
+            ((_0x11621 = !0),
+            _0x1153D &&
+              _0x1153D(
+                Error(
+                  "\x53\x63\x72\x69\x70\x74\x20\x6C\x6F\x61\x64\x20\x74\x69\x6D\x65\x6F\x75\x74"
+                )
+              ));
+        }, _0x11576 || 5e3);
+        return _0x115E8;
+      }
+      return null;
+    }
+    function _0x11576() {
+      this.a = 0;
+      this.c = null;
+    }
+    function _0x11621(_0x114CB) {
+      _0x114CB.a++;
+      return function () {
+        _0x114CB.a--;
+        _0x116CC(_0x114CB);
+      };
+    }
+    function _0x11777(_0x114CB, _0x11504) {
+      _0x114CB.c = _0x11504;
+      _0x116CC(_0x114CB);
+    }
+    function _0x116CC(_0x114CB) {
+      0 == _0x114CB.a && _0x114CB.c && (_0x114CB.c(), (_0x114CB.c = null));
+    }
+    function _0x11822(_0x114CB) {
+      this.a = _0x114CB || "\x2D";
+    }
+    _0x11822.prototype.c = function (_0x114CB) {
+      for (
+        var _0x11504 = [], _0x1153D = 0;
+        _0x1153D < arguments.length;
+        _0x1153D++
+      ) {
+        _0x11504.push(arguments[_0x1153D].replace(/[\W_]+/g, "").toLowerCase());
+      }
+      return _0x11504.join(this.a);
+    };
+    function _0x118CD(_0x114CB, _0x11504) {
+      this.c = _0x114CB;
+      this.f = 4;
+      this.a = "\x6E";
+      var _0x1153D = (_0x11504 || "\x6E\x34").match(/^([nio])([1-9])$/i);
+      _0x1153D &&
+        ((this.a = _0x1153D[1]), (this.f = parseInt(_0x1153D[2], 10)));
+    }
+    function _0x1185B(_0x114CB) {
+      return (
+        _0x11978(_0x114CB) +
+        "\x20" +
+        (_0x114CB.f + "\x30\x30") +
+        "\x20\x33\x30\x30\x70\x78\x20" +
+        _0x11A23(_0x114CB.c)
+      );
+    }
+    function _0x11A23(_0x114CB) {
+      var _0x11504 = [];
+      _0x114CB = _0x114CB.split(/,\s*/);
+      for (var _0x1153D = 0; _0x1153D < _0x114CB.length; _0x1153D++) {
+        var _0x11576 = _0x114CB[_0x1153D].replace(/['"]/g, "");
+        -1 != _0x11576.indexOf("\x20") || /^\d/.test(_0x11576)
+          ? _0x11504.push("\x27" + _0x11576 + "\x27")
+          : _0x11504.push(_0x11576);
+      }
+      return _0x11504.join("\x2C");
+    }
+    function _0x11A95(_0x114CB) {
+      return _0x114CB.a + _0x114CB.f;
+    }
+    function _0x11978(_0x114CB) {
+      var _0x11504 = "\x6E\x6F\x72\x6D\x61\x6C";
+      "\x6F" === _0x114CB.a
+        ? (_0x11504 = "\x6F\x62\x6C\x69\x71\x75\x65")
+        : "\x69" === _0x114CB.a && (_0x11504 = "\x69\x74\x61\x6C\x69\x63");
+      return _0x11504;
+    }
+    function _0x11906(_0x114CB) {
+      var _0x11504 = 4,
+        _0x1153D = "\x6E",
+        _0x11576 = null;
+      _0x114CB &&
+        ((_0x11576 = _0x114CB.match(/(normal|oblique|italic)/i)) &&
+          _0x11576[1] &&
+          (_0x1153D = _0x11576[1].substr(0, 1).toLowerCase()),
+        (_0x11576 = _0x114CB.match(/([1-9]00|normal|bold)/i)) &&
+          _0x11576[1] &&
+          (/bold/i.test(_0x11576[1])
+            ? (_0x11504 = 7)
+            : /[1-9]00/.test(_0x11576[1]) &&
+              (_0x11504 = parseInt(_0x11576[1].substr(0, 1), 10))));
+      return _0x1153D + _0x11504;
+    }
+    function _0x119B1(_0x114CB, _0x11504) {
+      this.c = _0x114CB;
+      this.f = _0x114CB.o.document.documentElement;
+      this.h = _0x11504;
+      this.a = new _0x11822("\x2D");
+      this.j = !1 !== _0x11504.events;
+      this.g = !1 !== _0x11504.classes;
+    }
+    function _0x11A5C(_0x114CB) {
+      _0x114CB.g &&
+        _0x1217C(_0x114CB.f, [
+          _0x114CB.a.c("\x77\x66", "\x6C\x6F\x61\x64\x69\x6E\x67"),
+        ]);
+      _0x11B07(_0x114CB, "\x6C\x6F\x61\x64\x69\x6E\x67");
+    }
+    function _0x11B79(_0x114CB) {
+      if (_0x114CB.g) {
+        var _0x11504 = _0x12260(
+            _0x114CB.f,
+            _0x114CB.a.c("\x77\x66", "\x61\x63\x74\x69\x76\x65")
+          ),
+          _0x1153D = [],
+          _0x11576 = [_0x114CB.a.c("\x77\x66", "\x6C\x6F\x61\x64\x69\x6E\x67")];
+        _0x11504 ||
+          _0x1153D.push(
+            _0x114CB.a.c("\x77\x66", "\x69\x6E\x61\x63\x74\x69\x76\x65")
+          );
+        _0x1217C(_0x114CB.f, _0x1153D, _0x11576);
+      }
+      _0x11B07(_0x114CB, "\x69\x6E\x61\x63\x74\x69\x76\x65");
+    }
+    function _0x11B07(_0x114CB, _0x11504, _0x1153D) {
+      if (_0x114CB.j && _0x114CB.h[_0x11504]) {
+        if (_0x1153D) {
+          _0x114CB.h[_0x11504](_0x1153D.c, _0x11A95(_0x1153D));
+        } else {
+          _0x114CB.h[_0x11504]();
+        }
+      }
+    }
+    function _0x11ACE() {
+      this.c = {};
+    }
+    function _0x11B40(_0x114CB, _0x11504, _0x1153D) {
+      var _0x11576 = [],
+        _0x115AF;
+      for (_0x115AF in _0x11504) {
+        if (_0x11504.hasOwnProperty(_0x115AF)) {
+          var _0x115E8 = _0x114CB.c[_0x115AF];
+          _0x115E8 && _0x11576.push(_0x115E8(_0x11504[_0x115AF], _0x1153D));
+        }
+      }
+      return _0x11576;
+    }
+    function _0x11BEB(_0x114CB, _0x11504) {
+      this.c = _0x114CB;
+      this.f = _0x11504;
+      this.a = _0x11F7B(
+        this.c,
+        "\x73\x70\x61\x6E",
+        { "\x61\x72\x69\x61\x2D\x68\x69\x64\x64\x65\x6E": "\x74\x72\x75\x65" },
+        this.f
+      );
+    }
+    function _0x11C5D(_0x114CB) {
+      _0x12026(_0x114CB.c, "\x62\x6F\x64\x79", _0x114CB.a);
+    }
+    function _0x11CCF(_0x114CB) {
+      return (
+        "\x64\x69\x73\x70\x6C\x61\x79\x3A\x62\x6C\x6F\x63\x6B\x3B\x70\x6F\x73\x69\x74\x69\x6F\x6E\x3A\x61\x62\x73\x6F\x6C\x75\x74\x65\x3B\x74\x6F\x70\x3A\x2D\x39\x39\x39\x39\x70\x78\x3B\x6C\x65\x66\x74\x3A\x2D\x39\x39\x39\x39\x70\x78\x3B\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65\x3A\x33\x30\x30\x70\x78\x3B\x77\x69\x64\x74\x68\x3A\x61\x75\x74\x6F\x3B\x68\x65\x69\x67\x68\x74\x3A\x61\x75\x74\x6F\x3B\x6C\x69\x6E\x65\x2D\x68\x65\x69\x67\x68\x74\x3A\x6E\x6F\x72\x6D\x61\x6C\x3B\x6D\x61\x72\x67\x69\x6E\x3A\x30\x3B\x70\x61\x64\x64\x69\x6E\x67\x3A\x30\x3B\x66\x6F\x6E\x74\x2D\x76\x61\x72\x69\x61\x6E\x74\x3A\x6E\x6F\x72\x6D\x61\x6C\x3B\x77\x68\x69\x74\x65\x2D\x73\x70\x61\x63\x65\x3A\x6E\x6F\x77\x72\x61\x70\x3B\x66\x6F\x6E\x74\x2D\x66\x61\x6D\x69\x6C\x79\x3A" +
+        _0x11A23(_0x114CB.c) +
+        "\x3B" +
+        ("\x66\x6F\x6E\x74\x2D\x73\x74\x79\x6C\x65\x3A" +
+          _0x11978(_0x114CB) +
+          "\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A" +
+          (_0x114CB.f + "\x30\x30") +
+          "\x3B")
+      );
+    }
+    function _0x11D7A(
+      _0x114CB,
+      _0x11504,
+      _0x1153D,
+      _0x11576,
+      _0x115AF,
+      _0x115E8
+    ) {
+      this.g = _0x114CB;
+      this.j = _0x11504;
+      this.a = _0x11576;
+      this.c = _0x1153D;
+      this.f = _0x115AF || 3e3;
+      this.h = _0x115E8 || void 0;
+    }
+    _0x11D7A.prototype.start = function () {
+      var _0x114CB = this.c.o.document,
+        _0x11504 = this,
+        _0x1153D = _0x11DEC(),
+        _0x11576 = new Promise(function (_0x11576, _0x115AF) {
+          function _0x115E8() {
+            _0x11DEC() - _0x1153D >= _0x11504.f
+              ? _0x115AF()
+              : _0x114CB.fonts.load(_0x1185B(_0x11504.a), _0x11504.h).then(
+                  function (_0x114CB) {
+                    1 <= _0x114CB.length
+                      ? _0x11576()
+                      : setTimeout(_0x115E8, 25);
+                  },
+                  function () {
+                    _0x115AF();
+                  }
+                );
+          }
+          _0x115E8();
+        }),
+        _0x115AF = null,
+        _0x115E8 = new Promise(function (_0x114CB, _0x1153D) {
+          _0x115AF = setTimeout(_0x1153D, _0x11504.f);
+        });
+      Promise.race([_0x115E8, _0x11576]).then(
+        function () {
+          _0x115AF && (clearTimeout(_0x115AF), (_0x115AF = null));
+          _0x11504.g(_0x11504.a);
+        },
+        function () {
+          _0x11504.j(_0x11504.a);
+        }
+      );
+    };
+    function _0x11E25(
+      _0x114CB,
+      _0x11504,
+      _0x1153D,
+      _0x115AF,
+      _0x115E8,
+      _0x11621,
+      _0x1165A
+    ) {
+      this.v = _0x114CB;
+      this.B = _0x11504;
+      this.c = _0x1153D;
+      this.a = _0x115AF;
+      this.s = _0x1165A || "\x42\x45\x53\x62\x73\x77\x79";
+      this.f = {};
+      this.w = _0x115E8 || 3e3;
+      this.u = _0x11621 || null;
+      this.m = this.j = this.h = this.g = null;
+      this.g = new _0x11BEB(this.c, this.s);
+      this.h = new _0x11BEB(this.c, this.s);
+      this.j = new _0x11BEB(this.c, this.s);
+      this.m = new _0x11BEB(this.c, this.s);
+      _0x114CB = new _0x118CD(
+        this.a.c + "\x2C\x73\x65\x72\x69\x66",
+        _0x11A95(this.a)
+      );
+      _0x114CB = _0x11CCF(_0x114CB);
+      this.g.a.style.cssText = _0x114CB;
+      _0x114CB = new _0x118CD(
+        this.a.c + "\x2C\x73\x61\x6E\x73\x2D\x73\x65\x72\x69\x66",
+        _0x11A95(this.a)
+      );
+      _0x114CB = _0x11CCF(_0x114CB);
+      this.h.a.style.cssText = _0x114CB;
+      _0x114CB = new _0x118CD("\x73\x65\x72\x69\x66", _0x11A95(this.a));
+      _0x114CB = _0x11CCF(_0x114CB);
+      this.j.a.style.cssText = _0x114CB;
+      _0x114CB = new _0x118CD(
+        "\x73\x61\x6E\x73\x2D\x73\x65\x72\x69\x66",
+        _0x11A95(this.a)
+      );
+      _0x114CB = _0x11CCF(_0x114CB);
+      this.m.a.style.cssText = _0x114CB;
+      _0x11C5D(this.g);
+      _0x11C5D(this.h);
+      _0x11C5D(this.j);
+      _0x11C5D(this.m);
+    }
+    var _0x11E97 = {
+        D: "\x73\x65\x72\x69\x66",
+        C: "\x73\x61\x6E\x73\x2D\x73\x65\x72\x69\x66",
+      },
+      _0x11F09 = null;
+    function _0x11FB4() {
+      if (null === _0x11F09) {
+        var _0x114CB = /AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(
+          window.navigator.userAgent
+        );
+        _0x11F09 =
+          !!_0x114CB &&
+          (536 > parseInt(_0x114CB[1], 10) ||
+            (536 === parseInt(_0x114CB[1], 10) &&
+              11 >= parseInt(_0x114CB[2], 10)));
+      }
+      return _0x11F09;
+    }
+    _0x11E25.prototype.start = function () {
+      this.f.serif = this.j.a.offsetWidth;
+      this.f["\x73\x61\x6E\x73\x2D\x73\x65\x72\x69\x66"] = this.m.a.offsetWidth;
+      this.A = _0x11DEC();
+      _0x1205F(this);
+    };
+    function _0x11BB2(_0x114CB, _0x11504, _0x1153D) {
+      for (var _0x11576 in _0x11E97) {
+        if (
+          _0x11E97.hasOwnProperty(_0x11576) &&
+          _0x11504 === _0x114CB.f[_0x11E97[_0x11576]] &&
+          _0x1153D === _0x114CB.f[_0x11E97[_0x11576]]
+        ) {
+          return !0;
+        }
+      }
+      return !1;
+    }
+    function _0x1205F(_0x11504) {
+      var _0x1153D = _0x11504.g.a.offsetWidth,
+        _0x115AF = _0x11504.h.a.offsetWidth,
+        _0x115E8;
+      (_0x115E8 =
+        _0x1153D === _0x11504.f.serif &&
+        _0x115AF === _0x11504.f["\x73\x61\x6E\x73\x2D\x73\x65\x72\x69\x66"]) ||
+        (_0x115E8 = _0x11FB4() && _0x11BB2(_0x11504, _0x1153D, _0x115AF));
+      _0x115E8
+        ? _0x11DEC() - _0x11504.A >= _0x11504.w
+          ? _0x11FB4() &&
+            _0x11BB2(_0x11504, _0x1153D, _0x115AF) &&
+            (null === _0x11504.u || _0x11504.u.hasOwnProperty(_0x11504.a.c))
+            ? _0x1210A(_0x11504, _0x11504.v)
+            : _0x1210A(_0x11504, _0x11504.B)
+          : _0x11C24(_0x11504)
+        : _0x1210A(_0x11504, _0x11504.v);
+    }
+    function _0x11C24(_0x114CB) {
+      setTimeout(
+        _0x11D41(function () {
+          _0x1205F(this);
+        }, _0x114CB),
+        50
+      );
+    }
+    function _0x1210A(_0x114CB, _0x11504) {
+      setTimeout(
+        _0x11D41(function () {
+          _0x120D1(this.g.a);
+          _0x120D1(this.h.a);
+          _0x120D1(this.j.a);
+          _0x120D1(this.m.a);
+          _0x11504(this.a);
+        }, _0x114CB),
+        0
+      );
+    }
+    function _0x121B5(_0x114CB, _0x11504, _0x1153D) {
+      this.c = _0x114CB;
+      this.a = _0x11504;
+      this.f = 0;
+      this.m = this.j = !1;
+      this.s = _0x1153D;
+    }
+    var _0x12227 = null;
+    _0x121B5.prototype.g = function (_0x114CB) {
+      var _0x11504 = this.a;
+      _0x11504.g &&
+        _0x1217C(
+          _0x11504.f,
+          [
+            _0x11504.a.c(
+              "\x77\x66",
+              _0x114CB.c,
+              _0x11A95(_0x114CB).toString(),
+              "\x61\x63\x74\x69\x76\x65"
+            ),
+          ],
+          [
+            _0x11504.a.c(
+              "\x77\x66",
+              _0x114CB.c,
+              _0x11A95(_0x114CB).toString(),
+              "\x6C\x6F\x61\x64\x69\x6E\x67"
+            ),
+            _0x11504.a.c(
+              "\x77\x66",
+              _0x114CB.c,
+              _0x11A95(_0x114CB).toString(),
+              "\x69\x6E\x61\x63\x74\x69\x76\x65"
+            ),
+          ]
+        );
+      _0x11B07(_0x11504, "\x66\x6F\x6E\x74\x61\x63\x74\x69\x76\x65", _0x114CB);
+      this.m = !0;
+      _0x11C96(this);
+    };
+    _0x121B5.prototype.h = function (_0x114CB) {
+      var _0x11504 = this.a;
+      if (_0x11504.g) {
+        var _0x1153D = _0x12260(
+            _0x11504.f,
+            _0x11504.a.c(
+              "\x77\x66",
+              _0x114CB.c,
+              _0x11A95(_0x114CB).toString(),
+              "\x61\x63\x74\x69\x76\x65"
+            )
+          ),
+          _0x11576 = [],
+          _0x115AF = [
+            _0x11504.a.c(
+              "\x77\x66",
+              _0x114CB.c,
+              _0x11A95(_0x114CB).toString(),
+              "\x6C\x6F\x61\x64\x69\x6E\x67"
+            ),
+          ];
+        _0x1153D ||
+          _0x11576.push(
+            _0x11504.a.c(
+              "\x77\x66",
+              _0x114CB.c,
+              _0x11A95(_0x114CB).toString(),
+              "\x69\x6E\x61\x63\x74\x69\x76\x65"
+            )
+          );
+        _0x1217C(_0x11504.f, _0x11576, _0x115AF);
+      }
+      _0x11B07(
+        _0x11504,
+        "\x66\x6F\x6E\x74\x69\x6E\x61\x63\x74\x69\x76\x65",
+        _0x114CB
+      );
+      _0x11C96(this);
+    };
+    function _0x11C96(_0x114CB) {
+      0 == --_0x114CB.f &&
+        _0x114CB.j &&
+        (_0x114CB.m
+          ? ((_0x114CB = _0x114CB.a),
+            _0x114CB.g &&
+              _0x1217C(
+                _0x114CB.f,
+                [_0x114CB.a.c("\x77\x66", "\x61\x63\x74\x69\x76\x65")],
+                [
+                  _0x114CB.a.c("\x77\x66", "\x6C\x6F\x61\x64\x69\x6E\x67"),
+                  _0x114CB.a.c("\x77\x66", "\x69\x6E\x61\x63\x74\x69\x76\x65"),
+                ]
+              ),
+            _0x11B07(_0x114CB, "\x61\x63\x74\x69\x76\x65"))
+          : _0x11B79(_0x114CB.a));
+    }
+    function _0x11D08(_0x114CB) {
+      this.j = _0x114CB;
+      this.a = new _0x11ACE();
+      this.h = 0;
+      this.f = this.g = !0;
+    }
+    _0x11D08.prototype.load = function (_0x114CB) {
+      this.c = new _0x1165A(this.j, _0x114CB.context || this.j);
+      this.g = !1 !== _0x114CB.events;
+      this.f = !1 !== _0x114CB.classes;
+      _0x11DB3(this, new _0x119B1(this.c, _0x114CB), _0x114CB);
+    };
+    function _0x11E5E(_0x114CB, _0x11504, _0x1153D, _0x11576, _0x115AF) {
+      var _0x115E8 = 0 == --_0x114CB.h;
+      (_0x114CB.f || _0x114CB.g) &&
+        setTimeout(function () {
+          var _0x114CB = _0x115AF || null,
+            _0x116CC = _0x11576 || null || {};
+          if (0 === _0x1153D.length && _0x115E8) {
+            _0x11B79(_0x11504.a);
+          } else {
+            _0x11504.f += _0x1153D.length;
+            _0x115E8 && (_0x11504.j = _0x115E8);
+            var _0x11621,
+              _0x11693 = [];
+            for (_0x11621 = 0; _0x11621 < _0x1153D.length; _0x11621++) {
+              var _0x1165A = _0x1153D[_0x11621],
+                _0x11705 = _0x116CC[_0x1165A.c],
+                _0x1173E = _0x11504.a,
+                _0x11777 = _0x1165A;
+              _0x1173E.g &&
+                _0x1217C(_0x1173E.f, [
+                  _0x1173E.a.c(
+                    "\x77\x66",
+                    _0x11777.c,
+                    _0x11A95(_0x11777).toString(),
+                    "\x6C\x6F\x61\x64\x69\x6E\x67"
+                  ),
+                ]);
+              _0x11B07(
+                _0x1173E,
+                "\x66\x6F\x6E\x74\x6C\x6F\x61\x64\x69\x6E\x67",
+                _0x11777
+              );
+              _0x1173E = null;
+              if (null === _0x12227) {
+                if (window.FontFace) {
+                  var _0x11777 = /Gecko.*Firefox\/(\d+)/.exec(
+                      window.navigator.userAgent
+                    ),
+                    _0x117B0 =
+                      /OS X.*Version\/10\..*Safari/.exec(
+                        window.navigator.userAgent
+                      ) && /Apple/.exec(window.navigator.vendor);
+                  _0x12227 = _0x11777
+                    ? 42 < parseInt(_0x11777[1], 10)
+                    : _0x117B0
+                    ? !1
+                    : !0;
+                } else {
+                  _0x12227 = !1;
+                }
+              }
+              _0x12227
+                ? (_0x1173E = new _0x11D7A(
+                    _0x11D41(_0x11504.g, _0x11504),
+                    _0x11D41(_0x11504.h, _0x11504),
+                    _0x11504.c,
+                    _0x1165A,
+                    _0x11504.s,
+                    _0x11705
+                  ))
+                : (_0x1173E = new _0x11E25(
+                    _0x11D41(_0x11504.g, _0x11504),
+                    _0x11D41(_0x11504.h, _0x11504),
+                    _0x11504.c,
+                    _0x1165A,
+                    _0x11504.s,
+                    _0x114CB,
+                    _0x11705
+                  ));
+              _0x11693.push(_0x1173E);
+            }
+            for (_0x11621 = 0; _0x11621 < _0x11693.length; _0x11621++) {
+              _0x11693[_0x11621].start();
+            }
+          }
+        }, 0);
+    }
+    function _0x11DB3(_0x114CB, _0x11504, _0x1153D) {
+      var _0x11576 = [],
+        _0x115AF = _0x1153D.timeout;
+      _0x11A5C(_0x11504);
+      var _0x11576 = _0x11B40(_0x114CB.a, _0x1153D, _0x114CB.c),
+        _0x115E8 = new _0x121B5(_0x114CB.c, _0x11504, _0x115AF);
+      _0x114CB.h = _0x11576.length;
+      _0x11504 = 0;
+      for (_0x1153D = _0x11576.length; _0x11504 < _0x1153D; _0x11504++) {
+        _0x11576[_0x11504].load(function (_0x11504, _0x11576, _0x1153D) {
+          _0x11E5E(_0x114CB, _0x115E8, _0x11504, _0x11576, _0x1153D);
+        });
+      }
+    }
+    function _0x11ED0(_0x114CB, _0x11504) {
+      this.c = _0x114CB;
+      this.a = _0x11504;
+    }
+    _0x11ED0.prototype.load = function (_0x11504) {
+      function _0x1153D() {
+        if (
+          _0x11621[
+            "\x5F\x5F\x6D\x74\x69\x5F\x66\x6E\x74\x4C\x73\x74" + _0x115AF
+          ]
+        ) {
+          var _0x114CB =
+              _0x11621[
+                "\x5F\x5F\x6D\x74\x69\x5F\x66\x6E\x74\x4C\x73\x74" + _0x115AF
+              ](),
+            _0x11576 = [],
+            _0x115E8;
+          if (_0x114CB) {
+            for (var _0x11693 = 0; _0x11693 < _0x114CB.length; _0x11693++) {
+              var _0x1165A = _0x114CB[_0x11693].fontfamily;
+              void 0 != _0x114CB[_0x11693].fontStyle &&
+              void 0 != _0x114CB[_0x11693].fontWeight
+                ? ((_0x115E8 =
+                    _0x114CB[_0x11693].fontStyle +
+                    _0x114CB[_0x11693].fontWeight),
+                  _0x11576.push(new _0x118CD(_0x1165A, _0x115E8)))
+                : _0x11576.push(new _0x118CD(_0x1165A));
+            }
+          }
+          _0x11504(_0x11576);
+        } else {
+          setTimeout(function () {
+            _0x1153D();
+          }, 50);
+        }
+      }
+      var _0x11576 = this,
+        _0x115AF = _0x11576.a.projectId,
+        _0x115E8 = _0x11576.a.version;
+      if (_0x115AF) {
+        var _0x11621 = _0x11576.c.o;
+        _0x114CB(
+          this.c,
+          (_0x11576.a.api ||
+            "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x66\x61\x73\x74\x2E\x66\x6F\x6E\x74\x73\x2E\x6E\x65\x74\x2F\x6A\x73\x61\x70\x69") +
+            "\x2F" +
+            _0x115AF +
+            "\x2E\x6A\x73" +
+            (_0x115E8 ? "\x3F\x76\x3D" + _0x115E8 : ""),
+          function (_0x114CB) {
+            _0x114CB
+              ? _0x11504([])
+              : ((_0x11621[
+                  "\x5F\x5F\x4D\x6F\x6E\x6F\x74\x79\x70\x65\x43\x6F\x6E\x66\x69\x67\x75\x72\x61\x74\x69\x6F\x6E\x5F\x5F" +
+                    _0x115AF
+                ] = function () {
+                  return _0x11576.a;
+                }),
+                _0x1153D());
+          }
+        ).id =
+          "\x5F\x5F\x4D\x6F\x6E\x6F\x74\x79\x70\x65\x41\x50\x49\x53\x63\x72\x69\x70\x74\x5F\x5F" +
+          _0x115AF;
+      } else {
+        _0x11504([]);
+      }
+    };
+    function _0x11F42(_0x114CB, _0x11504) {
+      this.c = _0x114CB;
+      this.a = _0x11504;
+    }
+    _0x11F42.prototype.load = function (_0x114CB) {
+      var _0x11504,
+        _0x1153D,
+        _0x115AF = this.a.urls || [],
+        _0x115E8 = this.a.families || [],
+        _0x1165A = this.a.testStrings || {},
+        _0x11693 = new _0x11576();
+      _0x11504 = 0;
+      for (_0x1153D = _0x115AF.length; _0x11504 < _0x1153D; _0x11504++) {
+        _0x1230B(this.c, _0x115AF[_0x11504], _0x11621(_0x11693));
+      }
+      var _0x1173E = [];
+      _0x11504 = 0;
+      for (_0x1153D = _0x115E8.length; _0x11504 < _0x1153D; _0x11504++) {
+        if (((_0x115AF = _0x115E8[_0x11504].split("\x3A")), _0x115AF[1])) {
+          for (
+            var _0x116CC = _0x115AF[1].split("\x2C"), _0x11705 = 0;
+            _0x11705 < _0x116CC.length;
+            _0x11705 += 1
+          ) {
+            _0x1173E.push(new _0x118CD(_0x115AF[0], _0x116CC[_0x11705]));
+          }
+        } else {
+          _0x1173E.push(new _0x118CD(_0x115AF[0]));
+        }
+      }
+      _0x11777(_0x11693, function () {
+        _0x114CB(_0x1173E, _0x1165A);
+      });
+    };
+    function _0x11FED(_0x114CB, _0x11504) {
+      _0x114CB ? (this.c = _0x114CB) : (this.c = _0x12098);
+      this.a = [];
+      this.f = [];
+      this.g = _0x11504 || "";
+    }
+    var _0x12098 =
+      "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x66\x6F\x6E\x74\x73\x2E\x67\x6F\x6F\x67\x6C\x65\x61\x70\x69\x73\x2E\x63\x6F\x6D\x2F\x63\x73\x73";
+    function _0x12143(_0x114CB, _0x11504) {
+      for (
+        var _0x1153D = _0x11504.length, _0x11576 = 0;
+        _0x11576 < _0x1153D;
+        _0x11576++
+      ) {
+        var _0x115AF = _0x11504[_0x11576].split("\x3A");
+        3 == _0x115AF.length && _0x114CB.f.push(_0x115AF.pop());
+        var _0x115E8 = "";
+        2 == _0x115AF.length && "" != _0x115AF[1] && (_0x115E8 = "\x3A");
+        _0x114CB.a.push(_0x115AF.join(_0x115E8));
+      }
+    }
+    function _0x121EE(_0x114CB) {
+      if (0 == _0x114CB.a.length) {
+        throw Error(
+          "\x4E\x6F\x20\x66\x6F\x6E\x74\x73\x20\x74\x6F\x20\x6C\x6F\x61\x64\x21"
+        );
+      }
+      if (-1 != _0x114CB.c.indexOf("\x6B\x69\x74\x3D")) {
+        return _0x114CB.c;
+      }
+      for (
+        var _0x11504 = _0x114CB.a.length, _0x1153D = [], _0x11576 = 0;
+        _0x11576 < _0x11504;
+        _0x11576++
+      ) {
+        _0x1153D.push(_0x114CB.a[_0x11576].replace(/ /g, "\x2B"));
+      }
+      _0x11504 =
+        _0x114CB.c +
+        "\x3F\x66\x61\x6D\x69\x6C\x79\x3D" +
+        _0x1153D.join("\x25\x37\x43");
+      0 < _0x114CB.f.length &&
+        (_0x11504 +=
+          "\x26\x73\x75\x62\x73\x65\x74\x3D" + _0x114CB.f.join("\x2C"));
+      0 < _0x114CB.g.length &&
+        (_0x11504 +=
+          "\x26\x74\x65\x78\x74\x3D" + encodeURIComponent(_0x114CB.g));
+      return _0x11504;
+    }
+    function _0x122D2(_0x114CB) {
+      this.f = _0x114CB;
+      this.a = [];
+      this.c = {};
+    }
+    var _0x1237D = {
+        latin: "\x42\x45\x53\x62\x73\x77\x79",
+        "\x6C\x61\x74\x69\x6E\x2D\x65\x78\x74": "\xE7\xF6\xFC\u011F\u015F",
+        cyrillic: "\u0439\u044F\u0416",
+        greek: "\u03B1\u03B2\u03A3",
+        khmer: "\u1780\u1781\u1782",
+        Hanuman: "\u1780\u1781\u1782",
+      },
+      _0x1153D = {
+        thin: "\x31",
+        extralight: "\x32",
+        "\x65\x78\x74\x72\x61\x2D\x6C\x69\x67\x68\x74": "\x32",
+        ultralight: "\x32",
+        "\x75\x6C\x74\x72\x61\x2D\x6C\x69\x67\x68\x74": "\x32",
+        light: "\x33",
+        regular: "\x34",
+        book: "\x34",
+        medium: "\x35",
+        "\x73\x65\x6D\x69\x2D\x62\x6F\x6C\x64": "\x36",
+        semibold: "\x36",
+        "\x64\x65\x6D\x69\x2D\x62\x6F\x6C\x64": "\x36",
+        demibold: "\x36",
+        bold: "\x37",
+        "\x65\x78\x74\x72\x61\x2D\x62\x6F\x6C\x64": "\x38",
+        extrabold: "\x38",
+        "\x75\x6C\x74\x72\x61\x2D\x62\x6F\x6C\x64": "\x38",
+        ultrabold: "\x38",
+        black: "\x39",
+        heavy: "\x39",
+        l: "\x33",
+        r: "\x34",
+        b: "\x37",
+      },
+      _0x115E8 = { i: "\x69", italic: "\x69", n: "\x6E", normal: "\x6E" },
+      _0x11693 =
+        /^(thin|(?:(?:extra|ultra)-?)?light|regular|book|medium|(?:(?:semi|demi|extra|ultra)-?)?bold|black|heavy|l|r|b|[1-9]00)?(n|i|normal|italic)?$/;
+    function _0x1173E(_0x114CB) {
+      for (
+        var _0x11504 = _0x114CB.f.length, _0x11576 = 0;
+        _0x11576 < _0x11504;
+        _0x11576++
+      ) {
+        var _0x115AF = _0x114CB.f[_0x11576].split("\x3A"),
+          _0x11621 = _0x115AF[0].replace(/\+/g, "\x20"),
+          _0x1165A = ["\x6E\x34"];
+        if (2 <= _0x115AF.length) {
+          var _0x116CC;
+          var _0x117B0 = _0x115AF[1];
+          _0x116CC = [];
+          if (_0x117B0) {
+            for (
+              var _0x117B0 = _0x117B0.split("\x2C"),
+                _0x11705 = _0x117B0.length,
+                _0x11777 = 0;
+              _0x11777 < _0x11705;
+              _0x11777++
+            ) {
+              var _0x1173E;
+              _0x1173E = _0x117B0[_0x11777];
+              if (_0x1173E.match(/^[\w-]+$/)) {
+                var _0x117E9 = _0x11693.exec(_0x1173E.toLowerCase());
+                if (null == _0x117E9) {
+                  _0x1173E = "";
+                } else {
+                  _0x1173E = _0x117E9[2];
+                  _0x1173E =
+                    null == _0x1173E || "" == _0x1173E
+                      ? "\x6E"
+                      : _0x115E8[_0x1173E];
+                  _0x117E9 = _0x117E9[1];
+                  if (null == _0x117E9 || "" == _0x117E9) {
+                    _0x117E9 = "\x34";
+                  } else {
+                    var _0x11822 = _0x1153D[_0x117E9],
+                      _0x117E9 = _0x11822
+                        ? _0x11822
+                        : isNaN(_0x117E9)
+                        ? "\x34"
+                        : _0x117E9.substr(0, 1);
+                  }
+                  _0x1173E = [_0x1173E, _0x117E9].join("");
+                }
+              } else {
+                _0x1173E = "";
+              }
+              _0x1173E && _0x116CC.push(_0x1173E);
+            }
+          }
+          0 < _0x116CC.length && (_0x1165A = _0x116CC);
+          3 == _0x115AF.length &&
+            ((_0x115AF = _0x115AF[2]),
+            (_0x116CC = []),
+            (_0x115AF = _0x115AF ? _0x115AF.split("\x2C") : _0x116CC),
+            0 < _0x115AF.length &&
+              (_0x115AF = _0x1237D[_0x115AF[0]]) &&
+              (_0x114CB.c[_0x11621] = _0x115AF));
+        }
+        _0x114CB.c[_0x11621] ||
+          ((_0x115AF = _0x1237D[_0x11621]) &&
+            (_0x114CB.c[_0x11621] = _0x115AF));
+        for (_0x115AF = 0; _0x115AF < _0x1165A.length; _0x115AF += 1) {
+          _0x114CB.a.push(new _0x118CD(_0x11621, _0x1165A[_0x115AF]));
+        }
+      }
+    }
+    function _0x117E9(_0x114CB, _0x11504) {
+      this.c = _0x114CB;
+      this.a = _0x11504;
+    }
+    var _0x11894 = { Arimo: !0, Cousine: !0, Tinos: !0 };
+    _0x117E9.prototype.load = function (_0x114CB) {
+      var _0x11504 = new _0x11576(),
+        _0x1153D = this.c,
+        _0x115AF = new _0x11FED(this.a.api, this.a.text),
+        _0x115E8 = this.a.families;
+      _0x12143(_0x115AF, _0x115E8);
+      var _0x1165A = new _0x122D2(_0x115E8);
+      _0x1173E(_0x1165A);
+      _0x1230B(_0x1153D, _0x121EE(_0x115AF), _0x11621(_0x11504));
+      _0x11777(_0x11504, function () {
+        _0x114CB(_0x1165A.a, _0x1165A.c, _0x11894);
+      });
+    };
+    function _0x1193F(_0x114CB, _0x11504) {
+      this.c = _0x114CB;
+      this.a = _0x11504;
+    }
+    _0x1193F.prototype.load = function (_0x11504) {
+      var _0x1153D = this.a.id,
+        _0x11576 = this.c.o;
+      _0x1153D
+        ? _0x114CB(
+            this.c,
+            (this.a.api ||
+              "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x75\x73\x65\x2E\x74\x79\x70\x65\x6B\x69\x74\x2E\x6E\x65\x74") +
+              "\x2F" +
+              _0x1153D +
+              "\x2E\x6A\x73",
+            function (_0x114CB) {
+              if (_0x114CB) {
+                _0x11504([]);
+              } else {
+                if (
+                  _0x11576.Typekit &&
+                  _0x11576.Typekit.config &&
+                  _0x11576.Typekit.config.fn
+                ) {
+                  _0x114CB = _0x11576.Typekit.config.fn;
+                  for (
+                    var _0x1153D = [], _0x115AF = 0;
+                    _0x115AF < _0x114CB.length;
+                    _0x115AF += 2
+                  ) {
+                    for (
+                      var _0x115E8 = _0x114CB[_0x115AF],
+                        _0x1165A = _0x114CB[_0x115AF + 1],
+                        _0x11621 = 0;
+                      _0x11621 < _0x1165A.length;
+                      _0x11621++
+                    ) {
+                      _0x1153D.push(new _0x118CD(_0x115E8, _0x1165A[_0x11621]));
+                    }
+                  }
+                  try {
+                    _0x11576.Typekit.load({
+                      events: !1,
+                      classes: !1,
+                      async: !0,
+                    });
+                  } catch (l) {}
+                  _0x11504(_0x1153D);
+                }
+              }
+            },
+            2e3
+          )
+        : _0x11504([]);
+    };
+    function _0x119EA(_0x114CB, _0x11504) {
+      this.c = _0x114CB;
+      this.f = _0x11504;
+      this.a = [];
+    }
+    _0x119EA.prototype.load = function (_0x11504) {
+      var _0x1153D = this.f.id,
+        _0x11576 = this.c.o,
+        _0x115AF = this;
+      _0x1153D
+        ? (_0x11576.__webfontfontdeckmodule__ ||
+            (_0x11576.__webfontfontdeckmodule__ = {}),
+          (_0x11576.__webfontfontdeckmodule__[_0x1153D] = function (
+            _0x114CB,
+            _0x1153D
+          ) {
+            for (
+              var _0x11576 = 0, _0x11621 = _0x1153D.fonts.length;
+              _0x11576 < _0x11621;
+              ++_0x11576
+            ) {
+              var _0x115E8 = _0x1153D.fonts[_0x11576];
+              _0x115AF.a.push(
+                new _0x118CD(
+                  _0x115E8.name,
+                  _0x11906(
+                    "\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A" +
+                      _0x115E8.weight +
+                      "\x3B\x66\x6F\x6E\x74\x2D\x73\x74\x79\x6C\x65\x3A" +
+                      _0x115E8.style
+                  )
+                )
+              );
+            }
+            _0x11504(_0x115AF.a);
+          }),
+          _0x114CB(
+            this.c,
+            (this.f.api ||
+              "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x66\x2E\x66\x6F\x6E\x74\x64\x65\x63\x6B\x2E\x63\x6F\x6D\x2F\x73\x2F\x63\x73\x73\x2F\x6A\x73\x2F") +
+              _0x117B0(this.c) +
+              "\x2F" +
+              _0x1153D +
+              "\x2E\x6A\x73",
+            function (_0x114CB) {
+              _0x114CB && _0x11504([]);
+            }
+          ))
+        : _0x11504([]);
+    };
+    var _0x12299 = new _0x11D08(window);
+    _0x12299.a.c.custom = function (_0x114CB, _0x11504) {
+      return new _0x11F42(_0x11504, _0x114CB);
+    };
+    _0x12299.a.c.fontdeck = function (_0x114CB, _0x11504) {
+      return new _0x119EA(_0x11504, _0x114CB);
+    };
+    _0x12299.a.c.monotype = function (_0x114CB, _0x11504) {
+      return new _0x11ED0(_0x11504, _0x114CB);
+    };
+    _0x12299.a.c.typekit = function (_0x114CB, _0x11504) {
+      return new _0x1193F(_0x11504, _0x114CB);
+    };
+    _0x12299.a.c.google = function (_0x114CB, _0x11504) {
+      return new _0x117E9(_0x11504, _0x114CB);
+    };
+    var _0x12344 = { load: _0x11D41(_0x12299.load, _0x12299) };
+    "\x66\x75\x6E\x63\x74\x69\x6F\x6E" === typeof define && define.amd
+      ? define(function () {
+          return _0x12344;
+        })
+      : "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" !== typeof module &&
+        module.exports
+      ? (module.exports = _0x12344)
+      : ((window.WebFont = _0x12344),
+        window.WebFontConfig && _0x12299.load(window.WebFontConfig));
+  }
+  function _0x1153D() {}
+  function _0x11576() {}
+  function _0x115AF() {}
+  function _0x115E8() {}
+  function _0x11621() {}
+  function _0x1165A() {
+    var _0x1153D = 3,
+      _0x11504 = document.createElement("\x64\x69\x76"),
+      _0x114CB = _0x11504.getElementsByTagName("\x69");
+    do {
+      _0x11504.innerHTML =
+        "\x3C\x21\x2D\x2D\x5B\x69\x66\x20\x67\x74\x20\x49\x45\x20" +
+        ++_0x1153D +
+        "\x5D\x3E\x3C\x69\x3E\x3C\x2F\x69\x3E\x3C\x21\x5B\x65\x6E\x64\x69\x66\x5D\x2D\x2D\x3E";
+    } while (_0x114CB[0]);
+    return _0x1153D > 4 ? _0x1153D : document.documentMode;
+  }
+  function _0x11693() {
+    if (/iP(hone|od|ad)/.test(navigator.platform)) {
+      var _0x114CB = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+      return [+_0x114CB[1], +_0x114CB[2], +(_0x114CB[3] || 0)];
+    }
+    return false;
+  }
+  function _0x116CC() {
+    return (
+      typeof window.orientation !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" ||
+      navigator.userAgent.indexOf("\x49\x45\x4D\x6F\x62\x69\x6C\x65") !== -1
+    );
+  }
+  function _0x11705() {
+    h5api.moreGame();
+  }
+  function _0x1173E(_0x11504) {
+    var _0x114CB = new RegExp(
+      _0x11504 + "\x3D\x28\x5B\x5E\x26\x23\x3D\x5D\x2A\x29"
+    );
+    _0x114CB = _0x114CB.exec(location.search);
+    if (null === _0x114CB) {
+      return false;
+    }
+    return decodeURIComponent(_0x114CB[1]);
+  }
+  function _0x11777() {
+    var _0x11504 =
+        "\x2C\x7A\x68\x2C\x65\x6E\x2C\x6E\x6C\x2C\x65\x73\x2C\x70\x74\x2C\x66\x72\x2C\x69\x74\x2C\x64\x65\x2C\x72\x75\x2C\x69\x6E\x2C\x70\x6C\x2C\x74\x72\x2C",
+      _0x114CB = localStorage.getItem("\x6C\x61\x6E\x67");
+    if (null === _0x114CB) {
+      _0x114CB = GameLib.getStorage("\x6C\x61\x6E\x67");
+      if (!_0x114CB) {
+        _0x114CB = GameLib.$_GET("\x6C\x61\x6E\x67");
+        if (!_0x114CB || _0x11504.indexOf("\x2C" + _0x114CB + "\x2C") == -1) {
+          _0x114CB = null;
+        }
+      }
+    }
+    if (null === _0x114CB) {
+      _0x114CB = (navigator.language || navigator.userLanguage).substr(0, 2);
+      return _0x11504.indexOf("\x2C" + _0x114CB + "\x2C") == -1
+        ? "\x65\x6E"
+        : _0x114CB;
+    }
+    return _0x114CB;
+  }
+  function _0x117B0(_0x11504) {
+    GameLib.lang = _0x11504;
+    localStorage.setItem("\x6C\x61\x6E\x67", _0x11504);
+    try {
+      GameHiscore.set("\x6C\x61\x6E\x67", _0x11504);
+    } catch (e) {}
+    var _0x114CB = document.getElementById(
+      "\x63\x6F\x6F\x6B\x69\x65\x42\x61\x72"
+    );
+    if (_0x114CB) {
+      _0x114CB.contentWindow.location.replace(
+        "\x2F\x2F\x63\x64\x6E\x2E\x34\x33\x39\x39\x2E\x63\x6F\x6D\x2F\x63\x6F\x6F\x6B\x69\x65\x2F\x3F\x6C\x61\x6E\x67\x3D" +
+          escape(_0x11504)
+      );
+    }
+  }
+  function _0x117E9() {
+    var _0x114CB = location.hostname,
+      _0x11504,
+      _0x1153D = parent === window ? null : document.referrer;
+    if (_0x1153D !== null) {
+      _0x114CB = _0x1153D;
+    } else {
+      if (document.referrer) {
+        _0x114CB = document.referrer;
+      }
+    }
+    _0x114CB = _0x114CB
+      .replace(/^https?:\/\//i, "")
+      .replace(/^(www|dev)\./, "");
+    _0x11504 = _0x114CB.indexOf("\x2F");
+    if (_0x11504 != -1) {
+      _0x114CB = _0x114CB.substr(0, _0x11504);
+    }
+    return _0x114CB;
+  }
+  function _0x11822(_0x116CC, _0x11705, _0x1173E, _0x115E8, _0x1165A) {
+    this.closePopup();
+    _0x1173E = _0x1173E || 400;
+    _0x115E8 = _0x115E8 || 300;
+    if (typeof _0x1165A == "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+      _0x1165A = true;
+    }
+    var _0x11777 = document.createElement("\x64\x69\x76"),
+      _0x115AF = document.createElement("\x64\x69\x76"),
+      _0x11576 = document.documentElement.clientWidth,
+      _0x114CB = document.documentElement.clientHeight,
+      _0x11621 = [],
+      _0x1153D = -15;
+    if (!_0x1165A && GameLib.isMobile) {
+      _0x1173E = _0x11576 - 32;
+      _0x115E8 = _0x114CB - 32;
+      _0x1153D = 0;
+    }
+    _0x115AF.className = "\x70\x6F\x70\x75\x70";
+    _0x11777.className = "\x70\x6F\x70\x75\x70\x57\x72\x61\x70";
+    _0x11777.onclick = function (_0x114CB) {
+      GameLib.closePopup();
+      _0x114CB.stopPropagation();
+    };
+    GameLib.popup = _0x11777;
+    var _0x11693 =
+      "\x77\x69\x64\x74\x68\x3A" +
+      _0x1173E +
+      "\x70\x78\x3B\x68\x65\x69\x67\x68\x74\x3A" +
+      _0x115E8 +
+      "\x70\x78\x3B\x6D\x61\x72\x67\x69\x6E\x2D\x6C\x65\x66\x74\x3A\x2D" +
+      _0x1173E / 2 +
+      "\x70\x78\x3B\x6D\x61\x72\x67\x69\x6E\x2D\x74\x6F\x70\x3A\x2D" +
+      _0x115E8 / 2 +
+      "\x70\x78\x3B";
+    if (_0x1165A) {
+      _0x11693 +=
+        "\x74\x72\x61\x6E\x73\x66\x6F\x72\x6D\x3A\x73\x63\x61\x6C\x65\x28" +
+        GameLib.scale +
+        "\x29\x3B\x2D\x77\x65\x62\x6B\x69\x74\x2D\x74\x72\x61\x6E\x73\x66\x6F\x72\x6D\x3A\x73\x63\x61\x6C\x65\x28" +
+        GameLib.scale +
+        "\x29\x3B\x2D\x6D\x73\x2D\x74\x72\x61\x6E\x73\x66\x6F\x72\x6D\x3A\x73\x63\x61\x6C\x65\x28" +
+        GameLib.scale +
+        "\x29";
+    }
+    _0x115AF.setAttribute("\x73\x74\x79\x6C\x65", _0x11693);
+    _0x11777.appendChild(_0x115AF);
+    if (_0x116CC) {
+      _0x115E8 -= 32;
+      _0x11621.push(
+        "\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x74\x69\x74\x6C\x65\x22\x3E" +
+          _0x116CC +
+          "\x3C\x2F\x64\x69\x76\x3E"
+      );
+    }
+    var _0x11504 =
+      /\.html$/.test(_0x11705) || /^https?:\/\//.test(_0x11705)
+        ? "\x3C\x69\x66\x72\x61\x6D\x65\x20\x73\x72\x63\x3D\x22" +
+          _0x11705 +
+          "\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x64\x69\x73\x70\x6C\x61\x79\x3A\x62\x6C\x6F\x63\x6B\x3B\x77\x69\x64\x74\x68\x3A" +
+          _0x1173E +
+          "\x70\x78\x3B\x68\x65\x69\x67\x68\x74\x3A" +
+          _0x115E8 +
+          "\x70\x78\x22\x20\x66\x72\x61\x6D\x65\x62\x6F\x72\x64\x65\x72\x3D\x22\x30\x22\x3E\x3C\x2F\x69\x66\x72\x61\x6D\x65\x3E"
+        : "\x3C\x64\x69\x76\x20\x73\x74\x79\x6C\x65\x3D\x22\x70\x61\x64\x64\x69\x6E\x67\x3A\x35\x70\x78\x20\x31\x30\x70\x78\x22\x3E" +
+          _0x11705 +
+          "\x3C\x2F\x64\x69\x76\x3E";
+    _0x11621.push(
+      "\x3C\x64\x69\x76\x20\x73\x74\x79\x6C\x65\x3D\x22\x6F\x76\x65\x72\x66\x6C\x6F\x77\x3A\x61\x75\x74\x6F\x3B\x6F\x76\x65\x72\x66\x6C\x6F\x77\x2D\x78\x3A\x68\x69\x64\x64\x65\x6E\x3B\x2D\x77\x65\x62\x6B\x69\x74\x2D\x6F\x76\x65\x72\x66\x6C\x6F\x77\x2D\x73\x63\x72\x6F\x6C\x6C\x69\x6E\x67\x3A\x74\x6F\x75\x63\x68\x3B\x77\x69\x64\x74\x68\x3A" +
+        _0x1173E +
+        "\x70\x78\x3B\x68\x65\x69\x67\x68\x74\x3A" +
+        _0x115E8 +
+        "\x70\x78\x22\x3E" +
+        _0x11504 +
+        "\x3C\x2F\x64\x69\x76\x3E",
+      "\x3C\x69\x6D\x67\x20\x73\x72\x63\x3D\x22\x69\x6D\x67\x2F\x63\x6C\x6F\x73\x65\x2E\x70\x6E\x67\x22\x20\x63\x6C\x61\x73\x73\x3D\x22\x63\x6C\x6F\x73\x65\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x72\x69\x67\x68\x74\x3A" +
+        _0x1153D +
+        "\x70\x78\x3B\x74\x6F\x70\x3A" +
+        _0x1153D +
+        "\x70\x78\x22\x20\x6F\x6E\x63\x6C\x69\x63\x6B\x3D\x22\x47\x61\x6D\x65\x4C\x69\x62\x2E\x63\x6C\x6F\x73\x65\x50\x6F\x70\x75\x70\x28\x29\x22\x3E"
+    );
+    _0x115AF.innerHTML = _0x11621.join("");
+    document.body.appendChild(_0x11777);
+    return false;
+  }
+  function _0x1185B() {
+    if (this.popup) {
+      this.popup.parentNode.removeChild(this.popup);
+      this.popup = null;
+    }
+  }
+  function _0x11894(_0x11504, _0x11777, _0x115AF) {
+    var _0x11693 = document.getElementById(
+        "\x72\x6F\x74\x61\x74\x65\x48\x69\x6E\x74"
+      ),
+      _0x1173E = Math.min(
+        document.documentElement.clientWidth,
+        window.innerWidth
+      ),
+      _0x11705 = Math.min(
+        document.documentElement.clientHeight,
+        window.innerHeight
+      ),
+      _0x115E8 = _0x1173E > _0x11705,
+      _0x11576 = _0x11777 || _0x1173E,
+      _0x1153D = _0x115AF || _0x11705;
+    if (GameLib.scalable) {
+      GameLib.scale = Math.min(
+        _0x11576 / GameLib.gameWidth,
+        _0x1153D / GameLib.gameHeight
+      );
+      GameLib.containerDiv.style.webkitTransform =
+        GameLib.containerDiv.style.msTransform =
+        GameLib.containerDiv.style.transform =
+          "\x73\x63\x61\x6C\x65\x28" + GameLib.scale + "\x29";
+    } else {
+      var _0x116CC = document.querySelector(
+          "\x6D\x65\x74\x61\x5B\x6E\x61\x6D\x65\x3D\x76\x69\x65\x77\x70\x6F\x72\x74\x5D"
+        ),
+        _0x114CB = "\x77\x69\x64\x74\x68\x3D" + GameLib.gameWidth;
+      if (
+        _0x115E8 &&
+        GameLib.gameHeight > window.innerHeight &&
+        GameLib.gameWidth <= _0x1173E
+      ) {
+        _0x114CB = "\x68\x65\x69\x67\x68\x74\x3D" + GameLib.gameHeight;
+      }
+      _0x116CC.setAttribute(
+        "\x63\x6F\x6E\x74\x65\x6E\x74",
+        "\x6D\x69\x6E\x69\x6D\x61\x6C\x2D\x75\x69\x2C\x75\x73\x65\x72\x2D\x73\x63\x61\x6C\x61\x62\x6C\x65\x3D\x30\x2C" +
+          _0x114CB
+      );
+    }
+    if (ThirdParty.showRotateHint) {
+      var _0x1165A =
+        GameConfig.orientation || "\x6C\x61\x6E\x64\x73\x63\x61\x70\x65";
+      _0x11693.style.display =
+        GameLib.isMobile &&
+        ((_0x1165A == "\x6C\x61\x6E\x64\x73\x63\x61\x70\x65" && !_0x115E8) ||
+          (_0x1165A == "\x70\x6F\x72\x74\x72\x61\x69\x74" && _0x115E8))
+          ? "\x62\x6C\x6F\x63\x6B"
+          : "\x6E\x6F\x6E\x65";
+    }
+    if (ThirdParty.centerHorizontally) {
+      var _0x11621 =
+        GameLib.scale * GameLib.gameWidth < _0x1173E
+          ? (_0x1173E - GameLib.scale * GameLib.gameWidth) / 2
+          : 0;
+      GameLib.containerDiv.style.marginLeft = _0x11621 + "\x70\x78";
+    }
+    if (ThirdParty.centerVertically) {
+      var _0x11621 =
+        GameLib.scale * GameLib.gameHeight <= _0x11705
+          ? (_0x11705 - GameLib.scale * GameLib.gameHeight) / 2
+          : 0;
+      GameLib.containerDiv.style.marginTop = _0x11621 + "\x70\x78";
+    }
+    if (GameLib.iOSversion) {
+      window.scrollTo(0, -64);
+    }
+  }
+  function _0x118CD(_0x114CB) {
+    return this.storageJar[_0x114CB] !== undefined
+      ? this.storageJar[_0x114CB]
+      : false;
+  }
+  function _0x11906(_0x114CB, _0x11504) {
+    if (typeof _0x114CB === "\x6F\x62\x6A\x65\x63\x74") {
+      for (var _0x1153D in _0x114CB) {
+        if (null === _0x114CB[_0x1153D]) {
+          delete this.storageJar[_0x1153D];
+        } else {
+          this.storageJar[_0x1153D] = _0x114CB[_0x1153D];
+        }
+      }
+    } else {
+      if (null === _0x11504) {
+        delete this.storageJar[_0x114CB];
+      } else {
+        this.storageJar[_0x114CB] = _0x11504;
+      }
+    }
+    this.saveStorage();
+  }
+  function _0x1193F() {
+    localStorage.setItem(this.gameName, JSON.stringify(this.storageJar));
+  }
+  function _0x11978(_0x11576, _0x11705, _0x115AF) {
+    if (/debug/.test(location.search)) {
+      window.onerror = function (_0x11504, _0x1153D, _0x114CB) {
+        alert(
+          "\x45\x72\x72\x6F\x72\x20\x69\x6E\x20\x6C\x69\x6E\x65\x20" +
+            _0x114CB +
+            "\x20\x6F\x66\x20" +
+            _0x1153D +
+            "\x3A\x0A" +
+            _0x11504
+        );
+      };
+    } else {
+      document.addEventListener(
+        "\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75",
+        function (_0x114CB) {
+          _0x114CB.preventDefault();
+        },
+        false
+      );
+    }
+    GameLib.gameName = _0x11576;
+    GameLib.gameWidth = _0x11705;
+    GameLib.gameHeight = _0x115AF;
+    if (navigator.serviceWorker && navigator.serviceWorker.register) {
+      navigator.serviceWorker.register("\x73\x77\x2E\x6A\x73", {
+        scope: "\x2E\x2F",
+      });
+    }
+    document
+      .getElementById("\x72\x6F\x74\x61\x74\x65\x48\x69\x6E\x74")
+      .addEventListener("\x63\x6C\x69\x63\x6B", function () {
+        this.style.display = "\x6E\x6F\x6E\x65";
+      });
+    var _0x114CB = GameLib.$_GET("\x62\x67\x63\x6F\x6C\x6F\x72");
+    if (false !== _0x114CB) {
+      document.documentElement.style.backgroundColor = _0x114CB;
+      document.documentElement.style.backgroundImage = "\x6E\x6F\x6E\x65";
+    } else {
+      if (ThirdParty.background) {
+        document.documentElement.style.background = /([\.\/])/.test(
+          ThirdParty.background
+        )
+          ? "\x75\x72\x6C\x28" + ThirdParty.background + "\x29"
+          : ThirdParty.background;
+      }
+    }
+    GameLib.containerDiv = document.getElementById(
+      "\x67\x61\x6D\x65\x43\x6F\x6E\x74\x61\x69\x6E\x65\x72"
+    );
+    GameLib.containerDiv.style.width = _0x11705 + "\x70\x78";
+    GameLib.containerDiv.style.height = _0x115AF + "\x70\x78";
+    if (/noscale/.test(location.search)) {
+      GameLib.scalable = false;
+      if (GameLib.isIE) {
+        var _0x11621 = document.createElement("\x73\x74\x79\x6C\x65");
+        _0x11621.appendChild(
+          document.createTextNode(
+            "\x40\x2D\x6D\x73\x2D\x76\x69\x65\x77\x70\x6F\x72\x74\x7B\x77\x69\x64\x74\x68\x3A" +
+              _0x11705 +
+              "\x70\x78\x3B\x20\x68\x65\x69\x67\x68\x74\x3A" +
+              _0x115AF +
+              "\x70\x78\x7D"
+          )
+        );
+        document.querySelector("\x68\x65\x61\x64").appendChild(_0x11621);
+      }
+    }
+    try {
+      var _0x115E8 = "\x74\x65\x73\x74";
+      localStorage.setItem(_0x115E8, _0x115E8);
+      localStorage.removeItem(_0x115E8);
+    } catch (e) {
+      this.showPopup(
+        "\x50\x72\x69\x76\x61\x74\x65\x20\x42\x72\x6F\x77\x73\x69\x6E\x67",
+        "\x59\x6F\x75\x20\x73\x65\x65\x6D\x20\x74\x6F\x20\x62\x65\x20\x62\x72\x6F\x77\x73\x69\x6E\x67\x20\x69\x6E\x20\x70\x72\x69\x76\x61\x74\x65\x20\x6D\x6F\x64\x65\x2E\x20\x54\x68\x69\x73\x20\x67\x61\x6D\x65\x20\x64\x6F\x65\x73\x20\x6E\x6F\x74\x20\x77\x6F\x72\x6B\x20\x69\x6E\x20\x70\x72\x69\x76\x61\x74\x65\x20\x6D\x6F\x64\x65\x2C\x20\x77\x68\x69\x6C\x65\x20\x77\x65\x20\x63\x61\x6E\x6E\x6F\x74\x20\x75\x73\x65\x20\x6C\x6F\x63\x61\x6C\x20\x73\x74\x6F\x72\x61\x67\x65\x20\x66\x6F\x72\x20\x73\x74\x6F\x72\x69\x6E\x67\x20\x79\x6F\x75\x72\x20\x73\x63\x6F\x72\x65\x2C\x20\x70\x72\x6F\x67\x72\x65\x73\x73\x20\x65\x74\x63\x2E\x3C\x62\x72\x3E\x50\x6C\x65\x61\x73\x65\x20\x72\x75\x6E\x20\x74\x68\x69\x73\x20\x67\x61\x6D\x65\x20\x69\x6E\x20\x61\x20\x72\x65\x67\x75\x6C\x61\x72\x20\x28\x6E\x6F\x6E\x2D\x70\x72\x69\x76\x61\x74\x65\x29\x20\x62\x72\x6F\x77\x73\x65\x72\x20\x77\x69\x6E\x64\x6F\x77\x2E",
+        300,
+        200
+      );
+    }
+    var _0x116CC = localStorage.getItem(this.gameName);
+    if (null !== _0x116CC) {
+      this.storageJar = JSON.parse(_0x116CC);
+    }
+    var _0x1165A =
+      window.location != window.parent.location
+        ? document.referrer
+        : document.location;
+    if (ThirdParty.shareUrl && ThirdParty.shareUrl == "\x67\x61\x6D\x65") {
+      _0x1165A = document.location;
+    }
+    this.setStorage("\x73\x68\x61\x72\x65\x55\x72\x6C", _0x1165A);
+    if (this.iOSversion && this.iOSversion[0] >= 7 && this.iOSversion[1] >= 1) {
+      document.addEventListener(
+        "\x74\x6F\x75\x63\x68\x6D\x6F\x76\x65",
+        function (_0x114CB) {
+          _0x114CB.preventDefault();
+        },
+        false
+      );
+    }
+    window.addEventListener(
+      "\x69\x64\x6C\x65",
+      function () {
+        GameSound.setIdle(true);
+      },
+      false
+    );
+    window.addEventListener(
+      "\x77\x61\x6B\x65\x75\x70",
+      function () {
+        GameSound.setIdle(false);
+      },
+      false
+    );
+    window.addEventListener(
+      GameLib.iOSversion
+        ? "\x6F\x72\x69\x65\x6E\x74\x61\x74\x69\x6F\x6E\x63\x68\x61\x6E\x67\x65"
+        : "\x72\x65\x73\x69\x7A\x65",
+      GameLib.scaleGame,
+      false
+    );
+    var _0x11504 = document.createEvent("\x45\x76\x65\x6E\x74");
+    _0x11504.initEvent("\x67\x61\x6D\x65\x72\x65\x61\x64\x79", true, true);
+    _0x11504.gameName = _0x11576;
+    document.dispatchEvent(_0x11504);
+    GameLib.scaleGame();
+    orderInit(1);
+    if (GameLib.IEversion && GameLib.IEversion < 10) {
+      this.showPopup(
+        "\x4F\x6C\x64\x20\x49\x6E\x74\x65\x72\x6E\x65\x74\x20\x45\x78\x70\x6C\x6F\x72\x65\x72",
+        "\x59\x6F\x75\x20\x61\x72\x65\x20\x75\x73\x69\x6E\x67\x20\x61\x20\x72\x61\x74\x68\x65\x72\x20\x6F\x6C\x64\x20\x76\x65\x72\x73\x69\x6F\x6E\x20\x6F\x66\x20\x49\x6E\x74\x65\x72\x6E\x65\x74\x20\x45\x78\x70\x6C\x6F\x72\x65\x72\x20\x28\x76\x65\x72\x73\x69\x6F\x6E\x20" +
+          GameLib.IEversion +
+          "\x29\x2E\x3C\x62\x72\x3E\x54\x68\x69\x73\x20\x67\x61\x6D\x65\x20\x6D\x69\x67\x68\x74\x20\x6F\x72\x20\x6D\x69\x67\x68\x74\x20\x6E\x6F\x74\x20\x77\x6F\x72\x6B\x2E\x20\x57\x65\x20\x73\x74\x72\x6F\x6E\x67\x6C\x79\x20\x61\x64\x76\x69\x73\x65\x20\x79\x6F\x75\x20\x74\x6F\x20\x75\x70\x67\x72\x61\x64\x65\x20\x74\x6F\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x3A\x2F\x2F\x77\x69\x6E\x64\x6F\x77\x73\x2E\x6D\x69\x63\x72\x6F\x73\x6F\x66\x74\x2E\x63\x6F\x6D\x2F\x65\x6E\x2D\x75\x73\x2F\x69\x6E\x74\x65\x72\x6E\x65\x74\x2D\x65\x78\x70\x6C\x6F\x72\x65\x72\x2F\x69\x65\x2D\x31\x31\x2D\x77\x6F\x72\x6C\x64\x77\x69\x64\x65\x2D\x6C\x61\x6E\x67\x75\x61\x67\x65\x73\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x3E\x49\x6E\x74\x65\x72\x6E\x65\x74\x20\x45\x78\x70\x6C\x6F\x72\x65\x72\x20\x31\x30\x3C\x2F\x61\x3E\x20\x6F\x72\x20\x62\x65\x74\x74\x65\x72\x2E\x3C\x62\x72\x3E\x41\x6C\x74\x65\x72\x6E\x61\x74\x69\x76\x65\x6C\x79\x2C\x20\x79\x6F\x75\x20\x63\x61\x6E\x20\x75\x73\x65\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x3A\x2F\x2F\x67\x65\x74\x66\x69\x72\x65\x66\x6F\x78\x2E\x63\x6F\x6D\x2F\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x3E\x46\x69\x72\x65\x66\x6F\x78\x3C\x2F\x61\x3E\x2C\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x3A\x2F\x2F\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D\x2F\x63\x68\x72\x6F\x6D\x65\x2F\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x3E\x43\x68\x72\x6F\x6D\x65\x3C\x2F\x61\x3E\x2C\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x3A\x2F\x2F\x61\x70\x70\x6C\x65\x2E\x63\x6F\x6D\x2F\x73\x61\x66\x61\x72\x69\x2F\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x3E\x53\x61\x66\x61\x72\x69\x3C\x2F\x61\x3E\x20\x6F\x72\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x3A\x2F\x2F\x6F\x70\x65\x72\x61\x2E\x63\x6F\x6D\x2F\x62\x72\x6F\x77\x73\x65\x72\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x3E\x4F\x70\x65\x72\x61\x3C\x2F\x61\x3E\x2E",
+        300,
+        200
+      );
+    }
+    if (GameLib.iOSversion && GameLib.iOSversion[0] < 6) {
+      alert(
+        "\x54\x68\x69\x73\x20\x67\x61\x6D\x65\x20\x69\x73\x20\x69\x6E\x63\x6F\x6D\x70\x61\x74\x69\x62\x6C\x65\x20\x77\x69\x74\x68\x20\x79\x6F\x75\x72\x20\x64\x65\x76\x69\x63\x65\x2E\x20\x50\x6C\x65\x61\x73\x65\x20\x75\x70\x67\x72\x61\x64\x65\x20\x74\x6F\x20\x69\x4F\x53\x36\x20\x6F\x72\x20\x6E\x65\x77\x65\x72\x2E"
+      );
+    }
+    if (/iP(od|hone)/.test(navigator.userAgent) && !navigator.standalone) {
+      GameLib.windowHeight = window.innerHeight;
+      setInterval(function () {
+        if (window.innerHeight != GameLib.windowHeight) {
+          GameLib.windowHeight = window.innerHeight;
+          GameLib.scaleGame();
+        }
+      }, 500);
+    }
+    var _0x11693 = ThirdParty.showCookieBar !== false;
+    if (
+      _0x11693 &&
+      window.zygomatic &&
+      window.zygomatic.settings[
+        "\x73\x6B\x69\x70\x43\x6F\x6F\x6B\x69\x65\x43\x6F\x6E\x73\x65\x6E\x74\x44\x6F\x6D\x61\x69\x6E\x73"
+      ]
+    ) {
+      _0x11693 =
+        (
+          "\x2C" +
+          window.zygomatic.settings[
+            "\x73\x6B\x69\x70\x43\x6F\x6F\x6B\x69\x65\x43\x6F\x6E\x73\x65\x6E\x74\x44\x6F\x6D\x61\x69\x6E\x73"
+          ].join("\x2C") +
+          "\x2C"
+        ).indexOf("\x2C" + GameLib.getHostDomain() + "\x2C") === -1;
+    }
+    if (_0x11693) {
+      var _0x1153D = document.createElement("\x69\x66\x72\x61\x6D\x65");
+      _0x1153D.setAttribute("\x66\x72\x61\x6D\x65\x62\x6F\x72\x64\x65\x72", 0);
+      _0x1153D.id = "\x63\x6F\x6F\x6B\x69\x65\x42\x61\x72";
+      _0x1153D.src =
+        "\x2F\x2F\x63\x64\x6E\x2E\x34\x33\x39\x39\x2E\x63\x6F\x6D\x2F\x63\x6F\x6F\x6B\x69\x65\x2F\x3F\x6C\x61\x6E\x67\x3D" +
+        escape(GameLib.getLang());
+      document.body.appendChild(_0x1153D);
+      window.addEventListener(
+        "\x6D\x65\x73\x73\x61\x67\x65",
+        function (_0x114CB) {
+          switch (_0x114CB.data) {
+            case "\x63\x6F\x6F\x6B\x69\x65\x63\x6F\x6E\x73\x65\x6E\x74\x3D\x66\x61\x6C\x73\x65":
+              _0x1153D.style.display = "\x62\x6C\x6F\x63\x6B";
+              break;
+            case "\x63\x6F\x6F\x6B\x69\x65\x63\x6F\x6E\x73\x65\x6E\x74\x3D\x74\x72\x75\x65":
+              _0x1153D.style.display = "\x6E\x6F\x6E\x65";
+              break;
+          }
+        }
+      );
+    }
+    window.focus();
+  }
+  function _0x119B1(
+    _0x115AF,
+    _0x115E8,
+    _0x1153D,
+    _0x114CB,
+    _0x11576,
+    _0x11621
+  ) {
+    var _0x11504 = document.createElement("\x64\x69\x76");
+    _0x11504.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    _0x11504.style.zIndex = _0x11621;
+    _0x11504.style.left = _0x115AF + "\x70\x78";
+    _0x11504.style.top = _0x115E8 + "\x70\x78";
+    _0x11504.style.display = _0x11576;
+    _0x1153D.appendChild(_0x11504);
+    _0x114CB.push(_0x11504);
+    return _0x11504;
+  }
+  function _0x119EA(
+    _0x11621,
+    _0x1165A,
+    _0x11576,
+    _0x114CB,
+    _0x115E8,
+    _0x1153D,
+    _0x115AF,
+    _0x11693
+  ) {
+    var _0x11504 = document.createElement("\x64\x69\x76");
+    _0x11504.style.overflow = "\x68\x69\x64\x64\x65\x6E";
+    _0x11504.style.width = _0x115E8 + "\x70\x78";
+    _0x11504.style.height = _0x1153D + "\x70\x78";
+    _0x11504.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    _0x11504.style.zIndex = _0x11693;
+    _0x11504.style.left = _0x11621 + "\x70\x78";
+    _0x11504.style.top = _0x1165A + "\x70\x78";
+    _0x11504.style.display = _0x115AF;
+    _0x11576.appendChild(_0x11504);
+    _0x114CB.push(_0x11504);
+    return _0x11504;
+  }
+  function _0x11A23(
+    _0x115E8,
+    _0x11621,
+    _0x115AF,
+    _0x11504,
+    _0x11576,
+    _0x114CB
+  ) {
+    var _0x1153D = document.createElement("\x43\x61\x6E\x76\x61\x73");
+    _0x114CB.push(_0x1153D);
+    _0x1153D.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    _0x1153D.style.left = _0x115E8 + "\x70\x78";
+    _0x1153D.style.top = _0x11621 + "\x70\x78";
+    _0x1153D.width = _0x115AF;
+    _0x1153D.height = _0x11504;
+    _0x1153D.draggable = false;
+    _0x11576.appendChild(_0x1153D);
+    return _0x1153D;
+  }
+  function _0x11A5C(_0x11576, _0x115AF, _0x115E8, _0x1153D, _0x114CB) {
+    var _0x11504 = loadRec.resource[_0x11576];
+    _0x11504.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    _0x11504.style.left = _0x115AF + "\x70\x78";
+    _0x11504.style.top = _0x115E8 + "\x70\x78";
+    _0x11504.draggable = false;
+    _0x1153D.appendChild(_0x11504);
+    _0x114CB.push(_0x11504);
+    return _0x11504;
+  }
+  function _0x11A95(
+    _0x11621,
+    _0x1165A,
+    _0x115E8,
+    _0x1153D,
+    _0x11576,
+    _0x114CB,
+    _0x115AF
+  ) {
+    var _0x11504 = document.createElement("\x64\x69\x76");
+    if (_0x115AF) {
+      _0x11504.className = _0x115AF;
+    } else {
+      _0x11504.className = "\x6E\x75\x6D\x62\x65\x72";
+    }
+    _0x11504.style.left = _0x11621 + "\x70\x78";
+    _0x11504.style.top = _0x1165A + "\x70\x78";
+    _0x11504.style.width = _0x115E8 + "\x70\x78";
+    _0x11504.style.height = _0x1153D + "\x70\x78";
+    _0x11576.appendChild(_0x11504);
+    _0x114CB.push(_0x11504);
+    return _0x11504;
+  }
+  function _0x11ACE(_0x11576, _0x115AF, _0x1153D, _0x114CB) {
+    var _0x11504 = document.createElement("\x64\x69\x76");
+    _0x11504.className = "\x72\x65\x6D\x44\x69\x76";
+    _0x11504.style.backgroundImage =
+      "\x75\x72\x6C\x28" + loadRec.resource["\x72\x65\x6D"].src + "\x29";
+    _0x11504.style.left = _0x11576 + "\x70\x78";
+    _0x11504.style.top = _0x115AF + "\x70\x78";
+    _0x1153D.appendChild(_0x11504);
+    _0x114CB.push(_0x11504);
+    return _0x11504;
+  }
+  function _0x11B07(_0x11576, _0x115AF, _0x1153D, _0x114CB) {
+    var _0x11504 = document.createElement("\x64\x69\x76");
+    _0x11504.className = "\x72\x65\x6D\x44\x69\x76";
+    _0x11504.style.backgroundImage =
+      "\x75\x72\x6C\x28" + loadRec.resource["\x72\x65\x6D\x30"].src + "\x29";
+    _0x11504.style.left = _0x11576 + "\x70\x78";
+    _0x11504.style.top = _0x115AF + "\x70\x78";
+    _0x1153D.appendChild(_0x11504);
+    _0x114CB.push(_0x11504);
+    return _0x11504;
+  }
+  function _0x11B40(_0x11576, _0x115AF, _0x11504, _0x114CB) {
+    var _0x1153D = document.createElement("\x64\x69\x76");
+    _0x1153D.style.left = _0x11576 + "\x70\x78";
+    _0x1153D.style.top = _0x115AF + "\x70\x78";
+    _0x1153D.className = "\x6E\x75\x6D\x62\x65\x72";
+    _0x11504.appendChild(_0x1153D);
+    _0x114CB.push(_0x1153D);
+    return _0x1153D;
+  }
+  function _0x11B79(_0x11504) {
+    Hammer(_0x11504).on("\x64\x72\x61\x67\x65\x6E\x64", _0x1153D);
+    Hammer(_0x11504).on("\x72\x65\x6C\x65\x61\x73\x65", _0x1153D);
+    Hammer(_0x11504).on("\x74\x6F\x75\x63\x68", _0x114CB);
+    _0x11504.xxxx563 = parseFloat(_0x11504.style.left);
+    _0x11504.yyyy563 = parseFloat(_0x11504.style.top);
+    function _0x1153D() {
+      _0x11504.style.left = _0x11504.xxxx563 + "\x70\x78";
+      _0x11504.style.top = _0x11504.yyyy563 + "\x70\x78";
+    }
+    function _0x114CB() {
+      _0x11504.style.left = _0x11504.xxxx563 + 1 + "\x70\x78";
+      _0x11504.style.top = _0x11504.yyyy563 + 1 + "\x70\x78";
+    }
+  }
+  function _0x11BB2(_0x115AF, _0x115E8, _0x11621, _0x11576, _0x114CB) {
+    var _0x1153D = loadRec.resource[_0x115AF];
+    var _0x11504 = new Image();
+    _0x11504.src = _0x1153D.src;
+    _0x114CB.push(_0x11504);
+    _0x11504.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    _0x11504.style.left = _0x115E8 + "\x70\x78";
+    _0x11504.style.top = _0x11621 + "\x70\x78";
+    _0x11504.style.cursor = "\x70\x6F\x69\x6E\x74\x65\x72";
+    _0x11504.draggable = false;
+    _0x11576.appendChild(_0x11504);
+    _0x11504.onmouseover = function (_0x114CB) {
+      _0x11504.style.top = _0x11621 - 1 + "\x70\x78";
+    };
+    _0x11504.onmouseout = function (_0x114CB) {
+      _0x11504.style.top = _0x11621 + "\x70\x78";
+    };
+    return _0x11504;
+  }
+  function _0x11BEB(
+    _0x11621,
+    _0x11693,
+    _0x116CC,
+    _0x1165A,
+    _0x11576,
+    _0x114CB,
+    _0x11705,
+    _0x115E8,
+    _0x11504,
+    _0x115AF
+  ) {
+    var _0x1153D = document.createElement("\x64\x69\x76");
+    _0x1153D.className = "\x72\x65\x6D\x44\x69\x76";
+    _0x1153D.style.left = _0x11693 + "\x70\x78";
+    _0x1153D.style.top = _0x116CC + "\x70\x78";
+    _0x1153D.style.backgroundImage =
+      "\x75\x72\x6C\x28" + loadRec.resource[_0x11621].src + "\x29";
+    _0x1153D.ww = _0x1165A;
+    _0x1153D.style.width = _0x1165A + "\x70\x78";
+    _0x1153D.style.height = _0x11576 + "\x70\x78";
+    _0x1153D.style.backgroundSize =
+      _0x114CB * _0x1165A + "\x70\x78\x20" + _0x11576 + "\x70\x78";
+    _0x1153D.style.backgroundPosition =
+      _0x114CB * _0x1165A + "\x70\x78\x20\x30\x70\x78";
+    _0x1153D.idid = _0x114CB;
+    _0x1153D.idid_ = _0x114CB;
+    _0x1153D.isLoop = _0x115AF;
+    _0x1153D.style.zIndex = _0x11705;
+    if (_0x115E8) {
+      _0x115E8.appendChild(_0x1153D);
+    }
+    if (_0x11504) {
+      _0x11504.push(_0x1153D);
+    }
+    return _0x1153D;
+  }
+  function _0x11C24(
+    _0x11621,
+    _0x11693,
+    _0x116CC,
+    _0x1165A,
+    _0x11576,
+    _0x114CB,
+    _0x11705,
+    _0x115E8,
+    _0x11504,
+    _0x115AF
+  ) {
+    var _0x1153D = document.createElement("\x64\x69\x76");
+    _0x1153D.className = "\x72\x65\x6D\x44\x69\x76";
+    _0x1153D.style.left = _0x11693 + "\x70\x78";
+    _0x1153D.style.top = _0x116CC + "\x70\x78";
+    _0x1153D.style.backgroundImage =
+      "\x75\x72\x6C\x28" + loadRec.resource[_0x11621].src + "\x29";
+    _0x1153D.ww = _0x11576;
+    _0x1153D.isHH = true;
+    _0x1153D.style.width = _0x1165A + "\x70\x78";
+    _0x1153D.style.height = _0x11576 + "\x70\x78";
+    _0x1153D.style.backgroundSize =
+      _0x1165A + "\x70\x78\x20" + _0x114CB * _0x11576 + "\x70\x78";
+    _0x1153D.style.backgroundPosition =
+      "\x30\x70\x78\x20" + _0x114CB * _0x11576 + "\x70\x78";
+    _0x1153D.idid = _0x114CB;
+    _0x1153D.idid_ = _0x114CB;
+    _0x1153D.isLoop = _0x115AF;
+    _0x1153D.style.zIndex = _0x11705;
+    if (_0x115E8) {
+      _0x115E8.appendChild(_0x1153D);
+    }
+    if (_0x11504) {
+      _0x11504.push(_0x1153D);
+    }
+    return _0x1153D;
+  }
+  function _0x11C5D(
+    _0x1165A,
+    _0x116CC,
+    _0x11705,
+    _0x11693,
+    _0x11576,
+    _0x114CB,
+    _0x115AF,
+    _0x1173E,
+    _0x11621,
+    _0x11504,
+    _0x115E8
+  ) {
+    var _0x1153D = document.createElement("\x64\x69\x76");
+    _0x1153D.className = "\x72\x65\x6D\x44\x69\x76";
+    _0x1153D.style.left = _0x116CC + "\x70\x78";
+    _0x1153D.style.top = _0x11705 + "\x70\x78";
+    _0x1153D.style.backgroundImage =
+      "\x75\x72\x6C\x28" + loadRec.resource[_0x1165A].src + "\x29";
+    _0x1153D.hh = _0x11576;
+    _0x1153D.ww = _0x11693;
+    _0x1153D.ii = _0x115AF;
+    _0x1153D.isWH = true;
+    _0x1153D.style.width = _0x11693 + "\x70\x78";
+    _0x1153D.style.height = _0x11576 + "\x70\x78";
+    _0x1153D.style.backgroundSize =
+      _0x11693 * _0x115AF +
+      "\x70\x78\x20" +
+      Math.floor((_0x114CB - 1) / _0x115AF + 1) * _0x11576 +
+      "\x70\x78";
+    _0x1153D.style.backgroundPosition =
+      _0x11693 * ((_0x114CB % _0x115AF) + 1) +
+      "\x70\x78\x20" +
+      Math.floor(_0x114CB / _0x115AF + 1) * _0x11576 +
+      "\x70\x78";
+    _0x1153D.idid = _0x114CB;
+    _0x1153D.idid_ = _0x114CB;
+    _0x1153D.isLoop = _0x115E8;
+    _0x1153D.style.zIndex = _0x1173E;
+    if (_0x11621) {
+      _0x11621.appendChild(_0x1153D);
+    }
+    if (_0x11504) {
+      _0x11504.push(_0x1153D);
+    }
+    return _0x1153D;
+  }
+  function _0x11C96(
+    _0x11621,
+    _0x11504,
+    _0x11693,
+    _0x116CC,
+    _0x1165A,
+    _0x1153D,
+    _0x115E8,
+    _0x114CB,
+    _0x11705
+  ) {
+    var _0x115AF;
+    var _0x11576 = loadRec.resource[_0x11621];
+    if (_0x11504) {
+      _0x115AF = _0x11504;
+    } else {
+      _0x115AF = document.createElement("\x69\x6D\x67");
+    }
+    _0x115AF.className = "\x6D\x61\x68\x6A\x6F\x6E\x67\x5F\x63\x73\x73";
+    _0x115AF.draggable = false;
+    _0x115AF.src = _0x11576.src;
+    if (_0x1165A > 0 && _0x1153D > 0) {
+      _0x115AF.width = _0x11576.width;
+      _0x115AF.height = _0x11576.height;
+      _0x115AF.style.width = _0x1165A + "\x70\x78";
+      _0x115AF.style.height = _0x1153D + "\x70\x78";
+      _0x115AF.style.left = _0x11693 + "\x70\x78";
+      _0x115AF.style.top = _0x116CC + "\x70\x78";
+    }
+    if (_0x11705) {
+      _0x115AF.style.zIndex = _0x11705;
+    }
+    if (_0x115E8) {
+      _0x115E8.appendChild(_0x115AF);
+    }
+    if (_0x114CB) {
+      _0x114CB.push(_0x115AF);
+    }
+    return _0x115AF;
+  }
+  function _0x11CCF(_0x11504) {
+    var _0x114CB = [];
+    var _0x1153D;
+    while (_0x11504.length > 0) {
+      _0x1153D = Math.floor(_0x11504.length * Math.random());
+      _0x114CB.push(_0x11504[_0x1153D]);
+      _0x11504.splice(_0x1153D, 1);
+    }
+    return _0x114CB;
+  }
+  function _0x11D08(_0x114CB, _0x11504) {
+    if (_0x114CB) {
+      _0x114CB.style.webkitTransform =
+        "\x72\x6F\x74\x61\x74\x65\x28" + _0x11504 + "\x64\x65\x67\x29";
+      _0x114CB.style.MozTransform =
+        "\x72\x6F\x74\x61\x74\x65\x28" + _0x11504 + "\x64\x65\x67\x29";
+      _0x114CB.style.OTransform =
+        "\x72\x6F\x74\x61\x74\x65\x28" + _0x11504 + "\x64\x65\x67\x29";
+      _0x114CB.style.msTransform =
+        "\x72\x6F\x74\x61\x74\x65\x28" + _0x11504 + "\x64\x65\x67\x29";
+      _0x114CB.style.transform =
+        "\x72\x6F\x74\x61\x74\x65\x28" + _0x11504 + "\x64\x65\x67\x29";
+    }
+  }
+  function _0x11D41(_0x114CB, _0x11504, _0x1153D) {
+    if (_0x114CB) {
+      _0x114CB.style.webkitTransform =
+        "\x73\x63\x61\x6C\x65\x28" + _0x11504 + "\x2C" + _0x1153D + "\x29";
+      _0x114CB.style.MozTransform =
+        "\x73\x63\x61\x6C\x65\x28" + _0x11504 + "\x2C" + _0x1153D + "\x29";
+      _0x114CB.style.OTransform =
+        "\x73\x63\x61\x6C\x65\x28" + _0x11504 + "\x2C" + _0x1153D + "\x29";
+      _0x114CB.style.msTransform =
+        "\x73\x63\x61\x6C\x65\x28" + _0x11504 + "\x2C" + _0x1153D + "\x29";
+      _0x114CB.style.transform =
+        "\x73\x63\x61\x6C\x65\x28" + _0x11504 + "\x2C" + _0x1153D + "\x29";
+    }
+  }
+  function _0x11D7A(_0x114CB) {
+    var _0x11504 = gameContainer.getBoundingClientRect();
+    return (_0x114CB.gesture.center.clientX - _0x11504.left) / GameLib.scale;
+  }
+  function _0x11DB3(_0x114CB) {
+    var _0x11504 = gameContainer.getBoundingClientRect();
+    return (_0x114CB.gesture.center.clientY - _0x11504.top) / GameLib.scale;
+  }
+  function _0x11DEC() {
+    GameLib.setStorage({ score: 0, level: 1 });
+    var _0x114CB = CreateGame.CreatedImg(
+      "\x62\x61\x63\x6B\x5F\x6F\x76\x65\x72",
+      0,
+      0,
+      gameContainer,
+      this.data
+    );
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x59\x6F\x75\x72\x53\x63\x6F\x72\x65",
+      0,
+      0,
+      250,
+      170,
+      300,
+      60,
+      0,
+      0,
+      false,
+      gameContainer,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      40,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x50\x6C\x61\x79\x41\x67\x61\x69\x6E",
+      240,
+      56,
+      280,
+      290,
+      214,
+      34,
+      13,
+      12,
+      true,
+      gameContainer,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      ThirdParty.restartGame();
+      GameMenu.maskGo(2, 5);
+    });
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x53\x75\x62\x6D\x69\x74\x53\x63\x6F\x72\x65",
+      240,
+      56,
+      280,
+      360,
+      214,
+      34,
+      13,
+      12,
+      true,
+      gameContainer,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      ThirdParty.submitScore(GamePlay.score);
+    });
+    var _0x11504 = CreateGame.CreatedShowNumber(
+      340,
+      250,
+      120,
+      22,
+      gameContainer,
+      this.data
+    );
+    _0x11504.innerHTML = "" + GamePlay.score;
+    languageUI.scaleTexts();
+  }
+  function _0x11E25() {
+    while (this.data.length > 0) {
+      var _0x114CB = this.data.pop();
+      if (_0x114CB && _0x114CB.parentNode) {
+        _0x114CB.parentNode.removeChild(_0x114CB);
+      }
+    }
+  }
+  function _0x11E5E() {
+    var _0x114CB = new Image();
+    if (
+      typeof ThirdParty.splashScreen !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+    ) {
+      _0x114CB.src = ThirdParty.splashScreen;
+    } else {
+      _0x114CB.src =
+        "\x69\x6D\x67\x2F\x6C\x6F\x61\x64\x69\x6E\x67\x2E\x6A\x70\x67";
+    }
+    _0x114CB.className = "\x62\x61\x63\x6B\x50\x6F\x73";
+    gameContainer.appendChild(_0x114CB);
+    this.data.push(_0x114CB);
+    _0x114CB.onload = function () {
+      var _0x114CB = document.createElement("\x64\x69\x76");
+      _0x114CB.className = "\x70\x72\x6F\x67\x72\x65\x73\x73\x62\x61\x72";
+      _0x114CB.innerHTML =
+        "\x3C\x64\x69\x76\x20\x69\x64\x3D\x22\x6C\x6F\x61\x64\x50\x65\x72\x63\x22\x3E\x3C\x2F\x64\x69\x76\x3E";
+      gameContainer.appendChild(_0x114CB);
+      loadRec.data.push(_0x114CB);
+      loadRec.loadPerc = document.getElementById(
+        "\x6C\x6F\x61\x64\x50\x65\x72\x63"
+      );
+      loadRec.preload(function () {
+        orderInit(2);
+        loadRec.remAll();
+        ThirdParty.loadingComplete();
+      });
+    };
+  }
+  function _0x11E97(_0x11504) {
+    var _0x114CB = 0,
+      _0x1153D = 0,
+      _0x11621 = 0,
+      _0x115E8 = 0,
+      _0x1165A = 0;
+    if (loadRec.images && loadRec.images.length > 0) {
+      _0x11621 = loadRec.images.length;
+    }
+    if (loadRec.fonts && loadRec.fonts.length > 0) {
+      _0x115E8 = loadRec.fonts.length;
+    }
+    _0x1165A = _0x11621 + _0x115E8;
+    function _0x11576(_0x11504) {
+      if (_0x115E8 == 0) {
+        _0x11504 && _0x11504();
+        return;
+      }
+      var _0x1153D = _0x115E8;
+      WebFont.load({
+        custom: { families: loadRec.fonts },
+        timeout: 1500,
+        fontactive: function () {
+          loadRec.loadPerc.style.width =
+            Math.floor((++_0x114CB * 100) / _0x1165A) + "\x25";
+          h5api.progress(
+            Math.floor((_0x114CB * 100) / _0x1165A),
+            Math.floor((_0x114CB * 100) / _0x1165A) + "\x25"
+          );
+          _0x1153D--;
+        },
+        fontinactive: function (_0x11576) {
+          console.log(
+            "\x45\x52\x52\x4F\x52\x3A\x20\x46\x6F\x6E\x74\x20\x6E\x6F\x74\x20\x66\x6F\x75\x6E\x64\x3A\x20" +
+              _0x11576
+          );
+          loadRec.loadPerc.style.width =
+            Math.floor((++_0x114CB * 100) / _0x1165A) + "\x25";
+          h5api.progress(
+            Math.floor((_0x114CB * 100) / _0x1165A),
+            Math.floor((_0x114CB * 100) / _0x1165A) + "\x25"
+          );
+          if (--_0x1153D == 0) {
+            _0x11504 && _0x11504();
+          }
+        },
+        active: function () {
+          _0x11504 && _0x11504();
+        },
+      });
+    }
+    function _0x115AF(_0x11504) {
+      var _0x11576 = new Image();
+      _0x11576.onload = function () {
+        loadRec.loadPerc.style.width =
+          Math.floor((++_0x114CB * 100) / _0x1165A) + "\x25";
+        h5api.progress(
+          Math.floor((_0x114CB * 100) / _0x1165A),
+          Math.floor((_0x114CB * 100) / _0x1165A) + "\x25"
+        );
+        if (_0x114CB < _0x11621) {
+          _0x115AF(_0x11504);
+        } else {
+          if (_0x11504) {
+            _0x11504();
+          }
+        }
+      };
+      _0x11576.onerror = function (_0x114CB) {
+        alert(
+          "\x45\x52\x52\x4F\x52\x3A\x20\x49\x6D\x61\x67\x65\x20\x6E\x6F\x74\x20\x66\x6F\x75\x6E\x64\x3A\x20" +
+            _0x114CB.target.src
+        );
+      };
+      loadRec.resource[loadRec.images[_0x1153D].id] = _0x11576;
+      _0x11576.src = loadRec.images[_0x1153D++].src;
+    }
+    _0x115AF(function () {
+      _0x11576(_0x11504);
+    });
+  }
+  function _0x11ED0() {
+    while (this.data.length > 0) {
+      var _0x114CB = this.data.pop();
+      if (_0x114CB && _0x114CB.parentNode) {
+        _0x114CB.parentNode.removeChild(_0x114CB);
+      }
+    }
+  }
+  function _0x11F09() {
+    window.focus();
+    ThirdParty.gameStart();
+    ThirdParty.gameStart();
+    GameMenu.maskGo(4, 2);
+  }
+  function _0x11F42(_0x114CB, _0x1153D, _0x11576, _0x11504) {
+    _0x114CB.targetx = _0x1153D;
+    _0x114CB.targety = _0x11576;
+    _0x114CB.fraction = 0.5;
+    _0x114CB.vx = 0;
+    _0x114CB.vy = 0;
+    _0x114CB.time = _0x11504;
+    this.moveArr.push(_0x114CB);
+  }
+  function _0x11F7B() {
+    for (var _0x1153D = 0; _0x1153D < GameMenu.moveArr.length; _0x1153D++) {
+      var _0x11576 = GameMenu.moveArr[_0x1153D];
+      _0x11576.time--;
+      if (_0x11576.time > 0) {
+      } else {
+        if (_0x11576.time == -10 && _0x11576.addCanvas) {
+          GameMenu.remCanvas.push(_0x11576);
+        }
+        var _0x114CB = _0x11576.targetx - parseFloat(_0x11576.style.left);
+        var _0x11504 = _0x11576.targety - parseFloat(_0x11576.style.top);
+        _0x11576.vx += _0x114CB * 0.3;
+        _0x11576.vy += _0x11504 * 0.3;
+        _0x11576.vx *= _0x11576.fraction;
+        _0x11576.vy *= _0x11576.fraction;
+        _0x11576.style.left =
+          parseFloat(_0x11576.style.left) + _0x11576.vx + "\x70\x78";
+        _0x11576.style.top =
+          parseFloat(_0x11576.style.top) + _0x11576.vy + "\x70\x78";
+        if (_0x11576.time < -20) {
+          _0x11576.style.left = _0x11576.targetx + "\x70\x78";
+          _0x11576.style.top = _0x11576.targety + "\x70\x78";
+          GameMenu.moveArr.splice(_0x1153D, 1);
+          _0x1153D--;
+        }
+      }
+    }
+  }
+  function _0x11FB4(_0x114CB, _0x11504) {
+    this.maskID = setInterval(GameMenu.maskFrame, 33);
+    gameMask.style.display = "";
+    gameMask.isOpen = true;
+    gameMask.aaaa = _0x114CB;
+    gameMask.bbbb = _0x11504;
+  }
+  function _0x11FED() {
+    if (gameMask.isOpen) {
+      gameMask.idid--;
+      gameMask.style.backgroundPosition =
+        gameMask.ww * gameMask.idid + "\x70\x78\x20\x30\x70\x78";
+      if (gameMask.idid <= 1) {
+        orderInit(gameMask.aaaa);
+        gameMask.isOpen = false;
+        if (gameMask.bbbb == 2) {
+          GameMenu.remAll();
+        } else {
+          if (gameMask.bbbb == 3) {
+            GameHelp.remAll();
+          } else {
+            if (gameMask.bbbb == 5) {
+              GameOver.remAll();
+            } else {
+              if (gameMask.bbbb == 4) {
+                GamePlay.remAll();
+              }
+            }
+          }
+        }
+      }
+    } else {
+      gameMask.idid++;
+      gameMask.style.backgroundPosition =
+        gameMask.ww * gameMask.idid + "\x70\x78\x20\x30\x70\x78";
+      if (gameMask.idid >= 11) {
+        gameMask.style.display = "\x6E\x6F\x6E\x65";
+        clearInterval(GameMenu.maskID);
+        GameMenu.maskID = null;
+      }
+    }
+  }
+  function _0x12026() {
+    var _0x114CB = this.data;
+    GameSound.stopMusic();
+    this.timeID = setInterval(GameMenu.onFrame, 33);
+    ThirdParty.mainMenu();
+    if (gameMask == null) {
+      gameMask = CreateGame.getAnimation(
+        "\x6F\x70\x65\x6E",
+        0,
+        0,
+        800,
+        480,
+        10,
+        10010,
+        gameContainer
+      );
+      gameMask.style.display = "\x6E\x6F\x6E\x65";
+    }
+    div = CreateGame.CreatedHiddenDiv(
+      0,
+      0,
+      gameContainer,
+      this.data,
+      800,
+      480,
+      "",
+      1
+    );
+    this.moveArr.splice(0);
+    _0x11504 = CreateGame.getImg(
+      "\x6D\x65\x6E\x75\x33",
+      null,
+      0,
+      330,
+      800,
+      150,
+      div,
+      _0x114CB,
+      2
+    );
+    _0x11504 = CreateGame.getImg(
+      "\x6D\x65\x6E\x75\x32",
+      null,
+      150,
+      500,
+      500,
+      117,
+      div,
+      _0x114CB,
+      1
+    );
+    this.setImGo(_0x11504, 150, 353, 5);
+    _0x11504 = CreateGame.getImg(
+      "\x6D\x65\x6E\x75\x31",
+      null,
+      150,
+      -400,
+      500,
+      300,
+      div,
+      _0x114CB,
+      3
+    );
+    this.setImGo(_0x11504, 150, 4, 5);
+    var _0x11504 = CreateGame.CreatedImg(
+      "\x62\x61\x63\x6B\x5F\x6D\x65\x6E\x75",
+      0,
+      0,
+      gameContainer,
+      _0x114CB
+    );
+    Hammer(_0x11504).on("\x74\x61\x70", function (_0x114CB) {
+      languageUI.closeUI();
+    });
+    _0x11504 = languageUI.getButton(
+      "\x64\x5F\x50\x6C\x61\x79",
+      240,
+      56,
+      140,
+      320,
+      214,
+      34,
+      13,
+      12,
+      true,
+      div,
+      _0x114CB,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x11504).on("\x74\x61\x70", function (_0x114CB) {
+      if (
+        typeof GameAds !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" &&
+        GameAds.showAd()
+      ) {
+        GameSound.ping();
+        setTimeout(function () {
+          GameAds.requestAd(GameMenu.startGame);
+        }, 0);
+      } else {
+        GameMenu.startGame();
+      }
+    });
+    _0x11504.style.zIndex = 5;
+    _0x11504.style.left = "\x2D\x35\x30\x30\x70\x78";
+    this.setImGo(_0x11504, 140, 320, 15);
+    _0x11504 = languageUI.getButton(
+      "\x64\x5F\x48\x65\x6C\x70",
+      240,
+      56,
+      420,
+      320,
+      214,
+      34,
+      13,
+      12,
+      true,
+      div,
+      _0x114CB,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x11504).on("\x74\x61\x70", function (_0x114CB) {
+      GameMenu.maskGo(3, 2);
+    });
+    _0x11504.style.zIndex = 5;
+    _0x11504.style.left = "\x39\x30\x30\x70\x78";
+    this.setImGo(_0x11504, 420, 320, 15);
+    _0x11504 = languageUI.getButton(
+      "\x64\x5F\x48\x69\x67\x68\x53\x63\x6F\x72\x65",
+      240,
+      56,
+      260,
+      390,
+      214,
+      34,
+      13,
+      12,
+      true,
+      div,
+      _0x114CB,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x11504).on("\x74\x61\x70", function (_0x114CB) {
+      ThirdParty.showLeaderboard();
+    });
+    _0x11504.style.zIndex = 5;
+    _0x11504.style.left = "\x2D\x35\x30\x30\x70\x78";
+    this.setImGo(_0x11504, 260, 390, 20);
+    _0x11504 = languageUI.getButton(
+      "\x64\x5F\x4D\x6F\x72\x65",
+      240,
+      56,
+      9420,
+      390,
+      214,
+      34,
+      13,
+      12,
+      true,
+      div,
+      _0x114CB,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    _0x11504.onclick = function () {
+      GameLib.moreGames();
+    };
+    _0x11504.style.zIndex = 5;
+    _0x11504.style.left = "\x39\x30\x30\x70\x78";
+    this.setImGo(_0x11504, 9420, 390, 20);
+    languageUI.init(gameContainer);
+  }
+  function _0x1205F() {
+    while (this.data.length > 0) {
+      var _0x114CB = this.data.pop();
+      if (_0x114CB && _0x114CB.parentNode) {
+        _0x114CB.parentNode.removeChild(_0x114CB);
+      }
+    }
+    clearInterval(GameMenu.timeID);
+    languageUI.uiDiv.style.display = "\x6E\x6F\x6E\x65";
+    languageUI.buDiv.style.display = "\x6E\x6F\x6E\x65";
+  }
+  function _0x12098() {
+    var _0x114CB = CreateGame.CreatedImg(
+      "\x62\x61\x63\x6B\x5F\x68\x65\x6C\x70",
+      0,
+      0,
+      gameContainer,
+      this.data
+    );
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x42\x61\x63\x6B",
+      240,
+      56,
+      280,
+      410,
+      214,
+      34,
+      13,
+      12,
+      true,
+      gameContainer,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GameMenu.maskGo(2, 3);
+    });
+    _0x114CB.style.zIndex = 10;
+    _0x114CB = CreateGame.getImg(
+      "\x68\x31",
+      null,
+      200,
+      306,
+      400,
+      100,
+      gameContainer,
+      this.data,
+      1
+    );
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x48\x6F\x77\x74\x6F\x70\x6C\x61\x79",
+      0,
+      0,
+      250,
+      20,
+      300,
+      20,
+      0,
+      0,
+      false,
+      gameContainer,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      33,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    _0x114CB = languageUI.getText(
+      "\x64\x5F\x48\x6F\x77\x74\x6F\x70\x6C\x61\x79\x54\x65\x78\x74\x5F\x46\x72\x65\x65\x63\x65\x6C\x6C\x53\x6F\x6C\x69\x74\x61\x69\x72\x65\x31",
+      740,
+      60,
+      30,
+      50,
+      gameContainer,
+      this.data
+    );
+    _0x114CB = languageUI.getText(
+      "\x64\x5F\x48\x6F\x77\x74\x6F\x70\x6C\x61\x79\x54\x65\x78\x74\x5F\x46\x72\x65\x65\x63\x65\x6C\x6C\x53\x6F\x6C\x69\x74\x61\x69\x72\x65\x32",
+      740,
+      60,
+      30,
+      130,
+      gameContainer,
+      this.data
+    );
+    languageUI.scaleTexts();
+  }
+  function _0x120D1() {
+    while (this.data.length > 0) {
+      var _0x114CB = this.data.pop();
+      if (_0x114CB && _0x114CB.parentNode) {
+        _0x114CB.parentNode.removeChild(_0x114CB);
+      }
+    }
+  }
+  function _0x1210A() {
+    while (this.data.length > 0) {
+      var _0x114CB = this.data.pop();
+      if (_0x114CB && _0x114CB.parentNode) {
+        _0x114CB.parentNode.removeChild(_0x114CB);
+      }
+    }
+    clearInterval(GamePlay.timeID);
+  }
+  function _0x12143() {
+    var _0x1153D = Math.floor(this.time / 30);
+    var _0x114CB = "" + Math.floor(_0x1153D / 60);
+    if (_0x114CB.length == 1) {
+      _0x114CB = "\x30" + _0x114CB;
+    }
+    var _0x11504 = "" + Math.floor(_0x1153D % 60);
+    if (_0x11504.length == 1) {
+      _0x11504 = "\x30" + _0x11504;
+    }
+    this.txtTime.innerHTML = _0x114CB + "\x3A" + _0x11504;
+  }
+  function _0x1217C(_0x114CB) {
+    this.score += _0x114CB;
+    this.txtScore.innerHTML = "" + this.score;
+  }
+  function _0x121B5() {
+    var _0x11504 = CreateGame.CreatedImg(
+      "\x66\x61\x63\x65\x5F\x70\x61\x75\x73\x65",
+      0,
+      0,
+      this.pause,
+      this.data
+    );
+    _0x11504 = languageUI.getButton(
+      "\x64\x5F\x43\x6F\x6E\x74\x69\x6E\x75\x65",
+      240,
+      56,
+      205,
+      113,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.pause,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x11504).on("\x74\x61\x70", function (_0x114CB) {
+      GamePlay.pause.style.display = "\x6E\x6F\x6E\x65";
+    });
+    _0x11504 = languageUI.getButton(
+      "\x64\x5F\x4D\x65\x6E\x75",
+      240,
+      56,
+      205,
+      179,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.pause,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x11504).on("\x74\x61\x70", function (_0x114CB) {
+      GameMenu.maskGo(2, 4);
+    });
+    var _0x1153D = languageUI.getButton(
+      "\x64\x5F\x53\x6F\x75\x6E\x64\x6F\x6E",
+      240,
+      56,
+      205,
+      245,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.pause,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    var _0x115AF = languageUI.getButton(
+      "\x64\x5F\x53\x6F\x75\x6E\x64\x6F\x66\x66",
+      240,
+      56,
+      205,
+      245,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.pause,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    var _0x11576 = CreateGame.getImg(
+      "\x6D\x75\x73\x69\x63\x31",
+      null,
+      674,
+      247,
+      50,
+      50,
+      this.div888,
+      this.data
+    );
+    var _0x115E8 = CreateGame.getImg(
+      "\x6D\x75\x73\x69\x63\x32",
+      null,
+      674,
+      247,
+      50,
+      50,
+      this.div888,
+      this.data
+    );
+    CreateGame.setButton(_0x11576);
+    CreateGame.setButton(_0x115E8);
+    this.pause.m1 = _0x1153D;
+    this.pause.m2 = _0x115AF;
+    this.pause.m1_ = _0x11576;
+    this.pause.m2_ = _0x115E8;
+    var _0x114CB = function (_0x114CB) {
+      _0x1153D.style.display = "";
+      _0x115AF.style.display = "\x6E\x6F\x6E\x65";
+      _0x11576.style.display = "";
+      _0x115E8.style.display = "\x6E\x6F\x6E\x65";
+      GameSound.muteSound(true);
+    };
+    Hammer(_0x115AF).on("\x74\x61\x70", _0x114CB);
+    Hammer(_0x115E8).on("\x74\x61\x70", _0x114CB);
+    _0x114CB = function (_0x114CB) {
+      _0x1153D.style.display = "\x6E\x6F\x6E\x65";
+      _0x115AF.style.display = "";
+      _0x11576.style.display = "\x6E\x6F\x6E\x65";
+      _0x115E8.style.display = "";
+      GameSound.muteSound(false);
+    };
+    Hammer(_0x1153D).on("\x74\x61\x70", _0x114CB);
+    Hammer(_0x11576).on("\x74\x61\x70", _0x114CB);
+    var _0x11621 = languageUI.getButton(
+      "\x64\x5F\x4D\x75\x73\x69\x63\x6F\x6E",
+      240,
+      56,
+      205,
+      311,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.pause,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    var _0x11693 = languageUI.getButton(
+      "\x64\x5F\x4D\x75\x73\x69\x63\x6F\x66\x66",
+      240,
+      56,
+      205,
+      311,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.pause,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    var _0x1165A = CreateGame.getImg(
+      "\x73\x6F\x75\x6E\x64\x31",
+      null,
+      736,
+      247,
+      50,
+      50,
+      this.div888,
+      this.data
+    );
+    var _0x116CC = CreateGame.getImg(
+      "\x73\x6F\x75\x6E\x64\x32",
+      null,
+      736,
+      247,
+      50,
+      50,
+      this.div888,
+      this.data
+    );
+    CreateGame.setButton(_0x1165A);
+    CreateGame.setButton(_0x116CC);
+    this.pause.s1 = _0x11621;
+    this.pause.s2 = _0x11693;
+    this.pause.s1_ = _0x1165A;
+    this.pause.s2_ = _0x116CC;
+    _0x114CB = function () {
+      _0x11621.style.display = "";
+      _0x11693.style.display = "\x6E\x6F\x6E\x65";
+      _0x1165A.style.display = "";
+      _0x116CC.style.display = "\x6E\x6F\x6E\x65";
+      GameSound.muteMusic(true);
+    };
+    Hammer(_0x11693).on("\x74\x61\x70", _0x114CB);
+    Hammer(_0x116CC).on("\x74\x61\x70", _0x114CB);
+    _0x114CB = function () {
+      _0x11621.style.display = "\x6E\x6F\x6E\x65";
+      _0x11693.style.display = "";
+      _0x1165A.style.display = "\x6E\x6F\x6E\x65";
+      _0x116CC.style.display = "";
+      GameSound.muteMusic(false);
+    };
+    Hammer(_0x11621).on("\x74\x61\x70", _0x114CB);
+    Hammer(_0x1165A).on("\x74\x61\x70", _0x114CB);
+    if (GameSound.musicMuted) {
+      GamePlay.pause.s1_.style.display = "";
+      GamePlay.pause.s2_.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.pause.s1.style.display = "";
+      GamePlay.pause.s2.style.display = "\x6E\x6F\x6E\x65";
+    } else {
+      GamePlay.pause.s1_.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.pause.s2_.style.display = "";
+      GamePlay.pause.s1.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.pause.s2.style.display = "";
+    }
+    if (GameSound.soundMuted) {
+      GamePlay.pause.m1_.style.display = "";
+      GamePlay.pause.m2_.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.pause.m1.style.display = "";
+      GamePlay.pause.m2.style.display = "\x6E\x6F\x6E\x65";
+    } else {
+      GamePlay.pause.m1_.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.pause.m2_.style.display = "";
+      GamePlay.pause.m1.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.pause.m2.style.display = "";
+    }
+  }
+  function _0x121EE() {
+    var _0x114CB = CreateGame.CreatedImg(
+      "\x65\x6E\x64\x5F\x62\x61\x63\x6B",
+      0,
+      0,
+      this.timeOutDiv,
+      this.data
+    );
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x45\x6E\x64\x67\x61\x6D\x65",
+      240,
+      56,
+      205,
+      306,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.timeOutDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GamePlay.timeOutDiv.style.display = "\x6E\x6F\x6E\x65";
+      GameMenu.maskGo(5, 4);
+    });
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x50\x6C\x61\x79\x41\x67\x61\x69\x6E",
+      240,
+      56,
+      205,
+      240,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.timeOutDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GamePlay.timeOutDiv.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.addGame();
+    });
+    languageUI.getButton(
+      "\x64\x5F\x4C\x65\x76\x65\x6C\x46\x61\x69\x6C\x65\x64",
+      0,
+      0,
+      175,
+      130,
+      300,
+      60,
+      0,
+      0,
+      false,
+      this.timeOutDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      44,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+  }
+  function _0x12227() {
+    var _0x114CB = CreateGame.CreatedImg(
+      "\x65\x6E\x64\x5F\x62\x61\x63\x6B",
+      0,
+      0,
+      this.restartDiv,
+      this.data
+    );
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x4E\x6F",
+      240,
+      56,
+      205,
+      306,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.restartDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GamePlay.restartDiv.style.display = "\x6E\x6F\x6E\x65";
+    });
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x59\x65\x73",
+      240,
+      56,
+      205,
+      240,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.restartDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GamePlay.restartDiv.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.addGame();
+    });
+    languageUI.getButton(
+      "\x64\x5F\x52\x65\x73\x74\x61\x72\x74\x5F",
+      0,
+      0,
+      175,
+      130,
+      300,
+      60,
+      0,
+      0,
+      false,
+      this.restartDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      44,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+  }
+  function _0x12260() {
+    var _0x114CB = languageUI.getButton(
+      "\x64\x5F\x45\x6E\x64\x67\x61\x6D\x65",
+      240,
+      56,
+      370,
+      414,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.nopossibleDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E\x31",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GamePlay.nopossibleDiv.style.display = "\x6E\x6F\x6E\x65";
+      GameMenu.maskGo(5, 4);
+    });
+    languageUI.getButton(
+      "\x64\x5F\x4E\x6F\x70\x6F\x73\x73\x69\x62\x6C\x65\x6D\x6F\x76\x65\x73",
+      0,
+      0,
+      50,
+      422,
+      310,
+      40,
+      0,
+      0,
+      false,
+      this.nopossibleDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x6C\x65\x66\x74",
+      30,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+  }
+  function _0x12299() {
+    var _0x114CB = CreateGame.CreatedImg(
+      "\x66\x61\x63\x65\x5F\x6C\x65\x76\x65\x6C",
+      0,
+      0,
+      this.levelDiv,
+      this.data
+    );
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x45\x6E\x64\x67\x61\x6D\x65",
+      240,
+      56,
+      205,
+      306,
+      214,
+      34,
+      13,
+      12,
+      true,
+      this.levelDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GameMenu.maskGo(5, 4);
+    });
+    languageUI.getButton(
+      "\x64\x5F\x4C\x65\x76\x65\x6C\x43\x6F\x6D\x70\x6C\x65\x74\x65\x64",
+      0,
+      0,
+      175,
+      130,
+      300,
+      60,
+      0,
+      0,
+      false,
+      this.levelDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      44,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    languageUI.getButton(
+      "\x64\x5F\x42\x6F\x6E\x75\x73",
+      0,
+      0,
+      225,
+      214,
+      200,
+      40,
+      0,
+      0,
+      false,
+      this.levelDiv,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      28,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    this.levelDiv.txtBonus = CreateGame.CreatedShowNumber(
+      265,
+      259,
+      120,
+      22,
+      this.levelDiv,
+      this.data
+    );
+  }
+  function _0x122D2() {
+    if (this.levelDiv.style.display == "") {
+      return;
+    }
+    var _0x114CB = Math.floor(this.time / 3) * 5;
+    this.levelDiv.style.display = "";
+    this.levelDiv.className = "\x66\x61\x6C\x6C\x64\x6F\x77\x6E";
+    ThirdParty.levelComplete(1);
+    this.addScore(_0x114CB);
+    this.levelDiv.txtBonus.innerHTML = _0x114CB + "";
+    ThirdParty.gameComplete();
+  }
+  function _0x1230B() {
+    if (screenfull.isFullscreen) {
+      GamePlay.fullscreen_on.style.display = "\x6E\x6F\x6E\x65";
+      GamePlay.fullscreen_off.style.display = "";
+    } else {
+      GamePlay.fullscreen_on.style.display = "";
+      GamePlay.fullscreen_off.style.display = "\x6E\x6F\x6E\x65";
+    }
+  }
+  function _0x12344() {
+    GamePlay.pause.style.display = "";
+    GamePlay.pause.style.zIndex = 10001;
+    GamePlay.pause.className = "\x66\x61\x6C\x6C\x64\x6F\x77\x6E";
+  }
+  function _0x1237D() {
+    if (!this.idleListenerAdded) {
+      window.addEventListener(
+        "\x69\x64\x6C\x65",
+        function () {
+          setTimeout(GamePlay.pauseGame, 300);
+        },
+        false
+      );
+      this.idleListenerAdded = true;
+    }
+    this.timeID = setInterval(this.onFrame, 33);
+    var _0x114CB = CreateGame.CreatedImg(
+      "\x67\x61\x6D\x65\x5F\x62\x61\x63\x6B",
+      0,
+      0,
+      gameContainer,
+      this.data
+    );
+    this.div_all = CreateGame.CreatedDiv(0, 0, gameContainer, this.data);
+    this.div_all.style.display = "";
+    this.div_all.style.overflow = "\x68\x69\x64\x64\x65\x6E";
+    this.div_all.style.width = "\x38\x30\x30\x70\x78";
+    this.div_all.style.height = "\x34\x38\x30\x70\x78";
+    this.div_all.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    this.div_all.style.zIndex = 900;
+    GameSound.playMusic();
+    this.div888 = CreateGame.CreatedDiv(0, 0, gameContainer, this.data);
+    this.div888.style.display = "";
+    this.div888.style.zIndex = 902;
+    this.div888.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    Hammer(this.div_all).on(
+      "\x64\x72\x61\x67\x73\x74\x61\x72\x74",
+      GamePlay.startDragEvent
+    );
+    Hammer(this.div_all).on("\x64\x72\x61\x67", GamePlay.dragEvent);
+    Hammer(this.div_all).on(
+      "\x64\x72\x61\x67\x65\x6E\x64",
+      GamePlay.endDragEvent
+    );
+    Hammer(this.div_all).on("\x74\x61\x70", GamePlay.tapEvent);
+    if (
+      ThirdParty.enableFullscreenToggle &&
+      screenfull.enabled &&
+      !window.matchMedia(
+        "\x28\x64\x69\x73\x70\x6C\x61\x79\x2D\x6D\x6F\x64\x65\x3A\x20\x73\x74\x61\x6E\x64\x61\x6C\x6F\x6E\x65\x29"
+      ).matches
+    ) {
+      this.fullscreen_on = CreateGame.getImg(
+        "\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x5F\x6F\x6E",
+        null,
+        736,
+        185,
+        50,
+        50,
+        this.div888,
+        this.data
+      );
+      this.fullscreen_off = CreateGame.getImg(
+        "\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x5F\x6F\x66\x66",
+        null,
+        736,
+        185,
+        50,
+        50,
+        this.div888,
+        this.data
+      );
+      Hammer(this.fullscreen_on).on("\x74\x61\x70", function () {
+        screenfull.toggle();
+      });
+      Hammer(this.fullscreen_off).on("\x74\x61\x70", function () {
+        screenfull.toggle();
+      });
+      document.addEventListener(
+        screenfull.raw.fullscreenchange,
+        GamePlay.fullscreenChange
+      );
+      this.fullscreenChange();
+      _0x114CB = CreateGame.getImg(
+        "\x70\x31",
+        null,
+        674,
+        185,
+        50,
+        50,
+        this.div888,
+        this.data
+      );
+    } else {
+      _0x114CB = CreateGame.getImg(
+        "\x70\x31",
+        null,
+        705,
+        185,
+        50,
+        50,
+        this.div888,
+        this.data
+      );
+    }
+    CreateGame.setButton(_0x114CB);
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GamePlay.pauseGame();
+    });
+    languageUI.getButton(
+      "\x64\x5F\x53\x63\x6F\x72\x65",
+      0,
+      0,
+      680,
+      20,
+      100,
+      30,
+      0,
+      0,
+      false,
+      gameContainer,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      20,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    languageUI.getButton(
+      "\x64\x5F\x54\x69\x6D\x65",
+      0,
+      0,
+      680,
+      100,
+      100,
+      30,
+      0,
+      0,
+      false,
+      gameContainer,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E",
+      "\x63\x65\x6E\x74\x65\x72",
+      20,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    this.txtScore = CreateGame.CreatedShowNumber(
+      680,
+      56,
+      100,
+      22,
+      this.div888,
+      this.data
+    );
+    this.txtTime = CreateGame.CreatedShowNumber(
+      680,
+      136,
+      100,
+      22,
+      this.div888,
+      this.data
+    );
+    this.btUndo = languageUI.getButton(
+      "\x64\x5F\x55\x6E\x64\x6F",
+      130,
+      46,
+      665,
+      310,
+      98,
+      34,
+      5,
+      6,
+      false,
+      this.div888,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E\x32",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72\x31"
+    );
+    this.btUndo.bt = languageUI.getButton(
+      "\x64\x5F\x55\x6E\x64\x6F",
+      130,
+      46,
+      665,
+      310,
+      98,
+      34,
+      5,
+      6,
+      true,
+      this.div888,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E\x31",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(this.btUndo.bt).on("\x74\x61\x70", function (_0x114CB) {
+      if (GamePlay.flyArr.length == 0 && GamePlay.fanArr.length == 0) {
+        GamePlay.goUndo();
+      }
+    });
+    this.btUndo.txt1 = CreateGame.CreatedShowNumber(
+      105,
+      12,
+      20,
+      22,
+      this.btUndo,
+      this.data,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72\x31"
+    );
+    this.btUndo.txt1.innerHTML = 3;
+    this.btUndo.txt2 = CreateGame.CreatedShowNumber(
+      105,
+      12,
+      20,
+      22,
+      this.btUndo.bt,
+      this.data
+    );
+    this.btUndo.txt2.innerHTML = 3;
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x52\x65\x73\x74\x61\x72\x74",
+      130,
+      46,
+      665,
+      365,
+      120,
+      34,
+      5,
+      6,
+      false,
+      this.div888,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E\x31",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x114CB) {
+      GamePlay.restartDiv.style.display = "";
+      GamePlay.restartDiv.className = "\x66\x61\x6C\x6C\x64\x6F\x77\x6E";
+    });
+    _0x114CB = languageUI.getButton(
+      "\x64\x5F\x43\x61\x72\x64\x73",
+      130,
+      46,
+      665,
+      420,
+      120,
+      34,
+      5,
+      6,
+      false,
+      this.div888,
+      this.data,
+      "\x62\x75\x74\x74\x6F\x6E\x31",
+      "\x63\x65\x6E\x74\x65\x72",
+      22,
+      "\x62\x74\x6E\x75\x6D\x62\x65\x72"
+    );
+    Hammer(_0x114CB).on("\x74\x61\x70", function (_0x11504) {
+      for (var _0x1153D = 0; _0x1153D < GamePlay.playArr.length; _0x1153D++) {
+        var _0x114CB = GamePlay.playArr[_0x1153D];
+        if (_0x114CB.aa) {
+          _0x114CB.aa = false;
+          _0x114CB.img = CreateGame.getImg(
+            "\x62" + _0x114CB.idInt,
+            _0x114CB.img,
+            0,
+            0,
+            72,
+            110,
+            _0x114CB,
+            null,
+            1
+          );
+        } else {
+          _0x114CB.aa = true;
+          _0x114CB.img = CreateGame.getImg(
+            "\x61" + _0x114CB.idInt,
+            _0x114CB.img,
+            0,
+            0,
+            72,
+            110,
+            _0x114CB,
+            null,
+            1
+          );
+        }
+      }
+    });
+    this.pause = CreateGame.CreatedDiv(
+      0,
+      0,
+      gameContainer,
+      this.data,
+      "\x6E\x6F\x6E\x65",
+      10001
+    );
+    this.levelDiv = CreateGame.CreatedDiv(
+      0,
+      0,
+      gameContainer,
+      this.data,
+      "\x6E\x6F\x6E\x65",
+      1000
+    );
+    this.nopossibleDiv = CreateGame.CreatedDiv(
+      0,
+      0,
+      gameContainer,
+      this.data,
+      "\x6E\x6F\x6E\x65",
+      1000
+    );
+    this.timeOutDiv = CreateGame.CreatedDiv(
+      0,
+      0,
+      gameContainer,
+      this.data,
+      "\x6E\x6F\x6E\x65",
+      1000
+    );
+    this.restartDiv = CreateGame.CreatedDiv(
+      0,
+      0,
+      gameContainer,
+      this.data,
+      "\x6E\x6F\x6E\x65",
+      1000
+    );
+    this.createTimeOutDiv();
+    this.createLevelDiv();
+    this.createPause();
+    this.createRestartDiv();
+    this.createNopossibleDiv();
+    languageUI.scaleTexts();
+    if (GameConfig.debug) {
+      _0x114CB = CreateGame.CreatedImg(
+        "\x64\x65\x42\x75\x67",
+        594,
+        450,
+        gameContainer,
+        GamePlay.data
+      );
+      _0x114CB.className = "\x6D\x6F\x73\x75\x65\x32\x44\x69\x76";
+      _0x114CB.style.zIndex = 903;
+      _0x114CB.onclick = function () {
+        GamePlay.levelUp();
+      };
+    }
+    this.addGame();
+  }
+  function _0x123B6() {
+    this.score = 0;
+    this.addScore(0);
+    this.time = 10 * 60 * 30;
+    this.showTime();
+    this.btUndo.style.display = "";
+    this.btUndo.bt.style.display = "\x6E\x6F\x6E\x65";
+    this.btUndo.num = 3;
+    this.btUndo.txt1.innerHTML = this.btUndo.num;
+    this.btUndo.txt2.innerHTML = this.btUndo.num;
+    while (this.playArr.length > 0) {
+      var _0x1153D = this.playArr.pop();
+      if (_0x1153D && _0x1153D.parentNode) {
+        _0x1153D.parentNode.removeChild(_0x1153D);
+      }
+    }
+    this.dataArr.splice(0);
+    for (_0x115AF = 0; _0x115AF < 16; _0x115AF++) {
+      this.dataArr.push([]);
+    }
+    this.fanArr.splice(0);
+    this.flyArr.splice(0);
+    this.arrUndo.splice(0);
+    var _0x114CB = [];
+    for (var _0x11576 = 1; _0x11576 < 53; _0x11576++) {
+      _0x114CB.push(_0x11576);
+    }
+    _0x114CB = CreateGame.disorder(_0x114CB);
+    var _0x115E8 = 0;
+    for (var _0x115AF = 0; _0x115AF < 7; _0x115AF++) {
+      for (_0x11576 = 0; _0x11576 < 8; _0x11576++) {
+        if (_0x114CB.length > 0) {
+          var _0x11504 = this.getPuKe(_0x114CB.pop());
+          this.dataArr[_0x11576].push(_0x11504);
+          _0x11504.style.left = -100 + "\x70\x78";
+          _0x11504.style.top = -100 + "\x70\x78";
+          _0x11504.xx1 = parseInt(_0x11504.style.left, 10);
+          _0x11504.yy1 = parseInt(_0x11504.style.top, 10);
+          _0x11504.xx2 = 11 + _0x11576 * 80;
+          _0x11504.yy2 = 120 + this.hh * _0x115AF;
+          _0x11504.ii = _0x11576;
+          _0x11504.jj = _0x115AF;
+          _0x11504.style.zIndex = 100;
+          _0x11504.time = 125 + _0x115E8;
+          _0x11504.idid = 0;
+          _0x11504.fan = (8 - _0x115AF + _0x11576) * 3;
+          this.fanArr.push(_0x11504);
+          this.flyArr.push(_0x11504);
+          _0x115E8 += 3;
+        }
+      }
+    }
+  }
+  function _0x123EF(_0x11504) {
+    var _0x114CB = document.createElement("\x64\x69\x76");
+    _0x114CB.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    _0x114CB.cardName = "\x50\x75\x4B\x65";
+    _0x114CB.idInt = _0x11504;
+    _0x114CB.numInt = Math.floor((_0x114CB.idInt - 1) / 4) + 1;
+    _0x114CB.colorInt = Math.floor((_0x114CB.idInt - 1) % 4) + 1;
+    if (_0x114CB.colorInt == 1) {
+      _0x114CB.colorInt = 2;
+    } else {
+      if (_0x114CB.colorInt == 2) {
+        _0x114CB.colorInt = 1;
+      }
+    }
+    if (_0x114CB.colorInt == 1 || _0x114CB.colorInt == 3) {
+      _0x114CB.colorBlack = true;
+    } else {
+      _0x114CB.colorBlack = false;
+    }
+    _0x114CB.aa = true;
+    _0x114CB.img = CreateGame.getImg(
+      "\x61" + _0x11504,
+      null,
+      0,
+      0,
+      72,
+      110,
+      _0x114CB,
+      null,
+      1
+    );
+    _0x114CB.back = CreateGame.getImg(
+      "\x61\x35\x33",
+      null,
+      0,
+      0,
+      72,
+      110,
+      _0x114CB,
+      null,
+      2
+    );
+    this.playArr.push(_0x114CB);
+    this.div_all.appendChild(_0x114CB);
+    return _0x114CB;
+  }
+  function _0x12428(_0x114CB) {
+    if (_0x114CB > 7) {
+      return;
+    }
+    if (this.dataArr[_0x114CB].length < 12) {
+      for (
+        var _0x11576 = 0;
+        _0x11576 < this.dataArr[_0x114CB].length;
+        _0x11576++
+      ) {
+        var _0x11504 = this.dataArr[_0x114CB][_0x11576];
+        _0x11504.style.top = 120 + this.hh * _0x11576 + "\x70\x78";
+      }
+    } else {
+      var _0x1153D =
+        Math.floor((100 * this.hh) / (this.dataArr[_0x114CB].length - 1)) / 10;
+      for (_0x11576 = 0; _0x11576 < this.dataArr[_0x114CB].length; _0x11576++) {
+        _0x11504 = this.dataArr[_0x114CB][_0x11576];
+        _0x11504.style.top = 120 + _0x1153D * _0x11576 + "\x70\x78";
+      }
+    }
+  }
+  function _0x12461(_0x114CB) {
+    if (this.dataArr[_0x114CB].length < 12) {
+      return this.hh;
+    } else {
+      return (
+        Math.floor((100 * this.hh) / (this.dataArr[_0x114CB].length - 1) + 1) /
+        10
+      );
+    }
+  }
+  function _0x1249A(_0x114CB) {
+    if (this.btUndo.num > 0) {
+      this.arrUndo.push(_0x114CB);
+      this.btUndo.style.display = "\x6E\x6F\x6E\x65";
+      this.btUndo.bt.style.display = "";
+    }
+  }
+  function _0x124D3() {
+    var _0x115E8 = this.arrUndo.pop();
+    if (_0x115E8.ss) {
+      this.addScore(-10);
+    }
+    if (_0x115E8.type == 3) {
+    } else {
+      if (_0x115E8.type == 2 || _0x115E8.type == 1) {
+        var _0x11504 = _0x115E8.div;
+        var _0x11576 = _0x11504.ii;
+        var _0x115AF = 0;
+        for (
+          var _0x1153D = _0x11504.jj;
+          _0x1153D < this.dataArr[_0x11576].length;
+          _0x1153D++
+        ) {
+          var _0x114CB = this.dataArr[_0x11576][_0x1153D];
+          _0x114CB.ii = _0x115E8.ii;
+          _0x114CB.jj = this.dataArr[_0x114CB.ii].length;
+          this.dataArr[_0x114CB.ii].push(_0x114CB);
+          if (_0x114CB.ii < 8) {
+            _0x114CB.style.left = 11 + _0x114CB.ii * 80 + "\x70\x78";
+            _0x114CB.style.top =
+              120 + this.getHH(_0x114CB.ii) * _0x114CB.jj + "\x70\x78";
+          } else {
+            _0x114CB.style.left =
+              GameConfig.xxxxArr[_0x114CB.ii - 8] + "\x70\x78";
+            _0x114CB.style.top = 7 + "\x70\x78";
+          }
+          _0x114CB.style.zIndex = _0x114CB.jj;
+          _0x115AF++;
+        }
+        while (_0x115AF > 0) {
+          _0x115AF--;
+          this.dataArr[_0x11576].pop();
+        }
+      }
+    }
+    for (_0x1153D = 0; _0x1153D < 7; _0x1153D++) {
+      this.showHH(_0x1153D);
+    }
+    this.btUndo.num--;
+    this.btUndo.txt1.innerHTML = this.btUndo.num;
+    this.btUndo.txt2.innerHTML = this.btUndo.num;
+    if (this.arrUndo.length == 0 || this.btUndo.num <= 0) {
+      this.btUndo.style.display = "";
+      this.btUndo.bt.style.display = "\x6E\x6F\x6E\x65";
+    }
+    this.nopossibleDiv.style.display = "\x6E\x6F\x6E\x65";
+  }
+  function _0x1250C() {
+    var _0x115AF = 0;
+    for (var _0x1153D = 0; _0x1153D < 12; _0x1153D++) {
+      if (this.dataArr[_0x1153D].length > 0) {
+        var _0x11504 =
+          this.dataArr[_0x1153D][this.dataArr[_0x1153D].length - 1];
+        if (_0x11504.numInt == 1) {
+          _0x115AF = _0x11504.colorInt + 11;
+          break;
+        } else {
+          var _0x11576 = _0x11504.colorInt + 11;
+          if (GamePlay.dataArr[_0x11576].length > 0) {
+            var _0x114CB =
+              GamePlay.dataArr[_0x11576][GamePlay.dataArr[_0x11576].length - 1];
+            if (_0x114CB && _0x11504.numInt == _0x114CB.numInt + 1) {
+              _0x115AF = _0x11576;
+              break;
+            }
+          }
+        }
+      }
+    }
+    if (_0x115AF > 0 && _0x11504) {
+      var _0x115E8 = { type: 2 };
+      _0x115E8.div = _0x11504;
+      _0x115E8.ii = _0x11504.ii;
+      GamePlay.saveUndo(_0x115E8);
+      _0x115E8.ss = true;
+      GamePlay.addScore(10);
+      this.dataArr[_0x11504.ii].pop();
+      _0x11504.xx1 = parseInt(_0x11504.style.left, 10);
+      _0x11504.yy1 = parseInt(_0x11504.style.top, 10);
+      _0x11504.xx2 = GameConfig.xxxxArr[_0x115AF - 8];
+      _0x11504.yy2 = 7;
+      _0x11504.ii = _0x115AF;
+      _0x11504.jj = this.dataArr[_0x11504.ii].length;
+      _0x11504.style.zIndex = 100;
+      _0x11504.time = 120 + _0x11504.numInt;
+      _0x11504.idid = 0;
+      this.flyArr.push(_0x11504);
+      this.dataArr[_0x11504.ii].push(_0x11504);
+    }
+  }
+  function _0x12545() {
+    this.nopossibleDiv.style.display = "\x6E\x6F\x6E\x65";
+    if (
+      this.dataArr[12].length == 13 &&
+      this.dataArr[13].length == 13 &&
+      this.dataArr[14].length == 13 &&
+      this.dataArr[15].length == 13
+    ) {
+      this.levelUp();
+      return;
+    }
+    this.checkingMove();
+    for (_0x11576 = 0; _0x11576 < 12; _0x11576++) {
+      if (this.dataArr[_0x11576].length == 0) {
+        return;
+      }
+      _0x11504 = this.dataArr[_0x11576][this.dataArr[_0x11576].length - 1];
+      _0x115AF = _0x11504.colorInt + 11;
+      if (this.dataArr[_0x115AF].length > 0) {
+        _0x1153D = this.dataArr[_0x115AF][this.dataArr[_0x115AF].length - 1];
+      } else {
+        _0x1153D = null;
+      }
+      if (_0x11504.numInt == 1) {
+        return;
+      } else {
+        if (_0x1153D && _0x11504.numInt == _0x1153D.numInt + 1) {
+          return;
+        }
+      }
+    }
+    var _0x114CB = [];
+    var _0x115E8 = false;
+    for (var _0x11576 = 0; _0x11576 < 8; _0x11576++) {
+      var _0x11504 = this.dataArr[_0x11576][this.dataArr[_0x11576].length - 1];
+      for (_0x115AF = 8; _0x115AF < 12; _0x115AF++) {
+        var _0x1153D = this.dataArr[_0x115AF][0];
+        if (
+          _0x1153D.colorInt == _0x11504.colorInt &&
+          _0x1153D.numInt == _0x11504.numInt - 1
+        ) {
+          return;
+        }
+      }
+      _0x114CB.push(_0x11504);
+    }
+    for (_0x11576 = 0; _0x11576 < 8; _0x11576++) {
+      if (this.dataArr[_0x11576].length > 1) {
+        for (
+          _0x115AF = this.dataArr[_0x11576].length - 1;
+          _0x115AF > 0;
+          _0x115AF--
+        ) {
+          _0x11504 = this.dataArr[_0x11576][_0x115AF];
+          _0x1153D = this.dataArr[_0x11576][_0x115AF - 1];
+          if (
+            _0x1153D.colorInt == _0x11504.colorInt &&
+            _0x1153D.numInt == _0x11504.numInt + 1
+          ) {
+            if (_0x115AF == 1) {
+              _0x11504 = _0x1153D;
+            }
+          } else {
+            break;
+          }
+        }
+      } else {
+        _0x11504 = this.dataArr[_0x11576][this.dataArr[_0x11576].length - 1];
+      }
+      for (var _0x115AF = 0; _0x115AF < _0x114CB.length; _0x115AF++) {
+        _0x1153D = _0x114CB[_0x115AF];
+        if (
+          _0x1153D.colorInt == _0x11504.colorInt &&
+          _0x1153D.numInt == _0x11504.numInt + 1
+        ) {
+          return;
+        }
+      }
+    }
+    this.nopossibleDiv.style.display = "";
+  }
+  function _0x1257E(_0x11576) {
+    _0x11576.preventDefault();
+    var _0x11504 = _0x11576.target.parentNode;
+    if (
+      GamePlay.fanArr.length == 0 &&
+      _0x11504.cardName == "\x50\x75\x4B\x65" &&
+      GamePlay.downDiv == null &&
+      GamePlay.flyArr.length == 0 &&
+      _0x11504.ii < 12
+    ) {
+      GamePlay.downX = MouseUtil.getMouseX(_0x11576);
+      GamePlay.downY = MouseUtil.getMouseY(_0x11576);
+      if (_0x11504.ii < 8) {
+        var _0x11621 = 13;
+        for (_0x115AF = 0; _0x115AF < 12; _0x115AF++) {
+          if (GamePlay.dataArr[_0x115AF].length > 0) {
+            _0x11621--;
+          }
+        }
+        var _0x1165A = _0x11504.numInt;
+        var _0x114CB = _0x11504.colorInt;
+        for (
+          var _0x115E8 = _0x11504.jj + 1;
+          _0x115E8 < GamePlay.dataArr[_0x11504.ii].length;
+          _0x115E8++
+        ) {
+          var _0x1153D = GamePlay.dataArr[_0x11504.ii][_0x115E8];
+          if (
+            _0x1153D.numInt + 1 == _0x1165A &&
+            _0x114CB == _0x1153D.colorInt
+          ) {
+          } else {
+            return;
+          }
+          _0x1165A = _0x1153D.numInt;
+          _0x114CB = _0x1153D.colorInt;
+          _0x11621--;
+        }
+        if (_0x11621 <= 0) {
+          return;
+        }
+        GamePlay.downDiv = _0x11504;
+        GamePlay.index = parseInt(_0x11504.style.zIndex, 10);
+        GamePlay.divX = parseInt(_0x11504.style.left, 10);
+        GamePlay.divY = parseInt(_0x11504.style.top, 10);
+        GamePlay.downDiv.arr = [];
+        _0x11504.style.zIndex = 200;
+        var _0x115AF = 0;
+        for (
+          _0x115E8 = _0x11504.jj + 1;
+          _0x115E8 < GamePlay.dataArr[_0x11504.ii].length;
+          _0x115E8++
+        ) {
+          _0x115AF++;
+          _0x1153D = GamePlay.dataArr[_0x11504.ii][_0x115E8];
+          GamePlay.downDiv.arr.push(_0x1153D);
+          _0x1153D.style.zIndex = 200 + _0x115AF;
+        }
+      } else {
+        _0x11504 =
+          GamePlay.dataArr[_0x11504.ii][
+            GamePlay.dataArr[_0x11504.ii].length - 1
+          ];
+        GamePlay.downDiv = _0x11504;
+        GamePlay.index = parseInt(_0x11504.style.zIndex, 10);
+        GamePlay.divX = parseInt(_0x11504.style.left, 10);
+        GamePlay.divY = parseInt(_0x11504.style.top, 10);
+        _0x11504.style.zIndex = 200;
+        GamePlay.downDiv.arr = [];
+      }
+      GameSound.playSound("\x6E\x65\x78\x74");
+    }
+  }
+  function _0x125B7(_0x11504) {
+    if (GamePlay.downDiv) {
+      GamePlay.clientX = MouseUtil.getMouseX(_0x11504);
+      GamePlay.clientY = MouseUtil.getMouseY(_0x11504);
+      GamePlay.downDiv.style.left =
+        GamePlay.divX + (GamePlay.clientX - GamePlay.downX) + "\x70\x78";
+      GamePlay.downDiv.style.top =
+        GamePlay.divY + (GamePlay.clientY - GamePlay.downY) + "\x70\x78";
+      if (GamePlay.downDiv.arr.length > 0) {
+        var _0x1153D, _0x11576, _0x114CB;
+        for (_0x1153D = 0; _0x1153D < GamePlay.downDiv.arr.length; _0x1153D++) {
+          _0x114CB = GamePlay.downDiv.arr[_0x1153D];
+          _0x114CB.style.left = GamePlay.downDiv.style.left;
+          _0x114CB.style.top =
+            parseInt(GamePlay.downDiv.style.top, 10) +
+            GamePlay.hh * _0x1153D +
+            GamePlay.hh +
+            "\x70\x78";
+        }
+      }
+    }
+  }
+  function _0x125F0(_0x11504) {
+    if (GamePlay.downDiv) {
+      var _0x11621 = parseInt(GamePlay.downDiv.style.left, 10);
+      var _0x1165A = parseInt(GamePlay.downDiv.style.top, 10);
+      var _0x1153D, _0x11576, _0x114CB;
+      _0x11576 = 100;
+      if (_0x1165A < 63) {
+        if (_0x11621 < 50) {
+          _0x11576 = 8;
+        } else {
+          if (_0x11621 < 127) {
+            _0x11576 = 9;
+          } else {
+            if (_0x11621 < 204) {
+              _0x11576 = 10;
+            } else {
+              if (_0x11621 < 292) {
+                _0x11576 = 11;
+              } else {
+                if (_0x11621 < 380) {
+                  _0x11576 = 12;
+                } else {
+                  if (_0x11621 < 457) {
+                    _0x11576 = 13;
+                  } else {
+                    if (_0x11621 < 534) {
+                      _0x11576 = 14;
+                    } else {
+                      if (_0x11621 < 620) {
+                        _0x11576 = 15;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        if (_0x11621 < 51) {
+          _0x11576 = 0;
+        } else {
+          if (_0x11621 < 51 + 80) {
+            _0x11576 = 1;
+          } else {
+            if (_0x11621 < 51 + 80 * 2) {
+              _0x11576 = 2;
+            } else {
+              if (_0x11621 < 51 + 80 * 3) {
+                _0x11576 = 3;
+              } else {
+                if (_0x11621 < 51 + 80 * 4) {
+                  _0x11576 = 4;
+                } else {
+                  if (_0x11621 < 51 + 80 * 5) {
+                    _0x11576 = 5;
+                  } else {
+                    if (_0x11621 < 51 + 80 * 6) {
+                      _0x11576 = 6;
+                    } else {
+                      if (_0x11621 < 620) {
+                        _0x11576 = 7;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      if (_0x11576 == GamePlay.downDiv.ii) {
+        _0x11576 = 100;
+      } else {
+        if (_0x11576 < 100) {
+          if (_0x11576 > 7) {
+            if (GamePlay.downDiv.arr.length > 0) {
+              _0x11576 = 100;
+            } else {
+              if (_0x11576 < 12) {
+                if (GamePlay.dataArr[_0x11576].length > 0) {
+                  _0x11576 = 100;
+                }
+              } else {
+                if (GamePlay.dataArr[_0x11576].length > 0) {
+                  _0x115AF =
+                    GamePlay.dataArr[_0x11576][
+                      GamePlay.dataArr[_0x11576].length - 1
+                    ].numInt;
+                  if (
+                    _0x115AF == GamePlay.downDiv.numInt - 1 &&
+                    GamePlay.dataArr[_0x11576][
+                      GamePlay.dataArr[_0x11576].length - 1
+                    ].colorInt == GamePlay.downDiv.colorInt
+                  ) {
+                  } else {
+                    _0x11576 = 100;
+                  }
+                } else {
+                  if (
+                    GamePlay.downDiv.numInt == 1 &&
+                    _0x11576 - 11 == GamePlay.downDiv.colorInt
+                  ) {
+                  } else {
+                    _0x11576 = 100;
+                  }
+                }
+              }
+            }
+          } else {
+            if (GamePlay.dataArr[_0x11576].length > 0) {
+              _0x115AF =
+                GamePlay.dataArr[_0x11576][
+                  GamePlay.dataArr[_0x11576].length - 1
+                ].numInt;
+              if (
+                _0x115AF == GamePlay.downDiv.numInt + 1 &&
+                GamePlay.dataArr[_0x11576][
+                  GamePlay.dataArr[_0x11576].length - 1
+                ].colorInt == GamePlay.downDiv.colorInt
+              ) {
+              } else {
+                _0x11576 = 100;
+              }
+            }
+          }
+        }
+      }
+      if (_0x11576 < 100) {
+        var _0x115E8 = { type: 1 };
+        if (_0x11576 < 8) {
+          _0x114CB = GamePlay.downDiv;
+          _0x115AF = _0x114CB.ii;
+          _0x115E8.div = _0x114CB;
+          _0x115E8.ii = _0x115AF;
+          GamePlay.dataArr[_0x114CB.ii].pop();
+          _0x114CB.ii = _0x11576;
+          _0x114CB.jj = GamePlay.dataArr[_0x114CB.ii].length;
+          GamePlay.dataArr[_0x114CB.ii].push(_0x114CB);
+          _0x114CB.style.zIndex = _0x114CB.jj;
+          _0x114CB.style.left = 11 + _0x114CB.ii * 80 + "\x70\x78";
+          _0x114CB.style.top = 120 + GamePlay.hh * _0x114CB.jj + "\x70\x78";
+          if (GamePlay.downDiv.arr.length > 0) {
+            for (
+              _0x1153D = 0;
+              _0x1153D < GamePlay.downDiv.arr.length;
+              _0x1153D++
+            ) {
+              _0x114CB = GamePlay.downDiv.arr[_0x1153D];
+              GamePlay.dataArr[_0x114CB.ii].pop();
+              _0x114CB.ii = _0x11576;
+              _0x114CB.jj = GamePlay.dataArr[_0x114CB.ii].length;
+              GamePlay.dataArr[_0x114CB.ii].push(_0x114CB);
+              _0x114CB.style.zIndex = _0x114CB.jj;
+              _0x114CB.style.left = GamePlay.downDiv.style.left;
+              _0x114CB.style.top = 120 + GamePlay.hh * _0x114CB.jj + "\x70\x78";
+            }
+          }
+        } else {
+          _0x115E8.type = 2;
+          _0x114CB = GamePlay.downDiv;
+          var _0x115AF = _0x114CB.ii;
+          _0x115E8.div = _0x114CB;
+          _0x115E8.ii = _0x115AF;
+          GamePlay.dataArr[_0x114CB.ii].pop();
+          _0x114CB.ii = _0x11576;
+          _0x114CB.jj = GamePlay.dataArr[_0x114CB.ii].length;
+          GamePlay.dataArr[_0x114CB.ii].push(_0x114CB);
+          _0x114CB.style.zIndex = _0x114CB.jj;
+          _0x114CB.style.left = GameConfig.xxxxArr[_0x11576 - 8] + "\x70\x78";
+          _0x114CB.style.top = "\x37\x70\x78";
+          if (_0x11576 < 12) {
+            _0x115E8.ss = false;
+          } else {
+            _0x115E8.ss = true;
+            GamePlay.addScore(10);
+          }
+        }
+        GamePlay.showHH(_0x115AF);
+        GamePlay.showHH(_0x114CB.ii);
+        GamePlay.downDiv = null;
+        GamePlay.saveUndo(_0x115E8);
+        GamePlay.checkingGo();
+        GameSound.playSound("\x66\x61\x6E");
+        return;
+      }
+      GamePlay.downDiv.style.left = GamePlay.divX + "\x70\x78";
+      GamePlay.downDiv.style.top = GamePlay.divY + "\x70\x78";
+      GamePlay.downDiv.style.zIndex = GamePlay.index;
+      if (GamePlay.downDiv.arr.length > 0) {
+        for (_0x1153D = 0; _0x1153D < GamePlay.downDiv.arr.length; _0x1153D++) {
+          _0x114CB = GamePlay.downDiv.arr[_0x1153D];
+          _0x114CB.style.left = GamePlay.downDiv.style.left;
+          _0x114CB.style.top =
+            parseInt(GamePlay.downDiv.style.top, 10) +
+            GamePlay.getHH(_0x114CB.ii) * _0x1153D +
+            GamePlay.getHH(_0x114CB.ii) +
+            "\x70\x78";
+          _0x114CB.style.zIndex = GamePlay.index + _0x1153D + 1;
+        }
+      }
+      GamePlay.downDiv = null;
+      GameSound.playSound("\x66\x61\x6E");
+    }
+  }
+  function _0x12629(_0x1153D) {
+    _0x1153D.preventDefault();
+    var _0x11504 = _0x1153D.target.parentNode;
+    if (
+      GamePlay.flyArr.length == 0 &&
+      GamePlay.fanArr.length == 0 &&
+      _0x11504.cardName == "\x50\x75\x4B\x65" &&
+      _0x11504.ii < 12
+    ) {
+      if (GamePlay.dataArr[_0x11504.ii].length - 1 == _0x11504.jj) {
+        if (_0x11504.ii < 12) {
+          if (GamePlay.isDow11 == false) {
+            GamePlay.firstDiv = _0x11504;
+            GamePlay.isDow11 = true;
+            setTimeout(function () {
+              GamePlay.isDow11 = false;
+            }, 200);
+            GameSound.playSound("\x6E\x65\x78\x74");
+            return;
+          } else {
+            if (GamePlay.firstDiv == _0x11504) {
+              var _0x115AF = 100;
+              if (_0x11504.numInt == 1) {
+                _0x115AF = _0x11504.colorInt + 11;
+              } else {
+                var _0x11576 = _0x11504.colorInt + 11;
+                if (GamePlay.dataArr[_0x11576].length > 0) {
+                  var _0x114CB =
+                    GamePlay.dataArr[_0x11576][
+                      GamePlay.dataArr[_0x11576].length - 1
+                    ];
+                  if (_0x114CB && _0x11504.numInt == _0x114CB.numInt + 1) {
+                    _0x115AF = _0x11576;
+                  }
+                }
+              }
+              if (_0x115AF == 100 && _0x11504.ii < 8) {
+                if (GamePlay.dataArr[8].length == 0) {
+                  _0x115AF = 8;
+                } else {
+                  if (GamePlay.dataArr[9].length == 0) {
+                    _0x115AF = 9;
+                  } else {
+                    if (GamePlay.dataArr[10].length == 0) {
+                      _0x115AF = 10;
+                    } else {
+                      if (GamePlay.dataArr[11].length == 0) {
+                        _0x115AF = 11;
+                      }
+                    }
+                  }
+                }
+              }
+              if (_0x115AF < 100) {
+                var _0x115E8 = { type: 2 };
+                _0x115E8.div = _0x11504;
+                _0x115E8.ii = _0x11504.ii;
+                GamePlay.saveUndo(_0x115E8);
+                GamePlay.dataArr[_0x11504.ii].pop();
+                GamePlay.showHH(_0x11504.ii);
+                _0x11504.xx1 = parseInt(_0x11504.style.left, 10);
+                _0x11504.yy1 = parseInt(_0x11504.style.top, 10);
+                _0x11504.xx2 = GameConfig.xxxxArr[_0x115AF - 8];
+                _0x11504.yy2 = 7;
+                _0x11504.ii = _0x115AF;
+                if (_0x11504.ii < 12) {
+                  _0x115E8.ss = false;
+                } else {
+                  _0x115E8.ss = true;
+                  GamePlay.addScore(10);
+                }
+                _0x11504.jj = GamePlay.dataArr[_0x115AF].length;
+                _0x11504.style.zIndex = 100;
+                _0x11504.time = 120;
+                _0x11504.idid = 0;
+                GamePlay.flyArr.push(_0x11504);
+                GamePlay.dataArr[_0x115AF].push(_0x11504);
+                GameSound.playSound("\x6F\x6B");
+              } else {
+                GameSound.playSound("\x6E\x65\x78\x74");
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  function _0x12662() {
+    if (
+      GamePlay.pause.style.display == "" ||
+      GamePlay.levelDiv.style.display == "" ||
+      GamePlay.timeOutDiv.style.display == "" ||
+      GamePlay.restartDiv.style.display == ""
+    ) {
+      return;
+    }
+    var _0x1153D = true;
+    for (_0x11504 = 0; _0x11504 < GamePlay.fanArr.length; _0x11504++) {
+      _0x114CB = GamePlay.fanArr[_0x11504];
+      if (GamePlay.flyArr.length == 0) {
+        _0x114CB.fan--;
+        if (_0x114CB.fan == 5) {
+          TransformUtil.scale(_0x114CB, 0.66, 1);
+        } else {
+          if (_0x114CB.fan == 4) {
+            if (_0x1153D) {
+              GameSound.playSound("\x66\x61\x6E");
+              _0x1153D = false;
+            }
+            TransformUtil.scale(_0x114CB, 0.33, 1);
+          } else {
+            if (_0x114CB.fan == 3) {
+              TransformUtil.scale(_0x114CB, 0.01, 1);
+              _0x114CB.back.style.display = "\x6E\x6F\x6E\x65";
+            } else {
+              if (_0x114CB.fan == 2) {
+                TransformUtil.scale(_0x114CB, 0.33, 1);
+              } else {
+                if (_0x114CB.fan == 1) {
+                  TransformUtil.scale(_0x114CB, 0.66, 1);
+                } else {
+                  if (_0x114CB.fan == 0) {
+                    TransformUtil.scale(_0x114CB, 1, 1);
+                    GamePlay.fanArr.splice(_0x11504, 1);
+                    _0x11504--;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    for (var _0x11504 = 0; _0x11504 < GamePlay.flyArr.length; _0x11504++) {
+      var _0x114CB = GamePlay.flyArr[_0x11504];
+      _0x114CB.time--;
+      if (_0x114CB.time < 120 && _0x114CB.time > 114) {
+        _0x114CB.idid++;
+        if (_0x114CB.idid == 5) {
+          _0x114CB.style.left = _0x114CB.xx2 + "\x70\x78";
+          _0x114CB.style.top = _0x114CB.yy2 + "\x70\x78";
+          _0x114CB.style.zIndex = _0x114CB.jj;
+          GamePlay.flyArr.splice(_0x11504, 1);
+          _0x11504--;
+          if (GamePlay.flyArr.length == 0) {
+            GamePlay.checkingGo();
+          }
+          if (_0x114CB.ii < 8) {
+            if (GamePlay.dataArr[_0x114CB.ii].length > 11) {
+              GamePlay.showHH(_0x114CB.ii);
+            }
+            GameSound.playSound("\x66\x6C\x79");
+          }
+        } else {
+          _0x114CB.style.left =
+            _0x114CB.xx1 -
+            ((_0x114CB.xx1 - _0x114CB.xx2) * _0x114CB.idid) / 5 +
+            "\x70\x78";
+          _0x114CB.style.top =
+            _0x114CB.yy1 -
+            ((_0x114CB.yy1 - _0x114CB.yy2) * _0x114CB.idid) / 5 +
+            "\x70\x78";
+        }
+      }
+    }
+    if (GamePlay.fanArr.length == 0) {
+      GamePlay.time--;
+      if (GamePlay.time <= 0) {
+        GamePlay.timeOutDiv.style.display = "";
+        GamePlay.timeOutDiv.className = "\x66\x61\x6C\x6C\x64\x6F\x77\x6E";
+        return;
+      } else {
+        if (GamePlay.time < 30 * 10 && GamePlay.time % 30 == 29) {
+          GameSound.playSound("\x53\x54\x69\x63\x6B");
+        }
+      }
+      GamePlay.showTime();
+    }
+  }
+  function _0x1269B(_0x114CB, _0x11504) {
+    var _0x1153D;
+    if (_0x114CB.currentStyle) {
+      _0x1153D = _0x114CB.currentStyle[_0x11504];
+    } else {
+      if (window.getComputedStyle) {
+        _0x1153D = window
+          .getComputedStyle(_0x114CB, null)
+          .getPropertyValue(_0x11504);
+      }
+    }
+    return _0x1153D;
+  }
+  function _0x126D4(_0x114CB) {
+    this.setXuanZhe(2);
+    if (GameLib.iOSversion !== false) {
+      setTimeout(languageUI.scaleTexts, 100);
+    }
+  }
+  function _0x1270D() {}
+  function _0x12746(
+    _0x116CC,
+    _0x117B0,
+    _0x115E8,
+    _0x11822,
+    _0x11894,
+    _0x117E9,
+    _0x11621,
+    _0x1185B,
+    _0x118CD,
+    _0x1165A,
+    _0x11705,
+    _0x11504,
+    _0x114CB,
+    _0x1173E,
+    _0x115AF,
+    _0x11576
+  ) {
+    var _0x1153D = document.createElement("\x64\x69\x76");
+    _0x1153D.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+    _0x1153D.style.top = _0x11894 + "\x70\x78";
+    _0x1153D.style.left = _0x11822 + "\x70\x78";
+    _0x1153D.style.width = _0x117B0 + "\x70\x78";
+    _0x1153D.style.height = _0x115E8 + "\x70\x78";
+    if (_0x1173E == "\x6C\x65\x66\x74") {
+      _0x1153D.style.textAlign = "\x6C\x65\x66\x74";
+    } else {
+      if (_0x1173E == "\x72\x69\x67\x68\x74") {
+        _0x1153D.style.textAlign = "\x72\x69\x67\x68\x74";
+      } else {
+        _0x1153D.style.textAlign = "\x63\x65\x6E\x74\x65\x72";
+      }
+    }
+    if (_0x1165A) {
+      _0x1153D.style.cursor = "\x70\x6F\x69\x6E\x74\x65\x72";
+      CreateGame.setButton(_0x1153D);
+    } else {
+      _0x1153D.style.cursor = "\x64\x65\x66\x61\x75\x6C\x74";
+    }
+    if (_0x117B0 != 0 && _0x115E8 != 0) {
+      var _0x11693 = document.createElement("\x69\x6D\x67");
+      _0x11693.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+      _0x11693.style.top = 0;
+      _0x11693.style.left = 0;
+      _0x11693.style.width = _0x117B0 + "\x70\x78";
+      _0x11693.style.height = _0x115E8 + "\x70\x78";
+      _0x11693.src = loadRec.resource[_0x114CB].src;
+      _0x1153D.appendChild(_0x11693);
+    }
+    var _0x11777 = document.createElement("\x64\x69\x76");
+    _0x11777.style.top = _0x118CD + "\x70\x78";
+    _0x11777.style.left = _0x1185B + "\x70\x78";
+    _0x11777.style.width = _0x117E9 + "\x70\x78";
+    _0x11777.style.height = _0x11621 + "\x70\x78";
+    if (_0x11576) {
+      _0x11777.className = _0x11576 + "\x20\x6C\x61\x6E\x67\x77\x6F\x72\x64";
+    } else {
+      _0x11777.className =
+        "\x62\x74\x6E\x75\x6D\x62\x65\x72\x20\x6C\x61\x6E\x67\x77\x6F\x72\x64";
+    }
+    _0x11777.innerHTML = languageData[_0x116CC][languageUI.languageInt];
+    _0x11777.h2 = _0x11621;
+    _0x11777.yy = _0x118CD;
+    _0x1153D.appendChild(_0x11777);
+    _0x11705.appendChild(_0x1153D);
+    if (_0x115AF && _0x115AF > 10) {
+      _0x11777.fontSize = _0x115AF;
+    } else {
+      _0x11777.fontSize = languageUI
+        .getStyle(_0x11777, "\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65")
+        .replace("\x70\x78", "");
+    }
+    _0x11777.langID = _0x116CC;
+    _0x11777.parentWidth = _0x117E9;
+    _0x11504.push(_0x1153D);
+    return _0x1153D;
+  }
+  function _0x1277F(
+    _0x115AF,
+    _0x11621,
+    _0x1153D,
+    _0x1165A,
+    _0x11693,
+    _0x11576,
+    _0x114CB,
+    _0x11504
+  ) {
+    var _0x115E8 = document.createElement("\x64\x69\x76");
+    _0x115E8.className = "\x6C\x6F\x6F\x67\x54\x65\x78\x74";
+    _0x115E8.innerHTML = languageData[_0x115AF][languageUI.languageInt];
+    _0x115E8.style.left = _0x1165A + "\x70\x78";
+    _0x115E8.style.top = _0x11693 + "\x70\x78";
+    _0x115E8.style.width = _0x11621 + "\x70\x78";
+    if (_0x11504 && _0x11504 > 10) {
+      _0x115E8.style.fontSize = _0x11504 + "\x70\x78";
+    }
+    _0x11576.appendChild(_0x115E8);
+    _0x114CB.push(_0x115E8);
+    return _0x115E8;
+  }
+  function _0x127B8() {
+    var _0x1165A = document.querySelectorAll(
+        "\x2E\x6C\x61\x6E\x67\x77\x6F\x72\x64"
+      ),
+      _0x11576,
+      _0x11621,
+      _0x115E8,
+      _0x114CB,
+      _0x115AF,
+      _0x11504,
+      _0x1153D;
+    if (_0x1165A) {
+      for (_0x11576 = 0; _0x11576 < _0x1165A.length; _0x11576++) {
+        _0x11621 =
+          languageData[_0x1165A[_0x11576].langID][languageUI.languageInt];
+        _0x11504 = _0x1165A[_0x11576].fontSize;
+        while (_0x11504 > 10) {
+          _0x115AF = document.createElement("\x64\x69\x76");
+          _0x115AF.className = _0x1165A[_0x11576].className;
+          _0x115AF.style.visibility = "\x68\x69\x64\x64\x65\x6E";
+          _0x115AF.style.fontSize = _0x11504 + "\x70\x78";
+          _0x115AF.innerHTML = _0x11621;
+          document.body.appendChild(_0x115AF);
+          _0x115E8 = _0x115AF.clientWidth;
+          _0x1153D = _0x115AF.clientHeight;
+          _0x114CB = _0x1165A[_0x11576].parentWidth;
+          _0x115AF.parentNode.removeChild(_0x115AF);
+          if (_0x115E8 > _0x114CB) {
+            _0x11504--;
+          } else {
+            break;
+          }
+        }
+        _0x1165A[_0x11576].style.top =
+          _0x1165A[_0x11576].yy +
+          (_0x1165A[_0x11576].h2 - _0x1153D) / 2 +
+          "\x70\x78";
+        _0x1165A[_0x11576].style.fontSize = _0x11504 + "\x70\x78";
+        _0x1165A[_0x11576].innerHTML = _0x11621;
+      }
+    }
+  }
+  function _0x127F1(_0x114CB) {
+    languageUI.languageInt = this.arr[this.showLanguage[_0x114CB]][4] - 1;
+    this.language = this.arr[this.showLanguage[_0x114CB]][1];
+    languageUI.scaleTexts();
+  }
+  function _0x1282A(_0x12260, _0x121B5) {
+    "\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74";
+    var _0x11B79 = function _0x11B79(_0x114CB, _0x11504) {
+      return new _0x11B79.Instance(_0x114CB, _0x11504 || {});
+    };
+    _0x11B79.VERSION = "\x31\x2E\x31\x2E\x33";
+    _0x11B79.defaults = {
+      behavior: {
+        userSelect: "\x6E\x6F\x6E\x65",
+        touchAction: "\x70\x61\x6E\x2D\x79",
+        touchCallout: "\x6E\x6F\x6E\x65",
+        contentZooming: "\x6E\x6F\x6E\x65",
+        userDrag: "\x6E\x6F\x6E\x65",
+        tapHighlightColor:
+          "\x72\x67\x62\x61\x28\x30\x2C\x30\x2C\x30\x2C\x30\x29",
+      },
+    };
+    _0x11B79.DOCUMENT = document;
+    _0x11B79.HAS_POINTEREVENTS =
+      navigator.pointerEnabled || navigator.msPointerEnabled;
+    _0x11B79.HAS_TOUCHEVENTS =
+      "\x6F\x6E\x74\x6F\x75\x63\x68\x73\x74\x61\x72\x74" in _0x12260;
+    _0x11B79.IS_MOBILE = /mobile|tablet|ip(ad|hone|od)|android|silk/i.test(
+      navigator.userAgent
+    );
+    _0x11B79.NO_MOUSEEVENTS =
+      (_0x11B79.HAS_TOUCHEVENTS && _0x11B79.IS_MOBILE) ||
+      _0x11B79.HAS_POINTEREVENTS;
+    _0x11B79.CALCULATE_INTERVAL = 25;
+    var _0x118CD = {};
+    var _0x115AF = (_0x11B79.DIRECTION_DOWN = "\x64\x6F\x77\x6E");
+    var _0x115E8 = (_0x11B79.DIRECTION_LEFT = "\x6C\x65\x66\x74");
+    var _0x1165A = (_0x11B79.DIRECTION_UP = "\x75\x70");
+    var _0x11621 = (_0x11B79.DIRECTION_RIGHT = "\x72\x69\x67\x68\x74");
+    var _0x11DEC = (_0x11B79.POINTER_MOUSE = "\x6D\x6F\x75\x73\x65");
+    var _0x11E5E = (_0x11B79.POINTER_TOUCH = "\x74\x6F\x75\x63\x68");
+    var _0x11E25 = (_0x11B79.POINTER_PEN = "\x70\x65\x6E");
+    var _0x1185B = (_0x11B79.EVENT_START = "\x73\x74\x61\x72\x74");
+    var _0x117E9 = (_0x11B79.EVENT_MOVE = "\x6D\x6F\x76\x65");
+    var _0x117B0 = (_0x11B79.EVENT_END = "\x65\x6E\x64");
+    var _0x11822 = (_0x11B79.EVENT_RELEASE = "\x72\x65\x6C\x65\x61\x73\x65");
+    var _0x11894 = (_0x11B79.EVENT_TOUCH = "\x74\x6F\x75\x63\x68");
+    _0x11B79.READY = false;
+    _0x11B79.plugins = _0x11B79.plugins || {};
+    _0x11B79.gestures = _0x11B79.gestures || {};
+    function _0x11FB4() {
+      if (_0x11B79.READY) {
+        return;
+      }
+      _0x11777.determineEventTypes();
+      _0x12227.each(_0x11B79.gestures, function (_0x114CB) {
+        _0x1153D.register(_0x114CB);
+      });
+      _0x11777.onTouch(_0x11B79.DOCUMENT, _0x117E9, _0x1153D.detect);
+      _0x11777.onTouch(_0x11B79.DOCUMENT, _0x117B0, _0x1153D.detect);
+      _0x11B79.READY = true;
+    }
+    var _0x12227 = (_0x11B79.utils = {
+      extend: function _0x11906(_0x114CB, _0x11576, _0x1153D) {
+        for (var _0x11504 in _0x11576) {
+          if (
+            !_0x11576.hasOwnProperty(_0x11504) ||
+            (_0x114CB[_0x11504] !== _0x121B5 && _0x1153D)
+          ) {
+            continue;
+          }
+          _0x114CB[_0x11504] = _0x11576[_0x11504];
+        }
+        return _0x114CB;
+      },
+      on: function _0x11D41(_0x114CB, _0x11576, _0x11504) {
+        _0x114CB.addEventListener(_0x11576, _0x11504, false);
+      },
+      off: function _0x11CCF(_0x114CB, _0x11576, _0x11504) {
+        _0x114CB.removeEventListener(_0x11576, _0x11504, false);
+      },
+      each: function _0x11705(_0x115AF, _0x1153D, _0x114CB) {
+        var _0x11504, _0x11576;
+        if ("\x66\x6F\x72\x45\x61\x63\x68" in _0x115AF) {
+          _0x115AF.forEach(_0x1153D, _0x114CB);
+        } else {
+          if (_0x115AF.length !== _0x121B5) {
+            for (
+              _0x11504 = 0, _0x11576 = _0x115AF.length;
+              _0x11504 < _0x11576;
+              _0x11504++
+            ) {
+              if (
+                _0x1153D.call(
+                  _0x114CB,
+                  _0x115AF[_0x11504],
+                  _0x11504,
+                  _0x115AF
+                ) === false
+              ) {
+                return;
+              }
+            }
+          } else {
+            for (_0x11504 in _0x115AF) {
+              if (
+                _0x115AF.hasOwnProperty(_0x11504) &&
+                _0x1153D.call(
+                  _0x114CB,
+                  _0x115AF[_0x11504],
+                  _0x11504,
+                  _0x115AF
+                ) === false
+              ) {
+                return;
+              }
+            }
+          }
+        }
+      },
+      inStr: function _0x11C24(_0x11504, _0x114CB) {
+        return _0x11504.indexOf(_0x114CB) > -1;
+      },
+      inArray: function _0x11BEB(_0x115AF, _0x114CB) {
+        if (_0x115AF.indexOf) {
+          var _0x1153D = _0x115AF.indexOf(_0x114CB);
+          return _0x1153D === -1 ? false : _0x1153D;
+        } else {
+          for (
+            var _0x11504 = 0, _0x11576 = _0x115AF.length;
+            _0x11504 < _0x11576;
+            _0x11504++
+          ) {
+            if (_0x115AF[_0x11504] === _0x114CB) {
+              return _0x11504;
+            }
+          }
+          return false;
+        }
+      },
+      toArray: function _0x12098(_0x114CB) {
+        return Array.prototype.slice.call(_0x114CB, 0);
+      },
+      hasParent: function _0x11BB2(_0x114CB, _0x11504) {
+        while (_0x114CB) {
+          if (_0x114CB == _0x11504) {
+            return true;
+          }
+          _0x114CB = _0x114CB.parentNode;
+        }
+        return false;
+      },
+      getCenter: function _0x119EA(_0x11621) {
+        var _0x115AF = [],
+          _0x115E8 = [],
+          _0x114CB = [],
+          _0x11504 = [],
+          _0x11576 = Math.min,
+          _0x1153D = Math.max;
+        if (_0x11621.length === 1) {
+          return {
+            pageX: _0x11621[0].pageX,
+            pageY: _0x11621[0].pageY,
+            clientX: _0x11621[0].clientX,
+            clientY: _0x11621[0].clientY,
+          };
+        }
+        _0x12227.each(_0x11621, function (_0x1153D) {
+          _0x115AF.push(_0x1153D.pageX);
+          _0x115E8.push(_0x1153D.pageY);
+          _0x114CB.push(_0x1153D.clientX);
+          _0x11504.push(_0x1153D.clientY);
+        });
+        return {
+          pageX:
+            (_0x11576.apply(Math, _0x115AF) + _0x1153D.apply(Math, _0x115AF)) /
+            2,
+          pageY:
+            (_0x11576.apply(Math, _0x115E8) + _0x1153D.apply(Math, _0x115E8)) /
+            2,
+          clientX:
+            (_0x11576.apply(Math, _0x114CB) + _0x1153D.apply(Math, _0x114CB)) /
+            2,
+          clientY:
+            (_0x11576.apply(Math, _0x11504) + _0x1153D.apply(Math, _0x11504)) /
+            2,
+        };
+      },
+      getVelocity: function _0x11B40(_0x114CB, _0x11504, _0x1153D) {
+        return {
+          x: Math.abs(_0x11504 / _0x114CB) || 0,
+          y: Math.abs(_0x1153D / _0x114CB) || 0,
+        };
+      },
+      getAngle: function _0x11978(_0x114CB, _0x11504) {
+        var _0x1153D = _0x11504.clientX - _0x114CB.clientX,
+          _0x11576 = _0x11504.clientY - _0x114CB.clientY;
+        return (Math.atan2(_0x11576, _0x1153D) * 180) / Math.PI;
+      },
+      getDirection: function _0x11A23(_0x114CB, _0x11504) {
+        var _0x1153D = Math.abs(_0x114CB.clientX - _0x11504.clientX),
+          _0x11576 = Math.abs(_0x114CB.clientY - _0x11504.clientY);
+        if (_0x1153D >= _0x11576) {
+          return _0x114CB.clientX - _0x11504.clientX > 0 ? _0x115E8 : _0x11621;
+        }
+        return _0x114CB.clientY - _0x11504.clientY > 0 ? _0x1165A : _0x115AF;
+      },
+      getDistance: function _0x11A5C(_0x114CB, _0x11504) {
+        var _0x1153D = _0x11504.clientX - _0x114CB.clientX,
+          _0x11576 = _0x11504.clientY - _0x114CB.clientY;
+        return Math.sqrt(_0x1153D * _0x1153D + _0x11576 * _0x11576);
+      },
+      getScale: function _0x11ACE(_0x11504, _0x114CB) {
+        if (_0x11504.length >= 2 && _0x114CB.length >= 2) {
+          return (
+            this.getDistance(_0x114CB[0], _0x114CB[1]) /
+            this.getDistance(_0x11504[0], _0x11504[1])
+          );
+        }
+        return 1;
+      },
+      getRotation: function _0x11A95(_0x11504, _0x114CB) {
+        if (_0x11504.length >= 2 && _0x114CB.length >= 2) {
+          return (
+            this.getAngle(_0x114CB[1], _0x114CB[0]) -
+            this.getAngle(_0x11504[1], _0x11504[0])
+          );
+        }
+        return 0;
+      },
+      isVertical: function _0x11C5D(_0x114CB) {
+        return _0x114CB == _0x1165A || _0x114CB == _0x115AF;
+      },
+      setPrefixedCss: function _0x11F7B(
+        _0x114CB,
+        _0x115AF,
+        _0x11621,
+        _0x115E8
+      ) {
+        var _0x11576 = [
+          "",
+          "\x57\x65\x62\x6B\x69\x74",
+          "\x4D\x6F\x7A",
+          "\x4F",
+          "\x6D\x73",
+        ];
+        _0x115AF = _0x12227.toCamelCase(_0x115AF);
+        for (var _0x11504 = 0; _0x11504 < _0x11576.length; _0x11504++) {
+          var _0x1153D = _0x115AF;
+          if (_0x11576[_0x11504]) {
+            _0x1153D =
+              _0x11576[_0x11504] +
+              _0x1153D.slice(0, 1).toUpperCase() +
+              _0x1153D.slice(1);
+          }
+          if (_0x1153D in _0x114CB.style) {
+            _0x114CB.style[_0x1153D] =
+              ((_0x115E8 == null || _0x115E8) && _0x11621) || "";
+            break;
+          }
+        }
+      },
+      toggleBehavior: function _0x1210A(_0x114CB, _0x1153D, _0x11576) {
+        if (!_0x1153D || !_0x114CB || !_0x114CB.style) {
+          return;
+        }
+        _0x12227.each(_0x1153D, function (_0x1153D, _0x11504) {
+          _0x12227.setPrefixedCss(_0x114CB, _0x11504, _0x1153D, _0x11576);
+        });
+        var _0x11504 =
+          _0x11576 &&
+          function () {
+            return false;
+          };
+        if (_0x1153D.userSelect == "\x6E\x6F\x6E\x65") {
+          _0x114CB.onselectstart = _0x11504;
+        }
+        if (_0x1153D.userDrag == "\x6E\x6F\x6E\x65") {
+          _0x114CB.ondragstart = _0x11504;
+        }
+      },
+      toCamelCase: function _0x120D1(_0x114CB) {
+        return _0x114CB.replace(/[_-]([a-z])/g, function (_0x114CB) {
+          return _0x114CB[1].toUpperCase();
+        });
+      },
+    });
+    var _0x11777 = (_0x11B79.event = {
+      preventMouseEvents: false,
+      started: false,
+      shouldDetect: false,
+      on: function _0x11D41(_0x114CB, _0x11576, _0x11504, _0x1153D) {
+        var _0x115AF = _0x11576.split("\x20");
+        _0x12227.each(_0x115AF, function (_0x11576) {
+          _0x12227.on(_0x114CB, _0x11576, _0x11504);
+          _0x1153D && _0x1153D(_0x11576);
+        });
+      },
+      off: function _0x11CCF(_0x114CB, _0x11576, _0x11504, _0x1153D) {
+        var _0x115AF = _0x11576.split("\x20");
+        _0x12227.each(_0x115AF, function (_0x11576) {
+          _0x12227.off(_0x114CB, _0x11576, _0x11504);
+          _0x1153D && _0x1153D(_0x11576);
+        });
+      },
+      onTouch: function _0x11DB3(_0x114CB, _0x11504, _0x1153D) {
+        var _0x115AF = this;
+        var _0x11576 = function _0x11576(_0x11576) {
+          var _0x1165A = _0x11576.type.toLowerCase(),
+            _0x11621 = _0x11B79.HAS_POINTEREVENTS,
+            _0x115E8 = _0x12227.inStr(_0x1165A, "\x6D\x6F\x75\x73\x65"),
+            _0x11693;
+          if (_0x115E8 && _0x115AF.preventMouseEvents) {
+            return;
+          } else {
+            if (_0x115E8 && _0x11504 == _0x1185B && _0x11576.button === 0) {
+              _0x115AF.preventMouseEvents = false;
+              _0x115AF.shouldDetect = true;
+            } else {
+              if (_0x11621 && _0x11504 == _0x1185B) {
+                _0x115AF.shouldDetect =
+                  _0x11576.buttons === 1 ||
+                  _0x11E97.matchType(_0x11E5E, _0x11576);
+              } else {
+                if (!_0x115E8 && _0x11504 == _0x1185B) {
+                  _0x115AF.preventMouseEvents = true;
+                  _0x115AF.shouldDetect = true;
+                }
+              }
+            }
+          }
+          if (_0x11621 && _0x11504 != _0x117B0) {
+            _0x11E97.updatePointer(_0x11504, _0x11576);
+          }
+          if (_0x115AF.shouldDetect) {
+            _0x11693 = _0x115AF.doDetect.call(
+              _0x115AF,
+              _0x11576,
+              _0x11504,
+              _0x114CB,
+              _0x1153D
+            );
+          }
+          if (_0x11693 == _0x117B0) {
+            _0x115AF.preventMouseEvents = false;
+            _0x115AF.shouldDetect = false;
+            _0x11E97.reset();
+          }
+          if (_0x11621 && _0x11504 == _0x117B0) {
+            _0x11E97.updatePointer(_0x11504, _0x11576);
+          }
+        };
+        this.on(_0x114CB, _0x118CD[_0x11504], _0x11576);
+        return _0x11576;
+      },
+      doDetect: function _0x116CC(_0x115AF, _0x11621, _0x11576, _0x1165A) {
+        var _0x11693 = this.getTouchList(_0x115AF, _0x11621);
+        var _0x116CC = _0x11693.length;
+        var _0x1173E = _0x11621;
+        var _0x11705 = _0x11693.trigger;
+        var _0x11504 = _0x116CC;
+        if (_0x11621 == _0x1185B) {
+          _0x11705 = _0x11894;
+        } else {
+          if (_0x11621 == _0x117B0) {
+            _0x11705 = _0x11822;
+            _0x11504 =
+              _0x11693.length -
+              (_0x115AF.changedTouches ? _0x115AF.changedTouches.length : 1);
+          }
+        }
+        if (_0x11504 > 0 && this.started) {
+          _0x1173E = _0x117E9;
+        }
+        this.started = true;
+        var _0x115E8 = this.collectEventData(
+          _0x11576,
+          _0x1173E,
+          _0x11693,
+          _0x115AF
+        );
+        if (_0x11621 != _0x117B0) {
+          _0x1165A.call(_0x1153D, _0x115E8);
+        }
+        if (_0x11705) {
+          _0x115E8.changedLength = _0x11504;
+          _0x115E8.eventType = _0x11705;
+          _0x1165A.call(_0x1153D, _0x115E8);
+          _0x115E8.eventType = _0x1173E;
+          delete _0x115E8.changedLength;
+        }
+        if (_0x1173E == _0x117B0) {
+          _0x1165A.call(_0x1153D, _0x115E8);
+          this.started = false;
+        }
+        return _0x1173E;
+      },
+      determineEventTypes: function _0x11576() {
+        var _0x114CB;
+        if (_0x11B79.HAS_POINTEREVENTS) {
+          if (_0x12260.PointerEvent) {
+            _0x114CB = [
+              "\x70\x6F\x69\x6E\x74\x65\x72\x64\x6F\x77\x6E",
+              "\x70\x6F\x69\x6E\x74\x65\x72\x6D\x6F\x76\x65",
+              "\x70\x6F\x69\x6E\x74\x65\x72\x75\x70\x20\x70\x6F\x69\x6E\x74\x65\x72\x63\x61\x6E\x63\x65\x6C\x20\x6C\x6F\x73\x74\x70\x6F\x69\x6E\x74\x65\x72\x63\x61\x70\x74\x75\x72\x65",
+            ];
+          } else {
+            _0x114CB = [
+              "\x4D\x53\x50\x6F\x69\x6E\x74\x65\x72\x44\x6F\x77\x6E",
+              "\x4D\x53\x50\x6F\x69\x6E\x74\x65\x72\x4D\x6F\x76\x65",
+              "\x4D\x53\x50\x6F\x69\x6E\x74\x65\x72\x55\x70\x20\x4D\x53\x50\x6F\x69\x6E\x74\x65\x72\x43\x61\x6E\x63\x65\x6C\x20\x4D\x53\x4C\x6F\x73\x74\x50\x6F\x69\x6E\x74\x65\x72\x43\x61\x70\x74\x75\x72\x65",
+            ];
+          }
+        } else {
+          if (_0x11B79.NO_MOUSEEVENTS) {
+            _0x114CB = [
+              "\x74\x6F\x75\x63\x68\x73\x74\x61\x72\x74",
+              "\x74\x6F\x75\x63\x68\x6D\x6F\x76\x65",
+              "\x74\x6F\x75\x63\x68\x65\x6E\x64\x20\x74\x6F\x75\x63\x68\x63\x61\x6E\x63\x65\x6C",
+            ];
+          } else {
+            _0x114CB = [
+              "\x74\x6F\x75\x63\x68\x73\x74\x61\x72\x74\x20\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E",
+              "\x74\x6F\x75\x63\x68\x6D\x6F\x76\x65\x20\x6D\x6F\x75\x73\x65\x6D\x6F\x76\x65",
+              "\x74\x6F\x75\x63\x68\x65\x6E\x64\x20\x74\x6F\x75\x63\x68\x63\x61\x6E\x63\x65\x6C\x20\x6D\x6F\x75\x73\x65\x75\x70",
+            ];
+          }
+        }
+        _0x118CD[_0x1185B] = _0x114CB[0];
+        _0x118CD[_0x117E9] = _0x114CB[1];
+        _0x118CD[_0x117B0] = _0x114CB[2];
+        return _0x118CD;
+      },
+      getTouchList: function _0x11B07(_0x11504, _0x1153D) {
+        if (_0x11B79.HAS_POINTEREVENTS) {
+          return _0x11E97.getTouchList();
+        }
+        if (_0x11504.touches) {
+          if (_0x1153D == _0x117E9) {
+            return _0x11504.touches;
+          }
+          var _0x11576 = [];
+          var _0x114CB = [].concat(
+            _0x12227.toArray(_0x11504.touches),
+            _0x12227.toArray(_0x11504.changedTouches)
+          );
+          var _0x115E8 = [];
+          _0x12227.each(_0x114CB, function (_0x114CB) {
+            if (_0x12227.inArray(_0x11576, _0x114CB.identifier) === false) {
+              _0x115E8.push(_0x114CB);
+            }
+            _0x11576.push(_0x114CB.identifier);
+          });
+          return _0x115E8;
+        }
+        _0x11504.identifier = 1;
+        return [_0x11504];
+      },
+      collectEventData: function _0x114CB(
+        _0x114CB,
+        _0x11576,
+        _0x115E8,
+        _0x11504
+      ) {
+        var _0x115AF = _0x11E5E;
+        if (
+          _0x12227.inStr(_0x11504.type, "\x6D\x6F\x75\x73\x65") ||
+          _0x11E97.matchType(_0x11DEC, _0x11504)
+        ) {
+          _0x115AF = _0x11DEC;
+        } else {
+          if (_0x11E97.matchType(_0x11E25, _0x11504)) {
+            _0x115AF = _0x11E25;
+          }
+        }
+        return {
+          center: _0x12227.getCenter(_0x115E8),
+          timeStamp: Date.now(),
+          target: _0x11504.target,
+          touches: _0x115E8,
+          eventType: _0x11576,
+          pointerType: _0x115AF,
+          srcEvent: _0x11504,
+          preventDefault: function () {
+            var _0x114CB = this.srcEvent;
+            _0x114CB.preventManipulation && _0x114CB.preventManipulation();
+            _0x114CB.preventDefault && _0x114CB.preventDefault();
+          },
+          stopPropagation: function () {
+            this.srcEvent.stopPropagation();
+          },
+          stopDetect: function () {
+            return _0x1153D.stopDetect();
+          },
+        };
+      },
+    });
+    var _0x11E97 = (_0x11B79.PointerEvent = {
+      pointers: {},
+      getTouchList: function _0x11B07() {
+        var _0x115AF = [];
+        _0x12227.each(this.pointers, function (_0x114CB) {
+          _0x115AF.push(_0x114CB);
+        });
+        return _0x115AF;
+      },
+      updatePointer: function _0x121EE(_0x114CB, _0x11504) {
+        if (_0x114CB == _0x117B0) {
+          delete this.pointers[_0x11504.pointerId];
+        } else {
+          _0x11504.identifier = _0x11504.pointerId;
+          this.pointers[_0x11504.pointerId] = _0x11504;
+        }
+      },
+      matchType: function _0x11C96(_0x11504, _0x114CB) {
+        if (!_0x114CB.pointerType) {
+          return false;
+        }
+        var _0x1153D = _0x114CB.pointerType,
+          _0x11576 = {};
+        _0x11576[_0x11DEC] =
+          _0x1153D === (_0x114CB.MSPOINTER_TYPE_MOUSE || _0x11DEC);
+        _0x11576[_0x11E5E] =
+          _0x1153D === (_0x114CB.MSPOINTER_TYPE_TOUCH || _0x11E5E);
+        _0x11576[_0x11E25] =
+          _0x1153D === (_0x114CB.MSPOINTER_TYPE_PEN || _0x11E25);
+        return _0x11576[_0x11504];
+      },
+      reset: function _0x11F42() {
+        this.pointers = {};
+      },
+    });
+    var _0x1153D = (_0x11B79.detection = {
+      gestures: [],
+      current: null,
+      previous: null,
+      stopped: false,
+      startDetect: function _0x11FED(_0x1153D, _0x114CB) {
+        if (this.current) {
+          return;
+        }
+        this.stopped = false;
+        this.current = {
+          inst: _0x1153D,
+          startEvent: _0x12227.extend({}, _0x114CB),
+          lastEvent: false,
+          lastCalcEvent: false,
+          futureCalcEvent: false,
+          lastCalcData: {},
+          name: "",
+        };
+        this.detect(_0x114CB);
+      },
+      detect: function _0x11504(_0x114CB) {
+        if (!this.current || this.stopped) {
+          return;
+        }
+        _0x114CB = this.extendEventData(_0x114CB);
+        var _0x11504 = this.current.inst,
+          _0x1153D = _0x11504.options;
+        _0x12227.each(
+          this.gestures,
+          function _0x11576(_0x11576) {
+            if (!this.stopped && _0x11504.enabled && _0x1153D[_0x11576.name]) {
+              _0x11576.handler.call(_0x11576, _0x114CB, _0x11504);
+            }
+          },
+          this
+        );
+        if (this.current) {
+          this.current.lastEvent = _0x114CB;
+        }
+        if (_0x114CB.eventType == _0x117B0) {
+          this.stopDetect();
+        }
+        return _0x114CB;
+      },
+      stopDetect: function _0x12026() {
+        this.previous = _0x12227.extend({}, this.current);
+        this.current = null;
+        this.stopped = true;
+      },
+      getCalculatedData: function _0x119B1(
+        _0x1165A,
+        _0x1153D,
+        _0x115AF,
+        _0x115E8,
+        _0x11621
+      ) {
+        var _0x11576 = this.current,
+          _0x11693 = false,
+          _0x11504 = _0x11576.lastCalcEvent,
+          _0x114CB = _0x11576.lastCalcData;
+        if (
+          _0x11504 &&
+          _0x1165A.timeStamp - _0x11504.timeStamp > _0x11B79.CALCULATE_INTERVAL
+        ) {
+          _0x1153D = _0x11504.center;
+          _0x115AF = _0x1165A.timeStamp - _0x11504.timeStamp;
+          _0x115E8 = _0x1165A.center.clientX - _0x11504.center.clientX;
+          _0x11621 = _0x1165A.center.clientY - _0x11504.center.clientY;
+          _0x11693 = true;
+        }
+        if (_0x1165A.eventType == _0x11894 || _0x1165A.eventType == _0x11822) {
+          _0x11576.futureCalcEvent = _0x1165A;
+        }
+        if (!_0x11576.lastCalcEvent || _0x11693) {
+          _0x114CB.velocity = _0x12227.getVelocity(
+            _0x115AF,
+            _0x115E8,
+            _0x11621
+          );
+          _0x114CB.angle = _0x12227.getAngle(_0x1153D, _0x1165A.center);
+          _0x114CB.direction = _0x12227.getDirection(_0x1153D, _0x1165A.center);
+          _0x11576.lastCalcEvent = _0x11576.futureCalcEvent || _0x1165A;
+          _0x11576.futureCalcEvent = _0x1165A;
+        }
+        _0x1165A.velocityX = _0x114CB.velocity.x;
+        _0x1165A.velocityY = _0x114CB.velocity.y;
+        _0x1165A.interimAngle = _0x114CB.angle;
+        _0x1165A.interimDirection = _0x114CB.direction;
+      },
+      extendEventData: function _0x1193F(_0x115AF) {
+        var _0x114CB = this.current,
+          _0x11621 = _0x114CB.startEvent,
+          _0x115E8 = _0x114CB.lastEvent || _0x11621;
+        if (_0x115AF.eventType == _0x11894 || _0x115AF.eventType == _0x11822) {
+          _0x11621.touches = [];
+          _0x12227.each(_0x115AF.touches, function (_0x114CB) {
+            _0x11621.touches.push({
+              clientX: _0x114CB.clientX,
+              clientY: _0x114CB.clientY,
+            });
+          });
+        }
+        var _0x11504 = _0x115AF.timeStamp - _0x11621.timeStamp,
+          _0x1153D = _0x115AF.center.clientX - _0x11621.center.clientX,
+          _0x11576 = _0x115AF.center.clientY - _0x11621.center.clientY;
+        this.getCalculatedData(
+          _0x115AF,
+          _0x115E8.center,
+          _0x11504,
+          _0x1153D,
+          _0x11576
+        );
+        _0x12227.extend(_0x115AF, {
+          startEvent: _0x11621,
+          deltaTime: _0x11504,
+          deltaX: _0x1153D,
+          deltaY: _0x11576,
+          distance: _0x12227.getDistance(_0x11621.center, _0x115AF.center),
+          angle: _0x12227.getAngle(_0x11621.center, _0x115AF.center),
+          direction: _0x12227.getDirection(_0x11621.center, _0x115AF.center),
+          scale: _0x12227.getScale(_0x11621.touches, _0x115AF.touches),
+          rotation: _0x12227.getRotation(_0x11621.touches, _0x115AF.touches),
+        });
+        return _0x115AF;
+      },
+      register: function _0x11ED0(_0x114CB) {
+        var _0x11504 = _0x114CB.defaults || {};
+        if (_0x11504[_0x114CB.name] === _0x121B5) {
+          _0x11504[_0x114CB.name] = true;
+        }
+        _0x12227.extend(_0x11B79.defaults, _0x11504, true);
+        _0x114CB.index = _0x114CB.index || 1000;
+        this.gestures.push(_0x114CB);
+        this.gestures.sort(function (_0x114CB, _0x11504) {
+          if (_0x114CB.index < _0x11504.index) {
+            return -1;
+          }
+          if (_0x114CB.index > _0x11504.index) {
+            return 1;
+          }
+          return 0;
+        });
+        return this.gestures;
+      },
+    });
+    _0x11B79.Instance = function (_0x114CB, _0x11576) {
+      var _0x115AF = this;
+      _0x11FB4();
+      this.element = _0x114CB;
+      this.enabled = true;
+      _0x12227.each(_0x11576, function (_0x11504, _0x114CB) {
+        delete _0x11576[_0x114CB];
+        _0x11576[_0x12227.toCamelCase(_0x114CB)] = _0x11504;
+      });
+      this.options = _0x12227.extend(
+        _0x12227.extend({}, _0x11B79.defaults),
+        _0x11576 || {}
+      );
+      if (this.options.behavior) {
+        _0x12227.toggleBehavior(this.element, this.options.behavior, true);
+      }
+      this.eventStartHandler = _0x11777.onTouch(
+        _0x114CB,
+        _0x1185B,
+        function (_0x114CB) {
+          if (_0x115AF.enabled && _0x114CB.eventType == _0x1185B) {
+            _0x1153D.startDetect(_0x115AF, _0x114CB);
+          } else {
+            if (_0x114CB.eventType == _0x11894) {
+              _0x1153D.detect(_0x114CB);
+            }
+          }
+        }
+      );
+      this.eventHandlers = [];
+    };
+    _0x11B79.Instance.prototype = {
+      on: function _0x11D7A(_0x114CB, _0x11504) {
+        var _0x1153D = this;
+        _0x11777.on(_0x1153D.element, _0x114CB, _0x11504, function (_0x114CB) {
+          _0x1153D.eventHandlers.push({ gesture: _0x114CB, handler: _0x11504 });
+        });
+        return _0x1153D;
+      },
+      off: function _0x11D08(_0x114CB, _0x11504) {
+        var _0x1153D = this;
+        _0x11777.off(_0x1153D.element, _0x114CB, _0x11504, function (_0x11576) {
+          var _0x114CB = _0x12227.inArray({
+            gesture: _0x11576,
+            handler: _0x11504,
+          });
+          if (_0x114CB !== false) {
+            _0x1153D.eventHandlers.splice(_0x114CB, 1);
+          }
+        });
+        return _0x1153D;
+      },
+      trigger: function _0x1217C(_0x11576, _0x1153D) {
+        if (!_0x1153D) {
+          _0x1153D = {};
+        }
+        var _0x11504 = _0x11B79.DOCUMENT.createEvent("\x45\x76\x65\x6E\x74");
+        _0x11504.initEvent(_0x11576, true, true);
+        _0x11504.gesture = _0x1153D;
+        var _0x114CB = this.element;
+        if (_0x12227.hasParent(_0x1153D.target, _0x114CB)) {
+          _0x114CB = _0x1153D.target;
+        }
+        _0x114CB.dispatchEvent(_0x11504);
+        return this;
+      },
+      enable: function _0x1173E(_0x114CB) {
+        this.enabled = _0x114CB;
+        return this;
+      },
+      dispose: function _0x11693() {
+        var _0x11504, _0x114CB;
+        _0x12227.toggleBehavior(this.element, this.options.behavior, false);
+        for (_0x11504 = -1; (_0x114CB = this.eventHandlers[++_0x11504]); ) {
+          _0x12227.off(this.element, _0x114CB.gesture, _0x114CB.handler);
+        }
+        this.eventHandlers = [];
+        _0x11777.off(this.element, _0x118CD[_0x1185B], this.eventStartHandler);
+        return null;
+      },
+    };
+    (function (_0x11504) {
+      var _0x11576 = false;
+      function _0x114CB(_0x11693, _0x11705) {
+        var _0x114CB = _0x1153D.current;
+        if (
+          _0x11705.options.dragMaxTouches > 0 &&
+          _0x11693.touches.length > _0x11705.options.dragMaxTouches
+        ) {
+          return;
+        }
+        switch (_0x11693.eventType) {
+          case _0x1185B:
+            _0x11576 = false;
+            break;
+          case _0x117E9:
+            if (
+              _0x11693.distance < _0x11705.options.dragMinDistance &&
+              _0x114CB.name != _0x11504
+            ) {
+              return;
+            }
+            var _0x11894 = _0x114CB.startEvent.center;
+            if (_0x114CB.name != _0x11504) {
+              _0x114CB.name = _0x11504;
+              if (
+                _0x11705.options.dragDistanceCorrection &&
+                _0x11693.distance > 0
+              ) {
+                var _0x116CC = Math.abs(
+                  _0x11705.options.dragMinDistance / _0x11693.distance
+                );
+                _0x11894.pageX += _0x11693.deltaX * _0x116CC;
+                _0x11894.pageY += _0x11693.deltaY * _0x116CC;
+                _0x11894.clientX += _0x11693.deltaX * _0x116CC;
+                _0x11894.clientY += _0x11693.deltaY * _0x116CC;
+                _0x11693 = _0x1153D.extendEventData(_0x11693);
+              }
+            }
+            if (
+              _0x114CB.lastEvent.dragLockToAxis ||
+              (_0x11705.options.dragLockToAxis &&
+                _0x11705.options.dragLockMinDistance <= _0x11693.distance)
+            ) {
+              _0x11693.dragLockToAxis = true;
+            }
+            var _0x11777 = _0x114CB.lastEvent.direction;
+            if (_0x11693.dragLockToAxis && _0x11777 !== _0x11693.direction) {
+              if (_0x12227.isVertical(_0x11777)) {
+                _0x11693.direction = _0x11693.deltaY < 0 ? _0x1165A : _0x115AF;
+              } else {
+                _0x11693.direction = _0x11693.deltaX < 0 ? _0x115E8 : _0x11621;
+              }
+            }
+            if (!_0x11576) {
+              _0x11705.trigger(_0x11504 + "\x73\x74\x61\x72\x74", _0x11693);
+              _0x11576 = true;
+            }
+            _0x11705.trigger(_0x11504, _0x11693);
+            _0x11705.trigger(_0x11504 + _0x11693.direction, _0x11693);
+            var _0x1173E = _0x12227.isVertical(_0x11693.direction);
+            if (
+              (_0x11705.options.dragBlockVertical && _0x1173E) ||
+              (_0x11705.options.dragBlockHorizontal && !_0x1173E)
+            ) {
+              _0x11693.preventDefault();
+            }
+            break;
+          case _0x11822:
+            if (
+              _0x11576 &&
+              _0x11693.changedLength <= _0x11705.options.dragMaxTouches
+            ) {
+              _0x11705.trigger(_0x11504 + "\x65\x6E\x64", _0x11693);
+              _0x11576 = false;
+            }
+            break;
+          case _0x117B0:
+            _0x11576 = false;
+            break;
+        }
+      }
+      _0x11B79.gestures.Drag = {
+        name: _0x11504,
+        index: 50,
+        handler: _0x114CB,
+        defaults: {
+          dragMinDistance: 10,
+          dragDistanceCorrection: true,
+          dragMaxTouches: 1,
+          dragBlockHorizontal: false,
+          dragBlockVertical: false,
+          dragLockToAxis: false,
+          dragLockMinDistance: 25,
+        },
+      };
+    })("\x64\x72\x61\x67");
+    _0x11B79.gestures.Gesture = {
+      name: "\x67\x65\x73\x74\x75\x72\x65",
+      index: 1337,
+      handler: function _0x11F09(_0x114CB, _0x11504) {
+        _0x11504.trigger(this.name, _0x114CB);
+      },
+    };
+    (function (_0x11504) {
+      var _0x11576;
+      function _0x114CB(_0x115AF, _0x115E8) {
+        var _0x11621 = _0x115E8.options,
+          _0x114CB = _0x1153D.current;
+        switch (_0x115AF.eventType) {
+          case _0x1185B:
+            clearTimeout(_0x11576);
+            _0x114CB.name = _0x11504;
+            _0x11576 = setTimeout(function () {
+              if (_0x114CB && _0x114CB.name == _0x11504) {
+                _0x115E8.trigger(_0x11504, _0x115AF);
+              }
+            }, _0x11621.holdTimeout);
+            break;
+          case _0x117E9:
+            if (_0x115AF.distance > _0x11621.holdThreshold) {
+              clearTimeout(_0x11576);
+            }
+            break;
+          case _0x11822:
+            clearTimeout(_0x11576);
+            break;
+        }
+      }
+      _0x11B79.gestures.Hold = {
+        name: _0x11504,
+        index: 10,
+        defaults: { holdTimeout: 500, holdThreshold: 2 },
+        handler: _0x114CB,
+      };
+    })("\x68\x6F\x6C\x64");
+    _0x11B79.gestures.Release = {
+      name: "\x72\x65\x6C\x65\x61\x73\x65",
+      index: Infinity,
+      handler: function _0x11F09(_0x114CB, _0x11504) {
+        if (_0x114CB.eventType == _0x11822) {
+          _0x11504.trigger(this.name, _0x114CB);
+        }
+      },
+    };
+    _0x11B79.gestures.Swipe = {
+      name: "\x73\x77\x69\x70\x65",
+      index: 40,
+      defaults: {
+        swipeMinTouches: 1,
+        swipeMaxTouches: 1,
+        swipeVelocityX: 0.6,
+        swipeVelocityY: 0.6,
+      },
+      handler: function _0x1205F(_0x114CB, _0x11504) {
+        if (_0x114CB.eventType == _0x11822) {
+          var _0x11576 = _0x114CB.touches.length,
+            _0x1153D = _0x11504.options;
+          if (
+            _0x11576 < _0x1153D.swipeMinTouches ||
+            _0x11576 > _0x1153D.swipeMaxTouches
+          ) {
+            return;
+          }
+          if (
+            _0x114CB.velocityX > _0x1153D.swipeVelocityX ||
+            _0x114CB.velocityY > _0x1153D.swipeVelocityY
+          ) {
+            _0x11504.trigger(this.name, _0x114CB);
+            _0x11504.trigger(this.name + _0x114CB.direction, _0x114CB);
+          }
+        }
+      },
+    };
+    (function (_0x11504) {
+      var _0x114CB = false;
+      function _0x11576(_0x115E8, _0x11621) {
+        var _0x1165A = _0x11621.options,
+          _0x11576 = _0x1153D.current,
+          _0x11693 = _0x1153D.previous,
+          _0x116CC,
+          _0x115AF;
+        switch (_0x115E8.eventType) {
+          case _0x1185B:
+            _0x114CB = false;
+            break;
+          case _0x117E9:
+            _0x114CB = _0x114CB || _0x115E8.distance > _0x1165A.tapMaxDistance;
+            break;
+          case _0x117B0:
+            if (
+              !_0x12227.inStr(
+                _0x115E8.srcEvent.type,
+                "\x63\x61\x6E\x63\x65\x6C"
+              ) &&
+              _0x115E8.deltaTime < _0x1165A.tapMaxTime &&
+              !_0x114CB
+            ) {
+              _0x116CC =
+                _0x11693 &&
+                _0x11693.lastEvent &&
+                _0x115E8.timeStamp - _0x11693.lastEvent.timeStamp;
+              _0x115AF = false;
+              if (
+                _0x11693 &&
+                _0x11693.name == _0x11504 &&
+                _0x116CC &&
+                _0x116CC < _0x1165A.doubleTapInterval &&
+                _0x115E8.distance < _0x1165A.doubleTapDistance
+              ) {
+                _0x11621.trigger(
+                  "\x64\x6F\x75\x62\x6C\x65\x74\x61\x70",
+                  _0x115E8
+                );
+                _0x115AF = true;
+              }
+              if (!_0x115AF || _0x1165A.tapAlways) {
+                _0x11576.name = _0x11504;
+                _0x11621.trigger(_0x11576.name, _0x115E8);
+              }
+            }
+            break;
+        }
+      }
+      _0x11B79.gestures.Tap = {
+        name: _0x11504,
+        index: 100,
+        handler: _0x11576,
+        defaults: {
+          tapMaxTime: 250,
+          tapMaxDistance: 10,
+          tapAlways: true,
+          doubleTapDistance: 20,
+          doubleTapInterval: 300,
+        },
+      };
+    })("\x74\x61\x70");
+    _0x11B79.gestures.Touch = {
+      name: "\x74\x6F\x75\x63\x68",
+      index: -Infinity,
+      defaults: { preventDefault: true, preventMouse: false },
+      handler: function _0x12143(_0x114CB, _0x11504) {
+        if (_0x11504.options.preventMouse && _0x114CB.pointerType == _0x11DEC) {
+          _0x114CB.stopDetect();
+          return;
+        }
+        if (_0x11504.options.preventDefault) {
+          _0x114CB.preventDefault();
+        }
+        if (_0x114CB.eventType == _0x11894) {
+          _0x11504.trigger("\x74\x6F\x75\x63\x68", _0x114CB);
+        }
+      },
+    };
+    (function (_0x114CB) {
+      var _0x11576 = false;
+      function _0x11504(_0x11504, _0x115AF) {
+        switch (_0x11504.eventType) {
+          case _0x1185B:
+            _0x11576 = false;
+            break;
+          case _0x117E9:
+            if (_0x11504.touches.length < 2) {
+              return;
+            }
+            var _0x11621 = Math.abs(1 - _0x11504.scale);
+            var _0x115E8 = Math.abs(_0x11504.rotation);
+            if (
+              _0x11621 < _0x115AF.options.transformMinScale &&
+              _0x115E8 < _0x115AF.options.transformMinRotation
+            ) {
+              return;
+            }
+            _0x1153D.current.name = _0x114CB;
+            if (!_0x11576) {
+              _0x115AF.trigger(_0x114CB + "\x73\x74\x61\x72\x74", _0x11504);
+              _0x11576 = true;
+            }
+            _0x115AF.trigger(_0x114CB, _0x11504);
+            if (_0x115E8 > _0x115AF.options.transformMinRotation) {
+              _0x115AF.trigger("\x72\x6F\x74\x61\x74\x65", _0x11504);
+            }
+            if (_0x11621 > _0x115AF.options.transformMinScale) {
+              _0x115AF.trigger("\x70\x69\x6E\x63\x68", _0x11504);
+              _0x115AF.trigger(
+                "\x70\x69\x6E\x63\x68" +
+                  (_0x11504.scale < 1 ? "\x69\x6E" : "\x6F\x75\x74"),
+                _0x11504
+              );
+            }
+            break;
+          case _0x11822:
+            if (_0x11576 && _0x11504.changedLength < 2) {
+              _0x115AF.trigger(_0x114CB + "\x65\x6E\x64", _0x11504);
+              _0x11576 = false;
+            }
+            break;
+        }
+      }
+      _0x11B79.gestures.Transform = {
+        name: _0x114CB,
+        index: 45,
+        defaults: { transformMinScale: 0.01, transformMinRotation: 1 },
+        handler: _0x11504,
+      };
+    })("\x74\x72\x61\x6E\x73\x66\x6F\x72\x6D");
+    if (typeof define == "\x66\x75\x6E\x63\x74\x69\x6F\x6E" && define.amd) {
+      define(function () {
+        return _0x11B79;
+      });
+    } else {
+      if (
+        typeof module !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" &&
+        module.exports
+      ) {
+        module.exports = _0x11B79;
+      } else {
+        _0x12260.Hammer = _0x11B79;
+      }
+    }
+  }
+  function _0x12863() {
+    "\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74";
+    var _0x11504 = null;
+    var _0x117B0 = true;
+    var _0x116CC = false;
+    _0x1173E();
+    if (_0x117B0) {
+      var _0x11693 =
+        typeof _0x11504.createGain === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+          ? _0x11504.createGainNode()
+          : _0x11504.createGain();
+      _0x11693.gain.value = 1;
+      _0x11693.connect(_0x11504.destination);
+    }
+    var _0x115E8 = function () {
+      this.init();
+    };
+    _0x115E8.prototype = {
+      init: function () {
+        var _0x114CB = this || _0x115AF;
+        _0x114CB._codecs = {};
+        _0x114CB._howls = [];
+        _0x114CB._muted = false;
+        _0x114CB._volume = 1;
+        _0x114CB.noAudio = _0x116CC;
+        _0x114CB.usingWebAudio = _0x117B0;
+        _0x114CB.ctx = _0x11504;
+        if (!_0x116CC) {
+          _0x114CB._setupCodecs();
+        }
+        return _0x114CB;
+      },
+      volume: function (_0x11621) {
+        var _0x11576 = this || _0x115AF;
+        _0x11621 = parseFloat(_0x11621);
+        if (
+          typeof _0x11621 !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" &&
+          _0x11621 >= 0 &&
+          _0x11621 <= 1
+        ) {
+          _0x11576._volume = _0x11621;
+          if (_0x117B0) {
+            _0x11693.gain.value = _0x11621;
+          }
+          for (
+            var _0x114CB = 0;
+            _0x114CB < _0x11576._howls.length;
+            _0x114CB++
+          ) {
+            if (!_0x11576._howls[_0x114CB]._webAudio) {
+              var _0x11504 = _0x11576._howls[_0x114CB]._getSoundIds();
+              for (var _0x1153D = 0; _0x1153D < _0x11504.length; _0x1153D++) {
+                var _0x115E8 = _0x11576._howls[_0x114CB]._soundById(
+                  _0x11504[_0x1153D]
+                );
+                if (_0x115E8 && _0x115E8._node) {
+                  _0x115E8._node.volume = _0x115E8._volume * _0x11621;
+                }
+              }
+            }
+          }
+          return _0x11576;
+        }
+        return _0x11576._volume;
+      },
+      mute: function (_0x11576) {
+        var _0x115E8 = this || _0x115AF;
+        _0x115E8._muted = _0x11576;
+        if (_0x117B0) {
+          _0x11693.gain.value = _0x11576 ? 0 : _0x115E8._volume;
+        }
+        for (var _0x114CB = 0; _0x114CB < _0x115E8._howls.length; _0x114CB++) {
+          if (!_0x115E8._howls[_0x114CB]._webAudio) {
+            var _0x11504 = _0x115E8._howls[_0x114CB]._getSoundIds();
+            for (var _0x1153D = 0; _0x1153D < _0x11504.length; _0x1153D++) {
+              var _0x11621 = _0x115E8._howls[_0x114CB]._soundById(
+                _0x11504[_0x1153D]
+              );
+              if (_0x11621 && _0x11621._node) {
+                _0x11621._node.muted = _0x11576 ? true : _0x11621._muted;
+              }
+            }
+          }
+        }
+        return _0x115E8;
+      },
+      unload: function () {
+        var _0x11504 = this || _0x115AF;
+        for (
+          var _0x114CB = _0x11504._howls.length - 1;
+          _0x114CB >= 0;
+          _0x114CB--
+        ) {
+          _0x11504._howls[_0x114CB].unload();
+        }
+        return _0x11504;
+      },
+      codecs: function (_0x114CB) {
+        return (this || _0x115AF)._codecs[_0x114CB];
+      },
+      _setupCodecs: function () {
+        var _0x11576 = this || _0x115AF;
+        var _0x114CB = new Audio();
+        var _0x1153D = _0x114CB
+          .canPlayType("\x61\x75\x64\x69\x6F\x2F\x6D\x70\x65\x67\x3B")
+          .replace(/^no$/, "");
+        var _0x11504 = /OPR\//.test(navigator.userAgent);
+        _0x11576._codecs = {
+          mp3: !!(
+            !_0x11504 &&
+            (_0x1153D ||
+              _0x114CB
+                .canPlayType("\x61\x75\x64\x69\x6F\x2F\x6D\x70\x33\x3B")
+                .replace(/^no$/, ""))
+          ),
+          mpeg: !!_0x1153D,
+          opus: !!_0x114CB
+            .canPlayType(
+              "\x61\x75\x64\x69\x6F\x2F\x6F\x67\x67\x3B\x20\x63\x6F\x64\x65\x63\x73\x3D\x22\x6F\x70\x75\x73\x22"
+            )
+            .replace(/^no$/, ""),
+          ogg: !!_0x114CB
+            .canPlayType(
+              "\x61\x75\x64\x69\x6F\x2F\x6F\x67\x67\x3B\x20\x63\x6F\x64\x65\x63\x73\x3D\x22\x76\x6F\x72\x62\x69\x73\x22"
+            )
+            .replace(/^no$/, ""),
+          wav: !!_0x114CB
+            .canPlayType(
+              "\x61\x75\x64\x69\x6F\x2F\x77\x61\x76\x3B\x20\x63\x6F\x64\x65\x63\x73\x3D\x22\x31\x22"
+            )
+            .replace(/^no$/, ""),
+          aac: !!_0x114CB
+            .canPlayType("\x61\x75\x64\x69\x6F\x2F\x61\x61\x63\x3B")
+            .replace(/^no$/, ""),
+          m4a: !!(
+            _0x114CB.canPlayType(
+              "\x61\x75\x64\x69\x6F\x2F\x78\x2D\x6D\x34\x61\x3B"
+            ) ||
+            _0x114CB.canPlayType("\x61\x75\x64\x69\x6F\x2F\x6D\x34\x61\x3B") ||
+            _0x114CB.canPlayType("\x61\x75\x64\x69\x6F\x2F\x61\x61\x63\x3B")
+          ).replace(/^no$/, ""),
+          mp4: !!(
+            _0x114CB.canPlayType(
+              "\x61\x75\x64\x69\x6F\x2F\x78\x2D\x6D\x70\x34\x3B"
+            ) ||
+            _0x114CB.canPlayType("\x61\x75\x64\x69\x6F\x2F\x6D\x70\x34\x3B") ||
+            _0x114CB.canPlayType("\x61\x75\x64\x69\x6F\x2F\x61\x61\x63\x3B")
+          ).replace(/^no$/, ""),
+          weba: !!_0x114CB
+            .canPlayType(
+              "\x61\x75\x64\x69\x6F\x2F\x77\x65\x62\x6D\x3B\x20\x63\x6F\x64\x65\x63\x73\x3D\x22\x76\x6F\x72\x62\x69\x73\x22"
+            )
+            .replace(/^no$/, ""),
+          webm: !!_0x114CB
+            .canPlayType(
+              "\x61\x75\x64\x69\x6F\x2F\x77\x65\x62\x6D\x3B\x20\x63\x6F\x64\x65\x63\x73\x3D\x22\x76\x6F\x72\x62\x69\x73\x22"
+            )
+            .replace(/^no$/, ""),
+        };
+        return _0x11576;
+      },
+    };
+    var _0x115AF = new _0x115E8();
+    var _0x11576 = function (_0x114CB) {
+      var _0x11504 = this;
+      if (!_0x114CB.src || _0x114CB.src.length === 0) {
+        console.error(
+          "\x41\x6E\x20\x61\x72\x72\x61\x79\x20\x6F\x66\x20\x73\x6F\x75\x72\x63\x65\x20\x66\x69\x6C\x65\x73\x20\x6D\x75\x73\x74\x20\x62\x65\x20\x70\x61\x73\x73\x65\x64\x20\x77\x69\x74\x68\x20\x61\x6E\x79\x20\x6E\x65\x77\x20\x48\x6F\x77\x6C\x2E"
+        );
+        return;
+      }
+      _0x11504.init(_0x114CB);
+    };
+    _0x11576.prototype = {
+      init: function (_0x114CB) {
+        var _0x11504 = this;
+        _0x11504._onends = [];
+        _0x11504._autoplay = _0x114CB.autoplay || false;
+        _0x11504._ext = _0x114CB.ext || null;
+        _0x11504._html5 = _0x114CB.html5 || false;
+        _0x11504._muted = _0x114CB.mute || false;
+        _0x11504._loop = _0x114CB.loop || false;
+        _0x11504._pool = _0x114CB.pool || 5;
+        _0x11504._preload =
+          typeof _0x114CB.preload === "\x62\x6F\x6F\x6C\x65\x61\x6E"
+            ? _0x114CB.preload
+            : true;
+        _0x11504._rate = _0x114CB.rate || 1;
+        _0x11504._sprite = _0x114CB.sprite || {};
+        _0x11504._src =
+          typeof _0x114CB.src !== "\x73\x74\x72\x69\x6E\x67"
+            ? _0x114CB.src
+            : [_0x114CB.src];
+        _0x11504._volume = _0x114CB.volume !== undefined ? _0x114CB.volume : 1;
+        _0x11504._duration = _0x114CB.duration || 0;
+        _0x11504._loaded = false;
+        _0x11504._sounds = [];
+        _0x11504._endTimers = {};
+        _0x11504._onend = _0x114CB.onend ? [{ fn: _0x114CB.onend }] : [];
+        _0x11504._onfaded = _0x114CB.onfaded ? [{ fn: _0x114CB.onfaded }] : [];
+        _0x11504._onload = _0x114CB.onload ? [{ fn: _0x114CB.onload }] : [];
+        _0x11504._onloaderror = _0x114CB.onloaderror
+          ? [{ fn: _0x114CB.onloaderror }]
+          : [];
+        _0x11504._onpause = _0x114CB.onpause ? [{ fn: _0x114CB.onpause }] : [];
+        _0x11504._onplay = _0x114CB.onplay ? [{ fn: _0x114CB.onplay }] : [];
+        _0x11504._onstop = _0x114CB.onstop ? [{ fn: _0x114CB.onstop }] : [];
+        _0x11504._webAudio = _0x117B0 && !_0x11504._html5;
+        _0x115AF._howls.push(_0x11504);
+        if (_0x11504._preload) {
+          _0x11504.load();
+        }
+        return _0x11504;
+      },
+      load: function () {
+        var _0x1153D = this;
+        var _0x115E8 = null;
+        if (_0x116CC) {
+          _0x1153D._emit("\x6C\x6F\x61\x64\x65\x72\x72\x6F\x72");
+          return;
+        }
+        if (typeof _0x1153D._src === "\x73\x74\x72\x69\x6E\x67") {
+          _0x1153D._src = [_0x1153D._src];
+        }
+        for (var _0x11504 = 0; _0x11504 < _0x1153D._src.length; _0x11504++) {
+          var _0x114CB, _0x11576;
+          if (_0x1153D._ext && _0x1153D._ext[_0x11504]) {
+            _0x114CB = _0x1153D._ext[_0x11504];
+          } else {
+            _0x11576 = _0x1153D._src[_0x11504];
+            _0x114CB = /^data:audio\/([^;,]+);/i.exec(_0x11576);
+            if (!_0x114CB) {
+              _0x114CB = /\.([^.]+)$/.exec(_0x11576.split("\x3F", 1)[0]);
+            }
+            if (_0x114CB) {
+              _0x114CB = _0x114CB[1].toLowerCase();
+            }
+          }
+          if (_0x115AF.codecs(_0x114CB)) {
+            _0x115E8 = _0x1153D._src[_0x11504];
+            break;
+          }
+        }
+        if (!_0x115E8) {
+          _0x1153D._emit("\x6C\x6F\x61\x64\x65\x72\x72\x6F\x72");
+          return;
+        }
+        _0x1153D._src = _0x115E8;
+        new _0x11777(_0x1153D);
+        if (_0x1153D._webAudio) {
+          _0x11621(_0x1153D);
+        }
+        return _0x1153D;
+      },
+      play: function (_0x11822, _0x116CC) {
+        var _0x117B0 = this;
+        var _0x114CB = arguments;
+        var _0x115E8 = null;
+        if (typeof _0x11822 === "\x6E\x75\x6D\x62\x65\x72") {
+          _0x115E8 = _0x11822;
+          _0x11822 = null;
+        } else {
+          if (typeof _0x11822 === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+            _0x11822 = "\x5F\x5F\x64\x65\x66\x61\x75\x6C\x74";
+            var _0x11693 = 0;
+            for (
+              var _0x11576 = 0;
+              _0x11576 < _0x117B0._sounds.length;
+              _0x11576++
+            ) {
+              if (
+                _0x117B0._sounds[_0x11576]._paused &&
+                !_0x117B0._sounds[_0x11576]._ended
+              ) {
+                _0x11693++;
+                _0x115E8 = _0x117B0._sounds[_0x11576]._id;
+              }
+            }
+            if (_0x11693 === 1) {
+              _0x11822 = null;
+            } else {
+              _0x115E8 = null;
+            }
+          }
+        }
+        var _0x117E9 = _0x115E8
+          ? _0x117B0._soundById(_0x115E8)
+          : _0x117B0._inactiveSound();
+        if (!_0x117E9) {
+          return null;
+        }
+        if (_0x115E8 && !_0x11822) {
+          _0x11822 = _0x117E9._sprite || "\x5F\x5F\x64\x65\x66\x61\x75\x6C\x74";
+        }
+        if (_0x11822 && _0x116CC) {
+          _0x117B0._onends[_0x117E9._id] = _0x116CC;
+        }
+        if (!_0x117B0._loaded && !_0x117B0._sprite[_0x11822]) {
+          _0x117B0.once("\x6C\x6F\x61\x64", function () {
+            _0x117B0.play(
+              _0x117B0._soundById(_0x117E9._id) ? _0x117E9._id : undefined
+            );
+          });
+          return _0x117E9._id;
+        }
+        if (_0x115E8 && !_0x117E9._paused) {
+          return _0x117E9._id;
+        }
+        var _0x11777 =
+          _0x117E9._seek > 0
+            ? _0x117E9._seek
+            : _0x117B0._sprite[_0x11822][0] / 1000;
+        var _0x1153D =
+          (_0x117B0._sprite[_0x11822][0] + _0x117B0._sprite[_0x11822][1]) /
+            1000 -
+          _0x11777;
+        var _0x1185B = (_0x1153D * 1000) / Math.abs(_0x117E9._rate);
+        _0x117B0._endTimers[_0x117E9._id] = setTimeout(
+          _0x117B0._ended.bind(_0x117B0, _0x117E9),
+          _0x1185B
+        );
+        _0x117E9._paused = false;
+        _0x117E9._ended = false;
+        _0x117E9._sprite = _0x11822;
+        _0x117E9._seek = _0x11777;
+        _0x117E9._start = _0x117B0._sprite[_0x11822][0] / 1000;
+        _0x117E9._stop =
+          (_0x117B0._sprite[_0x11822][0] + _0x117B0._sprite[_0x11822][1]) /
+          1000;
+        _0x117E9._loop = !!(_0x117E9._loop || _0x117B0._sprite[_0x11822][2]);
+        var _0x1165A = _0x117E9._node;
+        if (_0x117B0._webAudio) {
+          var _0x1173E = function () {
+            _0x117B0._refreshBuffer(_0x117E9);
+            var _0x11576 =
+              _0x117E9._muted || _0x117B0._muted
+                ? 0
+                : _0x117E9._volume * _0x115AF.volume();
+            _0x1165A.gain.setValueAtTime(_0x11576, _0x11504.currentTime);
+            _0x117E9._playStart = _0x11504.currentTime;
+            if (
+              typeof _0x1165A.bufferSource.start ===
+              "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+            ) {
+              _0x117E9._loop
+                ? _0x1165A.bufferSource.noteGrainOn(0, _0x11777, 86400)
+                : _0x1165A.bufferSource.noteGrainOn(0, _0x11777, _0x1153D);
+            } else {
+              _0x117E9._loop
+                ? _0x1165A.bufferSource.start(0, _0x11777, 86400)
+                : _0x1165A.bufferSource.start(0, _0x11777, _0x1153D);
+            }
+            if (!_0x117B0._endTimers[_0x117E9._id]) {
+              _0x117B0._endTimers[_0x117E9._id] = setTimeout(
+                _0x117B0._ended.bind(_0x117B0, _0x117E9),
+                _0x1185B
+              );
+            }
+            if (!_0x114CB[1]) {
+              setTimeout(function () {
+                _0x117B0._emit("\x70\x6C\x61\x79", _0x117E9._id);
+              }, 0);
+            }
+          };
+          if (_0x117B0._loaded) {
+            _0x1173E();
+          } else {
+            _0x117B0.once("\x6C\x6F\x61\x64", _0x1173E);
+            _0x117B0._clearTimer(_0x117E9._id);
+          }
+        } else {
+          var _0x11705 = function () {
+            _0x1165A.currentTime = _0x11777;
+            _0x1165A.muted =
+              _0x117E9._muted ||
+              _0x117B0._muted ||
+              _0x115AF._muted ||
+              _0x1165A.muted;
+            _0x1165A.volume = _0x117E9._volume * _0x115AF.volume();
+            _0x1165A.playbackRate = _0x117E9._rate;
+            setTimeout(function () {
+              _0x1165A.play();
+              if (!_0x114CB[1]) {
+                _0x117B0._emit("\x70\x6C\x61\x79", _0x117E9._id);
+              }
+            }, 0);
+          };
+          if (
+            _0x1165A.readyState === 4 ||
+            (!_0x1165A.readyState && navigator.isCocoonJS)
+          ) {
+            _0x11705();
+          } else {
+            var _0x11621 = function () {
+              _0x117B0._endTimers[_0x117E9._id] = setTimeout(
+                _0x117B0._ended.bind(_0x117B0, _0x117E9),
+                _0x1185B
+              );
+              _0x11705();
+              _0x1165A.removeEventListener(
+                "\x63\x61\x6E\x70\x6C\x61\x79\x74\x68\x72\x6F\x75\x67\x68",
+                _0x11621,
+                false
+              );
+            };
+            _0x1165A.addEventListener(
+              "\x63\x61\x6E\x70\x6C\x61\x79\x74\x68\x72\x6F\x75\x67\x68",
+              _0x11621,
+              false
+            );
+            _0x117B0._clearTimer(_0x117E9._id);
+          }
+        }
+        return _0x117E9._id;
+      },
+      pause: function (_0x11504) {
+        var _0x11576 = this;
+        if (!_0x11576._loaded) {
+          _0x11576.once("\x70\x6C\x61\x79", function () {
+            _0x11576.pause(_0x11504);
+          });
+          return _0x11576;
+        }
+        var _0x1153D = _0x11576._getSoundIds(_0x11504);
+        for (var _0x114CB = 0; _0x114CB < _0x1153D.length; _0x114CB++) {
+          _0x11576._clearTimer(_0x1153D[_0x114CB]);
+          var _0x115AF = _0x11576._soundById(_0x1153D[_0x114CB]);
+          if (_0x115AF && !_0x115AF._paused) {
+            _0x115AF._seek = _0x11576.seek(_0x1153D[_0x114CB]);
+            _0x115AF._paused = true;
+            _0x11576._stopFade(_0x1153D[_0x114CB]);
+            if (_0x11576._webAudio) {
+              if (!_0x115AF._node.bufferSource) {
+                return _0x11576;
+              }
+              if (
+                typeof _0x115AF._node.bufferSource.stop ===
+                "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+              ) {
+                _0x115AF._node.bufferSource.noteOff(0);
+              } else {
+                _0x115AF._node.bufferSource.stop(0);
+              }
+              _0x115AF._node.bufferSource = null;
+            } else {
+              if (!isNaN(_0x115AF._node.duration)) {
+                _0x115AF._node.pause();
+              }
+            }
+            if (!arguments[1]) {
+              _0x11576._emit("\x70\x61\x75\x73\x65", _0x115AF._id);
+            }
+          }
+        }
+        return _0x11576;
+      },
+      stop: function (_0x11504) {
+        var _0x11576 = this;
+        if (!_0x11576._loaded) {
+          if (
+            typeof _0x11576._sounds[0]._sprite !==
+            "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+          ) {
+            _0x11576.once("\x70\x6C\x61\x79", function () {
+              _0x11576.stop(_0x11504);
+            });
+          }
+          return _0x11576;
+        }
+        var _0x1153D = _0x11576._getSoundIds(_0x11504);
+        for (var _0x114CB = 0; _0x114CB < _0x1153D.length; _0x114CB++) {
+          _0x11576._clearTimer(_0x1153D[_0x114CB]);
+          var _0x115AF = _0x11576._soundById(_0x1153D[_0x114CB]);
+          if (_0x115AF && !_0x115AF._paused) {
+            _0x115AF._seek = _0x115AF._start || 0;
+            _0x115AF._paused = true;
+            _0x115AF._ended = true;
+            _0x11576._stopFade(_0x1153D[_0x114CB]);
+            if (_0x11576._webAudio && _0x115AF._node) {
+              if (!_0x115AF._node.bufferSource) {
+                return _0x11576;
+              }
+              if (
+                typeof _0x115AF._node.bufferSource.stop ===
+                "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+              ) {
+                _0x115AF._node.bufferSource.noteOff(0);
+              } else {
+                _0x115AF._node.bufferSource.stop(0);
+              }
+              _0x115AF._node.bufferSource = null;
+            } else {
+              if (_0x115AF._node && !isNaN(_0x115AF._node.duration)) {
+                _0x115AF._node.pause();
+                _0x115AF._node.currentTime = _0x115AF._start || 0;
+              }
+            }
+            _0x11576._emit("\x73\x74\x6F\x70", _0x115AF._id);
+          }
+        }
+        return _0x11576;
+      },
+      mute: function (_0x115E8, _0x1153D) {
+        var _0x11621 = this;
+        if (!_0x11621._loaded) {
+          _0x11621.once("\x70\x6C\x61\x79", function () {
+            _0x11621.mute(_0x115E8, _0x1153D);
+          });
+          return _0x11621;
+        }
+        if (typeof _0x1153D === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+          if (typeof _0x115E8 === "\x62\x6F\x6F\x6C\x65\x61\x6E") {
+            _0x11621._muted = _0x115E8;
+          } else {
+            return _0x11621._muted;
+          }
+        }
+        var _0x11576 = _0x11621._getSoundIds(_0x1153D);
+        for (var _0x114CB = 0; _0x114CB < _0x11576.length; _0x114CB++) {
+          var _0x1165A = _0x11621._soundById(_0x11576[_0x114CB]);
+          if (_0x1165A) {
+            _0x1165A._muted = _0x115E8;
+            if (_0x11621._webAudio && _0x1165A._node) {
+              _0x1165A._node.gain.setValueAtTime(
+                _0x115E8 ? 0 : _0x1165A._volume * _0x115AF.volume(),
+                _0x11504.currentTime
+              );
+            } else {
+              if (_0x1165A._node) {
+                _0x1165A._node.muted = _0x115AF._muted ? true : _0x115E8;
+              }
+            }
+          }
+        }
+        return _0x11621;
+      },
+      _stopFade: function (_0x114CB) {
+        var _0x1153D = this;
+        var _0x11576 = _0x1153D._soundById(_0x114CB);
+        if (_0x11576._interval) {
+          clearInterval(_0x11576._interval);
+          delete _0x11576._interval;
+          _0x1153D._emit("\x66\x61\x64\x65\x64", _0x114CB);
+        } else {
+          if (_0x11576._timeout) {
+            clearTimeout(_0x11576._timeout);
+            delete _0x11576._timeout;
+            _0x11576._node.gain.cancelScheduledValues(_0x11504.currentTime);
+            _0x1153D._emit("\x66\x61\x64\x65\x64", _0x114CB);
+          }
+        }
+        return _0x1153D;
+      },
+      loop: function () {
+        var _0x115E8 = this;
+        var _0x114CB = arguments;
+        var _0x115AF, _0x1153D, _0x11621;
+        if (_0x114CB.length === 0) {
+          return _0x115E8._loop;
+        } else {
+          if (_0x114CB.length === 1) {
+            if (typeof _0x114CB[0] === "\x62\x6F\x6F\x6C\x65\x61\x6E") {
+              _0x115AF = _0x114CB[0];
+              _0x115E8._loop = _0x115AF;
+            } else {
+              _0x11621 = _0x115E8._soundById(parseInt(_0x114CB[0], 10));
+              return _0x11621 ? _0x11621._loop : false;
+            }
+          } else {
+            if (_0x114CB.length === 2) {
+              _0x115AF = _0x114CB[0];
+              _0x1153D = parseInt(_0x114CB[1], 10);
+            }
+          }
+        }
+        var _0x11576 = _0x115E8._getSoundIds(_0x1153D);
+        for (var _0x11504 = 0; _0x11504 < _0x11576.length; _0x11504++) {
+          _0x11621 = _0x115E8._soundById(_0x11576[_0x11504]);
+          if (_0x11621) {
+            _0x11621._loop = _0x115AF;
+            if (
+              _0x115E8._webAudio &&
+              _0x11621._node &&
+              _0x11621._node.bufferSource
+            ) {
+              _0x11621._node.bufferSource.loop = _0x115AF;
+            }
+          }
+        }
+        return _0x115E8;
+      },
+      playing: function (_0x114CB) {
+        var _0x11504 = this;
+        var _0x1153D = _0x11504._soundById(_0x114CB) || _0x11504._sounds[0];
+        return _0x1153D ? !_0x1153D._paused : false;
+      },
+      duration: function () {
+        return this._duration;
+      },
+      unload: function () {
+        var _0x11576 = this;
+        var _0x115E8 = _0x11576._sounds;
+        for (var _0x11504 = 0; _0x11504 < _0x115E8.length; _0x11504++) {
+          if (!_0x115E8[_0x11504]._paused) {
+            _0x11576.stop(_0x115E8[_0x11504]._id);
+            _0x11576._emit("\x65\x6E\x64", _0x115E8[_0x11504]._id);
+          }
+          if (!_0x11576._webAudio) {
+            _0x115E8[_0x11504]._node.src = "";
+            _0x115E8[_0x11504]._node.removeEventListener(
+              "\x65\x72\x72\x6F\x72",
+              _0x115E8[_0x11504]._errorFn,
+              false
+            );
+            _0x115E8[_0x11504]._node.removeEventListener(
+              "\x63\x61\x6E\x70\x6C\x61\x79\x74\x68\x72\x6F\x75\x67\x68",
+              _0x115E8[_0x11504]._loadFn,
+              false
+            );
+          }
+          delete _0x115E8[_0x11504]._node;
+          _0x11576._clearTimer(_0x115E8[_0x11504]._id);
+          var _0x1153D = _0x115AF._howls.indexOf(_0x11576);
+          if (_0x1153D >= 0) {
+            _0x115AF._howls.splice(_0x1153D, 1);
+          }
+        }
+        if (_0x114CB) {
+          delete _0x114CB[_0x11576._src];
+        }
+        _0x11576 = null;
+        return null;
+      },
+      on: function (_0x114CB, _0x1153D, _0x11576, _0x115AF) {
+        var _0x115E8 = this;
+        var _0x11504 = _0x115E8["\x5F\x6F\x6E" + _0x114CB];
+        if (typeof _0x1153D === "\x66\x75\x6E\x63\x74\x69\x6F\x6E") {
+          _0x11504.push(
+            _0x115AF
+              ? { id: _0x11576, fn: _0x1153D, once: _0x115AF }
+              : { id: _0x11576, fn: _0x1153D }
+          );
+        }
+        return _0x115E8;
+      },
+      off: function (_0x114CB, _0x1153D, _0x115AF) {
+        var _0x115E8 = this;
+        var _0x11504 = _0x115E8["\x5F\x6F\x6E" + _0x114CB];
+        if (_0x1153D) {
+          for (var _0x11576 = 0; _0x11576 < _0x11504.length; _0x11576++) {
+            if (
+              _0x1153D === _0x11504[_0x11576].fn &&
+              _0x115AF === _0x11504[_0x11576].id
+            ) {
+              _0x11504.splice(_0x11576, 1);
+              break;
+            }
+          }
+        } else {
+          _0x115E8["\x6F\x6E" + _0x114CB] = [];
+        }
+        return _0x115E8;
+      },
+      once: function (_0x114CB, _0x11504, _0x1153D) {
+        var _0x11576 = this;
+        _0x11576.on(_0x114CB, _0x11504, _0x1153D, 1);
+        return _0x11576;
+      },
+      _emit: function (_0x114CB, _0x11576, _0x115AF) {
+        var _0x115E8 = this;
+        var _0x11504 = _0x115E8["\x5F\x6F\x6E" + _0x114CB];
+        for (var _0x1153D = 0; _0x1153D < _0x11504.length; _0x1153D++) {
+          if (!_0x11504[_0x1153D].id || _0x11504[_0x1153D].id === _0x11576) {
+            setTimeout(
+              function (_0x114CB) {
+                _0x114CB.call(this, _0x11576, _0x115AF);
+              }.bind(_0x115E8, _0x11504[_0x1153D].fn),
+              0
+            );
+            if (_0x11504[_0x1153D].once) {
+              _0x115E8.off(_0x114CB, _0x11504[_0x1153D].fn, _0x11576);
+            }
+          }
+        }
+        return _0x115E8;
+      },
+      _ended: function (_0x11576) {
+        var _0x1153D = this;
+        var _0x115AF = _0x11576._sprite;
+        var _0x114CB = !!(_0x11576._loop || _0x1153D._sprite[_0x115AF][2]);
+        _0x1153D._emit("\x65\x6E\x64", _0x11576._id);
+        if (_0x1153D._onends[_0x11576._id]) {
+          _0x1153D._onends[_0x11576._id]();
+          delete _0x1153D._onends[_0x11576._id];
+        }
+        if (!_0x1153D._webAudio && _0x114CB) {
+          _0x1153D.stop(_0x11576._id).play(_0x11576._id);
+        }
+        if (_0x1153D._webAudio && _0x114CB) {
+          _0x1153D._emit("\x70\x6C\x61\x79", _0x11576._id);
+          _0x11576._seek = _0x11576._start || 0;
+          _0x11576._playStart = _0x11504.currentTime;
+          var _0x115E8 =
+            ((_0x11576._stop - _0x11576._start) * 1000) /
+            Math.abs(_0x11576._rate);
+          _0x1153D._endTimers[_0x11576._id] = setTimeout(
+            _0x1153D._ended.bind(_0x1153D, _0x11576),
+            _0x115E8
+          );
+        }
+        if (_0x1153D._webAudio && !_0x114CB) {
+          _0x11576._paused = true;
+          _0x11576._ended = true;
+          _0x11576._seek = _0x11576._start || 0;
+          _0x1153D._clearTimer(_0x11576._id);
+          _0x11576._node.bufferSource = null;
+        }
+        if (!_0x1153D._webAudio && !_0x114CB) {
+          _0x1153D.stop(_0x11576._id);
+        }
+        return _0x1153D;
+      },
+      _clearTimer: function (_0x114CB) {
+        var _0x11504 = this;
+        if (_0x11504._endTimers[_0x114CB]) {
+          clearTimeout(_0x11504._endTimers[_0x114CB]);
+          delete _0x11504._endTimers[_0x114CB];
+        }
+        return _0x11504;
+      },
+      _soundById: function (_0x11504) {
+        var _0x1153D = this;
+        for (var _0x114CB = 0; _0x114CB < _0x1153D._sounds.length; _0x114CB++) {
+          if (_0x11504 === _0x1153D._sounds[_0x114CB]._id) {
+            return _0x1153D._sounds[_0x114CB];
+          }
+        }
+        return null;
+      },
+      _inactiveSound: function () {
+        var _0x11504 = this;
+        _0x11504._drain();
+        for (var _0x114CB = 0; _0x114CB < _0x11504._sounds.length; _0x114CB++) {
+          if (_0x11504._sounds[_0x114CB]._ended) {
+            return _0x11504._sounds[_0x114CB].reset();
+          }
+        }
+        return new _0x11777(_0x11504);
+      },
+      _drain: function () {
+        var _0x11576 = this;
+        var _0x1153D = _0x11576._pool;
+        var _0x114CB = 0;
+        var _0x11504 = 0;
+        if (_0x11576._sounds.length < _0x1153D) {
+          return;
+        }
+        for (_0x11504 = 0; _0x11504 < _0x11576._sounds.length; _0x11504++) {
+          if (_0x11576._sounds[_0x11504]._ended) {
+            _0x114CB++;
+          }
+        }
+        for (
+          _0x11504 = _0x11576._sounds.length - 1;
+          _0x11504 >= 0;
+          _0x11504--
+        ) {
+          if (_0x114CB <= _0x1153D) {
+            return;
+          }
+          if (_0x11576._sounds[_0x11504]._ended) {
+            if (_0x11576._webAudio && _0x11576._sounds[_0x11504]._node) {
+              _0x11576._sounds[_0x11504]._node.disconnect(0);
+            }
+            _0x11576._sounds.splice(_0x11504, 1);
+            _0x114CB--;
+          }
+        }
+      },
+      _getSoundIds: function (_0x11504) {
+        var _0x11576 = this;
+        if (typeof _0x11504 === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+          var _0x1153D = [];
+          for (
+            var _0x114CB = 0;
+            _0x114CB < _0x11576._sounds.length;
+            _0x114CB++
+          ) {
+            _0x1153D.push(_0x11576._sounds[_0x114CB]._id);
+          }
+          return _0x1153D;
+        } else {
+          return [_0x11504];
+        }
+      },
+      _refreshBuffer: function (_0x11576) {
+        var _0x1153D = this;
+        _0x11576._node.bufferSource = _0x11504.createBufferSource();
+        _0x11576._node.bufferSource.buffer = _0x114CB[_0x1153D._src];
+        if (_0x11576._panner) {
+          _0x11576._node.bufferSource.connect(_0x11576._panner);
+        } else {
+          _0x11576._node.bufferSource.connect(_0x11576._node);
+        }
+        _0x11576._node.bufferSource.loop = _0x11576._loop;
+        if (_0x11576._loop) {
+          _0x11576._node.bufferSource.loopStart = _0x11576._start || 0;
+          _0x11576._node.bufferSource.loopEnd = _0x11576._stop;
+        }
+        _0x11576._node.bufferSource.playbackRate.value = _0x1153D._rate;
+        return _0x1153D;
+      },
+    };
+    var _0x11777 = function (_0x114CB) {
+      this._parent = _0x114CB;
+      this.init();
+    };
+    _0x11777.prototype = {
+      init: function () {
+        var _0x11504 = this;
+        var _0x114CB = _0x11504._parent;
+        _0x11504._muted = _0x114CB._muted;
+        _0x11504._loop = _0x114CB._loop;
+        _0x11504._volume = _0x114CB._volume;
+        _0x11504._muted = _0x114CB._muted;
+        _0x11504._rate = _0x114CB._rate;
+        _0x11504._seek = 0;
+        _0x11504._paused = true;
+        _0x11504._ended = true;
+        _0x11504._id = Math.round(Date.now() * Math.random());
+        _0x114CB._sounds.push(_0x11504);
+        _0x11504.create();
+        return _0x11504;
+      },
+      create: function () {
+        var _0x1153D = this;
+        var _0x114CB = _0x1153D._parent;
+        var _0x11576 =
+          _0x115AF._muted || _0x1153D._muted || _0x1153D._parent._muted
+            ? 0
+            : _0x1153D._volume * _0x115AF.volume();
+        if (_0x114CB._webAudio) {
+          _0x1153D._node =
+            typeof _0x11504.createGain ===
+            "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+              ? _0x11504.createGainNode()
+              : _0x11504.createGain();
+          _0x1153D._node.gain.setValueAtTime(_0x11576, _0x11504.currentTime);
+          _0x1153D._node.paused = true;
+          _0x1153D._node.connect(_0x11693);
+        } else {
+          _0x1153D._node = new Audio();
+          _0x1153D._errorFn = _0x1153D._errorListener.bind(_0x1153D);
+          _0x1153D._node.addEventListener(
+            "\x65\x72\x72\x6F\x72",
+            _0x1153D._errorFn,
+            false
+          );
+          _0x1153D._loadFn = _0x1153D._loadListener.bind(_0x1153D);
+          _0x1153D._node.addEventListener(
+            "\x63\x61\x6E\x70\x6C\x61\x79\x74\x68\x72\x6F\x75\x67\x68",
+            _0x1153D._loadFn,
+            false
+          );
+          _0x1153D._node.src = _0x114CB._src;
+          _0x1153D._node.preload = "\x61\x75\x74\x6F";
+          _0x1153D._node.volume = _0x11576;
+          _0x1153D._node.load();
+        }
+        return _0x1153D;
+      },
+      reset: function () {
+        var _0x11504 = this;
+        var _0x114CB = _0x11504._parent;
+        _0x11504._muted = _0x114CB._muted;
+        _0x11504._loop = _0x114CB._loop;
+        _0x11504._volume = _0x114CB._volume;
+        _0x11504._muted = _0x114CB._muted;
+        _0x11504._rate = _0x114CB._rate;
+        _0x11504._seek = 0;
+        _0x11504._paused = true;
+        _0x11504._ended = true;
+        _0x11504._sprite = null;
+        _0x11504._id = Math.round(Date.now() * Math.random());
+        return _0x11504;
+      },
+      _errorListener: function () {
+        var _0x114CB = this;
+        if (_0x114CB._node.error && _0x114CB._node.error.code === 4) {
+          _0x115AF.noAudio = true;
+        }
+        _0x114CB._parent._emit(
+          "\x6C\x6F\x61\x64\x65\x72\x72\x6F\x72",
+          _0x114CB._id,
+          _0x114CB._node.error ? _0x114CB._node.error.code : 0
+        );
+        _0x114CB._node.removeEventListener(
+          "\x65\x72\x72\x6F\x72",
+          _0x114CB._errorListener,
+          false
+        );
+      },
+      _loadListener: function () {
+        var _0x11504 = this;
+        var _0x114CB = _0x11504._parent;
+        if (_0x114CB._duration == 0) {
+          _0x114CB._duration = Math.ceil(_0x11504._node.duration * 10) / 10;
+        }
+        if (Object.keys(_0x114CB._sprite).length === 0) {
+          _0x114CB._sprite = { __default: [0, _0x114CB._duration * 1000] };
+        }
+        if (!_0x114CB._loaded) {
+          _0x114CB._loaded = true;
+          _0x114CB._emit("\x6C\x6F\x61\x64");
+        }
+        if (_0x114CB._autoplay) {
+          _0x114CB.play();
+        }
+        _0x11504._node.removeEventListener(
+          "\x63\x61\x6E\x70\x6C\x61\x79\x74\x68\x72\x6F\x75\x67\x68",
+          _0x11504._loadFn,
+          false
+        );
+      },
+    };
+    if (_0x117B0) {
+      var _0x114CB = {};
+      var _0x11621 = function (_0x115E8) {
+        var _0x11621 = _0x115E8._src;
+        if (_0x114CB[_0x11621]) {
+          _0x115E8._duration = _0x114CB[_0x11621].duration;
+          _0x1165A(_0x115E8);
+          return;
+        }
+        if (/^data:[^;]+;base64,/.test(_0x11621)) {
+          window.atob =
+            window.atob ||
+            function (_0x115E8) {
+              var _0x11576 =
+                "\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4A\x4B\x4C\x4D\x4E\x4F\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5A\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6A\x6B\x6C\x6D\x6E\x6F\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7A\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x2B\x2F\x3D";
+              var _0x1165A = String(_0x115E8).replace(/=+$/, "");
+              for (
+                var _0x114CB = 0,
+                  _0x11504,
+                  _0x1153D,
+                  _0x115AF = 0,
+                  _0x11621 = "";
+                (_0x1153D = _0x1165A.charAt(_0x115AF++));
+                ~_0x1153D &&
+                ((_0x11504 =
+                  _0x114CB % 4 ? _0x11504 * 64 + _0x1153D : _0x1153D),
+                _0x114CB++ % 4)
+                  ? (_0x11621 += String.fromCharCode(
+                      255 & (_0x11504 >> ((-2 * _0x114CB) & 6))
+                    ))
+                  : 0
+              ) {
+                _0x1153D = _0x11576.indexOf(_0x1153D);
+              }
+              return _0x11621;
+            };
+          var _0x11504 = atob(_0x11621.split("\x2C")[1]);
+          var _0x11576 = new Uint8Array(_0x11504.length);
+          for (var _0x115AF = 0; _0x115AF < _0x11504.length; ++_0x115AF) {
+            _0x11576[_0x115AF] = _0x11504.charCodeAt(_0x115AF);
+          }
+          _0x1153D(_0x11576.buffer, _0x115E8);
+        } else {
+          var _0x11693 = new XMLHttpRequest();
+          _0x11693.open("\x47\x45\x54", _0x11621, true);
+          _0x11693.responseType =
+            "\x61\x72\x72\x61\x79\x62\x75\x66\x66\x65\x72";
+          _0x11693.onload = function () {
+            _0x1153D(_0x11693.response, _0x115E8);
+          };
+          _0x11693.onerror = function () {
+            if (_0x115E8._webAudio) {
+              _0x115E8._html5 = true;
+              _0x115E8._webAudio = false;
+              _0x115E8._sounds = [];
+              delete _0x114CB[_0x11621];
+              _0x115E8.load();
+            }
+          };
+          _0x11705(_0x11693);
+        }
+      };
+      var _0x11705 = function (_0x114CB) {
+        try {
+          _0x114CB.send();
+        } catch (e) {
+          _0x114CB.onerror();
+        }
+      };
+      var _0x1153D = function (_0x11576, _0x115AF) {
+        _0x11504.decodeAudioData(
+          _0x11576,
+          function (_0x11504) {
+            if (_0x11504) {
+              _0x114CB[_0x115AF._src] = _0x11504;
+              _0x1165A(_0x115AF, _0x11504);
+            }
+          },
+          function () {
+            _0x115AF._emit("\x6C\x6F\x61\x64\x65\x72\x72\x6F\x72");
+          }
+        );
+      };
+      var _0x1165A = function (_0x11504, _0x114CB) {
+        if (_0x114CB && !_0x11504._duration) {
+          _0x11504._duration = _0x114CB.duration;
+        }
+        if (Object.keys(_0x11504._sprite).length === 0) {
+          _0x11504._sprite = { __default: [0, _0x11504._duration * 1000] };
+        }
+        if (!_0x11504._loaded) {
+          _0x11504._loaded = true;
+          _0x11504._emit("\x6C\x6F\x61\x64");
+        }
+        if (_0x11504._autoplay) {
+          _0x11504.play();
+        }
+      };
+    }
+    function _0x1173E() {
+      try {
+        if (typeof AudioContext !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+          _0x11504 = new AudioContext();
+        } else {
+          if (
+            typeof webkitAudioContext !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+          ) {
+            _0x11504 = new webkitAudioContext();
+          } else {
+            _0x117B0 = false;
+          }
+        }
+      } catch (e) {
+        _0x117B0 = false;
+      }
+      if (!_0x117B0) {
+        if (typeof Audio !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+          try {
+            new Audio();
+          } catch (e) {
+            _0x116CC = true;
+          }
+        } else {
+          _0x116CC = true;
+        }
+      }
+      var _0x114CB = new Audio();
+      if (_0x114CB.muted) {
+        _0x116CC = true;
+      }
+    }
+    if (typeof define === "\x66\x75\x6E\x63\x74\x69\x6F\x6E" && define.amd) {
+      define("\x68\x6F\x77\x6C\x65\x72", function () {
+        return { Howler: _0x115AF, Howl: _0x11576 };
+      });
+    }
+    if (typeof exports !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+      exports.Howler = _0x115AF;
+      exports.Howl = _0x11576;
+    }
+    if (typeof window !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+      window.HowlerGlobal = _0x115E8;
+      window.Howler = _0x115AF;
+      window.Howl = _0x11576;
+      window.Sound = _0x11777;
+    }
+  }
+  function _0x1289C(_0x11621, _0x114CB) {
+    var _0x11576 = false,
+      _0x115E8,
+      _0x11504,
+      _0x115AF = {
+        hidden:
+          "\x76\x69\x73\x69\x62\x69\x6C\x69\x74\x79\x63\x68\x61\x6E\x67\x65",
+        webkitHidden:
+          "\x77\x65\x62\x6B\x69\x74\x76\x69\x73\x69\x62\x69\x6C\x69\x74\x79\x63\x68\x61\x6E\x67\x65",
+        mozHidden:
+          "\x6D\x6F\x7A\x76\x69\x73\x69\x62\x69\x6C\x69\x74\x79\x63\x68\x61\x6E\x67\x65",
+        msHidden:
+          "\x6D\x73\x76\x69\x73\x69\x62\x69\x6C\x69\x74\x79\x63\x68\x61\x6E\x67\x65",
+      };
+    for (_0x115E8 in _0x115AF) {
+      if (_0x115E8 in _0x114CB) {
+        _0x11504 = _0x115AF[_0x115E8];
+        break;
+      }
+    }
+    _0x114CB.addEventListener(_0x11504, function () {
+      _0x1153D(
+        _0x114CB[_0x115E8] ? "\x69\x64\x6C\x65" : "\x77\x61\x6B\x65\x75\x70"
+      );
+    });
+    _0x11621.addEventListener(
+      "\x70\x61\x67\x65\x68\x69\x64\x65",
+      function () {
+        _0x1153D("\x69\x64\x6C\x65");
+      },
+      false
+    );
+    _0x11621.addEventListener(
+      "\x70\x61\x67\x65\x73\x68\x6F\x77",
+      function () {
+        _0x1153D("\x77\x61\x6B\x65\x75\x70");
+      },
+      false
+    );
+    function _0x1153D(_0x1153D, _0x115AF) {
+      if (
+        (!_0x11576 && _0x1153D == "\x77\x61\x6B\x65\x75\x70") ||
+        (_0x11576 && _0x1153D == "\x69\x64\x6C\x65")
+      ) {
+        return;
+      }
+      _0x11576 = _0x1153D == "\x69\x64\x6C\x65";
+      _0x115AF = _0x115AF || _0x11621;
+      var _0x11504 = _0x114CB.createEvent("\x45\x76\x65\x6E\x74\x73");
+      _0x11504.initEvent(_0x1153D, true, true);
+      _0x115AF.dispatchEvent(_0x11504);
+    }
+  }
+  function _0x128D5() {
+    "\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74";
+    var _0x11504 =
+      typeof module !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" &&
+      module.exports;
+    var _0x1153D =
+      typeof Element !== "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" &&
+      "\x41\x4C\x4C\x4F\x57\x5F\x4B\x45\x59\x42\x4F\x41\x52\x44\x5F\x49\x4E\x50\x55\x54" in
+        Element;
+    var _0x114CB = (function () {
+      var _0x115AF;
+      var _0x115E8;
+      var _0x114CB = [
+        [
+          "\x72\x65\x71\x75\x65\x73\x74\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E",
+          "\x65\x78\x69\x74\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E",
+          "\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x45\x6C\x65\x6D\x65\x6E\x74",
+          "\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x45\x6E\x61\x62\x6C\x65\x64",
+          "\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x63\x68\x61\x6E\x67\x65",
+          "\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x65\x72\x72\x6F\x72",
+        ],
+        [
+          "\x77\x65\x62\x6B\x69\x74\x52\x65\x71\x75\x65\x73\x74\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E",
+          "\x77\x65\x62\x6B\x69\x74\x45\x78\x69\x74\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E",
+          "\x77\x65\x62\x6B\x69\x74\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x45\x6C\x65\x6D\x65\x6E\x74",
+          "\x77\x65\x62\x6B\x69\x74\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x45\x6E\x61\x62\x6C\x65\x64",
+          "\x77\x65\x62\x6B\x69\x74\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x63\x68\x61\x6E\x67\x65",
+          "\x77\x65\x62\x6B\x69\x74\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x65\x72\x72\x6F\x72",
+        ],
+        [
+          "\x77\x65\x62\x6B\x69\x74\x52\x65\x71\x75\x65\x73\x74\x46\x75\x6C\x6C\x53\x63\x72\x65\x65\x6E",
+          "\x77\x65\x62\x6B\x69\x74\x43\x61\x6E\x63\x65\x6C\x46\x75\x6C\x6C\x53\x63\x72\x65\x65\x6E",
+          "\x77\x65\x62\x6B\x69\x74\x43\x75\x72\x72\x65\x6E\x74\x46\x75\x6C\x6C\x53\x63\x72\x65\x65\x6E\x45\x6C\x65\x6D\x65\x6E\x74",
+          "\x77\x65\x62\x6B\x69\x74\x43\x61\x6E\x63\x65\x6C\x46\x75\x6C\x6C\x53\x63\x72\x65\x65\x6E",
+          "\x77\x65\x62\x6B\x69\x74\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x63\x68\x61\x6E\x67\x65",
+          "\x77\x65\x62\x6B\x69\x74\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x65\x72\x72\x6F\x72",
+        ],
+        [
+          "\x6D\x6F\x7A\x52\x65\x71\x75\x65\x73\x74\x46\x75\x6C\x6C\x53\x63\x72\x65\x65\x6E",
+          "\x6D\x6F\x7A\x43\x61\x6E\x63\x65\x6C\x46\x75\x6C\x6C\x53\x63\x72\x65\x65\x6E",
+          "\x6D\x6F\x7A\x46\x75\x6C\x6C\x53\x63\x72\x65\x65\x6E\x45\x6C\x65\x6D\x65\x6E\x74",
+          "\x6D\x6F\x7A\x46\x75\x6C\x6C\x53\x63\x72\x65\x65\x6E\x45\x6E\x61\x62\x6C\x65\x64",
+          "\x6D\x6F\x7A\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x63\x68\x61\x6E\x67\x65",
+          "\x6D\x6F\x7A\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x65\x72\x72\x6F\x72",
+        ],
+        [
+          "\x6D\x73\x52\x65\x71\x75\x65\x73\x74\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E",
+          "\x6D\x73\x45\x78\x69\x74\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E",
+          "\x6D\x73\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x45\x6C\x65\x6D\x65\x6E\x74",
+          "\x6D\x73\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x45\x6E\x61\x62\x6C\x65\x64",
+          "\x4D\x53\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x43\x68\x61\x6E\x67\x65",
+          "\x4D\x53\x46\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x45\x72\x72\x6F\x72",
+        ],
+      ];
+      var _0x11504 = 0;
+      var _0x1153D = _0x114CB.length;
+      var _0x11576 = {};
+      for (; _0x11504 < _0x1153D; _0x11504++) {
+        _0x115AF = _0x114CB[_0x11504];
+        if (_0x115AF && _0x115AF[1] in document) {
+          for (
+            _0x11504 = 0, _0x115E8 = _0x115AF.length;
+            _0x11504 < _0x115E8;
+            _0x11504++
+          ) {
+            _0x11576[_0x114CB[0][_0x11504]] = _0x115AF[_0x11504];
+          }
+          return _0x11576;
+        }
+      }
+      return false;
+    })();
+    var _0x11576 = {
+      request: function (_0x11504) {
+        var _0x11576 = _0x114CB.requestFullscreen;
+        _0x11504 = _0x11504 || document.documentElement;
+        if (/5\.1[\.\d]* Safari/.test(navigator.userAgent)) {
+          _0x11504[_0x11576]();
+        } else {
+          _0x11504[_0x11576](_0x1153D && Element.ALLOW_KEYBOARD_INPUT);
+        }
+      },
+      exit: function () {
+        document[_0x114CB.exitFullscreen]();
+      },
+      toggle: function (_0x114CB) {
+        if (this.isFullscreen) {
+          this.exit();
+        } else {
+          this.request(_0x114CB);
+        }
+      },
+      onchange: function () {},
+      onerror: function () {},
+      raw: _0x114CB,
+    };
+    if (!_0x114CB) {
+      if (_0x11504) {
+        module.exports = false;
+      } else {
+        window.screenfull = false;
+      }
+      return;
+    }
+    Object.defineProperties(_0x11576, {
+      isFullscreen: {
+        get: function () {
+          return !!document[_0x114CB.fullscreenElement];
+        },
+      },
+      element: {
+        enumerable: true,
+        get: function () {
+          return document[_0x114CB.fullscreenElement];
+        },
+      },
+      enabled: {
+        enumerable: true,
+        get: function () {
+          var _0x11504 = navigator.userAgent;
+          return (
+            !!document[_0x114CB.fullscreenEnabled] &&
+            _0x11504.indexOf(
+              "\x53\x41\x4D\x53\x55\x4E\x47\x20\x47\x54\x2D\x49\x39\x35\x30\x35"
+            ) == -1 &&
+            _0x11504.indexOf("\x53\x69\x6C\x6B\x2F") == -1
+          );
+        },
+      },
+    });
+    document.addEventListener(_0x114CB.fullscreenchange, function (_0x114CB) {
+      _0x11576.onchange.call(_0x11576, _0x114CB);
+    });
+    document.addEventListener(_0x114CB.fullscreenerror, function (_0x114CB) {
+      _0x11576.onerror.call(_0x11576, _0x114CB);
+    });
+    if (_0x11504) {
+      module.exports = _0x11576;
+    } else {
+      window.screenfull = _0x11576;
+    }
+  }
+  function _0x1290E(_0x117E9, _0x1173E) {
+    var _0x1153D =
+      "\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72" in
+      _0x117E9;
+    var _0x11504 = false;
+    if (_0x1173E.readyState === "\x63\x6F\x6D\x70\x6C\x65\x74\x65") {
+      _0x11504 = true;
+    } else {
+      if (_0x1153D) {
+        _0x117E9.addEventListener("\x6C\x6F\x61\x64", _0x117B0, false);
+      }
+    }
+    function _0x117B0() {
+      _0x117E9.removeEventListener("\x6C\x6F\x61\x64", _0x117B0, false);
+      _0x11504 = true;
+    }
+    var _0x11693 = /\/ath(\/)?$/;
+    var _0x1165A = /([\?&]ath=[^&]*$|&ath=[^&]*(&))/;
+    var _0x115AF;
+    function _0x11705(_0x114CB) {
+      _0x115AF = _0x115AF || new _0x11705.Class(_0x114CB);
+      return _0x115AF;
+    }
+    _0x11705.intl = {
+      cs_cs: {
+        ios: "\x50\x72\x6F\x20\x70\u0159\x69\x64\xE1\x6E\x69\x20\x74\xE9\x74\x6F\x20\x77\x65\x62\x6F\x76\xE9\x20\x61\x70\x6C\x69\x6B\x61\x63\x65\x20\x6E\x61\x20\xFA\x76\x6F\x64\x6E\xED\x20\x6F\x62\x72\x61\x7A\x6F\x76\x6B\x75\x3A\x20\x73\x74\x6C\x61\u010D\x74\x65\x20\x25\x69\x63\x6F\x6E\x20\x61\x20\x70\x61\x6B\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x50\u0159\x69\x64\x61\x74\x20\x6E\x61\x20\xFA\x76\x6F\x64\x6E\xED\x20\x6F\x62\x72\x61\x7A\x6F\x76\x6B\x75\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      de_de: {
+        ios: "\x55\x6D\x20\x64\x69\x65\x73\x65\x20\x57\x65\x62\x2D\x41\x70\x70\x20\x7A\x75\x6D\x20\x48\x6F\x6D\x65\x2D\x42\x69\x6C\x64\x73\x63\x68\x69\x72\x6D\x20\x68\x69\x6E\x7A\x75\x7A\x75\x66\xFC\x67\x65\x6E\x2C\x20\x74\x69\x70\x70\x65\x6E\x20\x53\x69\x65\x20\x61\x75\x66\x20\x25\x69\x63\x6F\x6E\x20\x75\x6E\x64\x20\x64\x61\x6E\x6E\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x5A\x75\x6D\x20\x48\x6F\x6D\x65\x2D\x42\x69\x6C\x64\x73\x63\x68\x69\x72\x6D\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      da_dk: {
+        ios: "\x46\x6F\x72\x20\x61\x74\x20\x74\x69\x6C\x66\xF8\x6A\x65\x20\x64\x65\x6E\x6E\x65\x20\x77\x65\x62\x20\x61\x70\x70\x20\x74\x69\x6C\x20\x68\x6A\x65\x6D\x6D\x65\x73\x6B\xE6\x72\x6D\x65\x6E\x3A\x20\x54\x72\x79\x6B\x20\x25\x69\x63\x6F\x6E\x20\x6F\x67\x20\x64\x65\x72\x65\x66\x74\x65\x72\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x46\xF8\x6A\x20\x74\x69\x6C\x20\x68\x6A\x65\x6D\x6D\x65\x73\x6B\xE6\x72\x6D\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      el_gr: {
+        ios: "\u0393\u03B9\u03B1\x20\u03BD\u03B1\x20\u03C0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03B5\u03C4\u03B5\x20\u03C4\u03B7\u03BD\x20\u03B5\u03C6\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE\x20\u03C3\u03C4\u03B7\u03BD\x20\u03B1\u03C1\u03C7\u03B9\u03BA\u03AE\x20\u03BF\u03B8\u03CC\u03BD\u03B7\x3A\x20\u03C0\u03B1\u03C4\u03AE\u03C3\u03C4\u03B5\x20\u03C4\u03BF\x20\x25\x69\x63\x6F\x6E\x20\u03BA\u03B1\u03B9\x20\u03BC\u03B5\u03C4\u03AC\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\u03A0\u03C1\u03CC\u03C3\u03B8\u03B5\u03C3\u03B5\x20\u03C3\u03C4\u03B7\u03BD\x20\u03B1\u03C1\u03C7\u03B9\u03BA\u03AE\x20\u03BF\u03B8\u03CC\u03BD\u03B7\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      en_us: {
+        ios: "\x54\x6F\x20\x61\x64\x64\x20\x74\x68\x69\x73\x20\x77\x65\x62\x20\x61\x70\x70\x20\x74\x6F\x20\x74\x68\x65\x20\x68\x6F\x6D\x65\x20\x73\x63\x72\x65\x65\x6E\x3A\x20\x74\x61\x70\x20\x25\x69\x63\x6F\x6E\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x41\x64\x64\x20\x74\x6F\x20\x48\x6F\x6D\x65\x20\x53\x63\x72\x65\x65\x6E\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      es_es: {
+        ios: "\x50\x61\x72\x61\x20\x61\xF1\x61\x64\x69\x72\x20\x65\x73\x74\x61\x20\x61\x70\x6C\x69\x63\x61\x63\x69\xF3\x6E\x20\x77\x65\x62\x20\x61\x20\x6C\x61\x20\x70\x61\x6E\x74\x61\x6C\x6C\x61\x20\x64\x65\x20\x69\x6E\x69\x63\x69\x6F\x3A\x20\x70\x75\x6C\x73\x61\x20\x25\x69\x63\x6F\x6E\x20\x79\x20\x73\x65\x6C\x65\x63\x63\x69\x6F\x6E\x61\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x41\xF1\x61\x64\x69\x72\x20\x61\x20\x70\x61\x6E\x74\x61\x6C\x6C\x61\x20\x64\x65\x20\x69\x6E\x69\x63\x69\x6F\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      fi_fi: {
+        ios: "\x4C\x69\x69\x74\xE4\x20\x74\xE4\x6D\xE4\x20\x73\x6F\x76\x65\x6C\x6C\x75\x73\x20\x6B\x6F\x74\x69\x76\x61\x6C\x69\x6B\x6B\x6F\x6F\x6E\x3A\x20\x6B\x6C\x69\x6B\x6B\x61\x61\x20\x25\x69\x63\x6F\x6E\x20\x6A\x61\x20\x74\xE4\x6D\xE4\x6E\x20\x6A\xE4\x6C\x6B\x65\x65\x6E\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x4C\x69\x73\xE4\xE4\x20\x6B\x6F\x74\x69\x76\x61\x6C\x69\x6B\x6B\x6F\x6F\x6E\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      fr_fr: {
+        ios: "\x50\x6F\x75\x72\x20\x61\x6A\x6F\x75\x74\x65\x72\x20\x63\x65\x74\x74\x65\x20\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x20\x77\x65\x62\x20\x73\x75\x72\x20\x6C\x27\xE9\x63\x72\x61\x6E\x20\x64\x27\x61\x63\x63\x75\x65\x69\x6C\x20\x3A\x20\x41\x70\x70\x75\x79\x65\x7A\x20\x25\x69\x63\x6F\x6E\x20\x65\x74\x20\x73\xE9\x6C\x65\x63\x74\x69\x6F\x6E\x6E\x65\x7A\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x41\x6A\x6F\x75\x74\x65\x72\x20\x73\x75\x72\x20\x6C\x27\xE9\x63\x72\x61\x6E\x20\x64\x27\x61\x63\x63\x75\x65\x69\x6C\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      he_il: {
+        ios: "\x3C\x73\x70\x61\x6E\x20\x64\x69\x72\x3D\x22\x72\x74\x6C\x22\x3E\u05DC\u05D4\u05D5\u05E1\u05E4\u05EA\x20\u05D4\u05D0\u05E4\u05DC\u05D9\u05E7\u05E6\u05D9\u05D4\x20\u05DC\u05DE\u05E1\u05DA\x20\u05D4\u05D1\u05D9\u05EA\x3A\x20\u05DC\u05DC\u05D7\u05D5\u05E5\x20\u05E2\u05DC\x20\x25\x69\x63\x6F\x6E\x20\u05D5\u05D0\u05D6\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\u05D4\u05D5\u05E1\u05E3\x20\u05DC\u05DE\u05E1\u05DA\x20\u05D4\u05D1\u05D9\u05EA\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E\x3C\x2F\x73\x70\x61\x6E\x3E",
+      },
+      hu_hu: {
+        ios: "\x48\x61\x20\x68\x6F\x7A\x7A\xE1\x20\x73\x7A\x65\x72\x65\x74\x6E\xE9\x20\x61\x64\x6E\x69\x20\x65\x7A\x74\x20\x61\x7A\x20\x61\x6C\x6B\x61\x6C\x6D\x61\x7A\xE1\x73\x74\x20\x61\x20\x6B\x65\x7A\x64\u0151\x6B\xE9\x70\x65\x72\x6E\x79\u0151\x6A\xE9\x68\x65\x7A\x2C\x20\xE9\x72\x69\x6E\x74\x73\x65\x20\x6D\x65\x67\x20\x61\x20\x6B\xF6\x76\x65\x74\x6B\x65\x7A\u0151\x20\x69\x6B\x6F\x6E\x74\x3A\x20\x25\x69\x63\x6F\x6E\x20\x2C\x20\x6D\x61\x6A\x64\x20\x61\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x48\x6F\x7A\x7A\xE1\x61\x64\xE1\x73\x20\x61\x20\x6B\x65\x7A\x64\u0151\x6B\xE9\x70\x65\x72\x6E\x79\u0151\x68\xF6\x7A\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x20\x6D\x65\x6E\xFC\x70\x6F\x6E\x74\x6F\x74\x2E",
+      },
+      it_it: {
+        ios: "\x50\x65\x72\x20\x61\x67\x67\x69\x75\x6E\x67\x65\x72\x65\x20\x71\x75\x65\x73\x74\x61\x20\x77\x65\x62\x20\x61\x70\x70\x20\x61\x6C\x6C\x61\x20\x73\x63\x68\x65\x72\x6D\x61\x74\x61\x20\x69\x6E\x69\x7A\x69\x61\x6C\x65\x3A\x20\x70\x72\x65\x6D\x69\x20\x25\x69\x63\x6F\x6E\x20\x65\x20\x70\x6F\x69\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x41\x67\x67\x69\x75\x6E\x67\x69\x20\x61\x20\x48\x6F\x6D\x65\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      ja_jp: {
+        ios: "\u3053\u306E\u30A6\u30A7\u30D7\u30A2\u30D7\u30EA\u3092\u30DB\u30FC\u30E0\u753B\u9762\u306B\u8FFD\u52A0\u3059\u308B\u306B\u306F\u3001\x25\x69\x63\x6F\x6E\u3092\u30BF\u30C3\u30D7\u3057\u3066\x3C\x73\x74\x72\x6F\x6E\x67\x3E\u30DB\u30FC\u30E0\u753B\u9762\u306B\u8FFD\u52A0\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      },
+      ko_kr: {
+        ios: "\uD648\x20\uD654\uBA74\uC5D0\x20\uBC14\uB85C\uAC00\uAE30\x20\uC0DD\uC131\x3A\x20\x25\x69\x63\x6F\x6E\x20\uC744\x20\uD074\uB9AD\uD55C\x20\uD6C4\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\uD648\x20\uD654\uBA74\uC5D0\x20\uCD94\uAC00\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      nb_no: {
+        ios: "\x46\x6F\x72\x20\xE5\x20\x69\x6E\x73\x74\x61\x6C\x6C\x65\x72\x65\x20\x64\x65\x6E\x6E\x65\x20\x61\x70\x70\x65\x6E\x20\x70\xE5\x20\x68\x6A\x65\x6D\x2D\x73\x6B\x6A\x65\x72\x6D\x65\x6E\x3A\x20\x74\x72\x79\x6B\x6B\x20\x70\xE5\x20\x25\x69\x63\x6F\x6E\x20\x6F\x67\x20\x64\x65\x72\x65\x74\x74\x65\x72\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x4C\x65\x67\x67\x20\x74\x69\x6C\x20\x70\xE5\x20\x48\x6A\x65\x6D\x2D\x73\x6B\x6A\x65\x72\x6D\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      pt_br: {
+        ios: "\x50\x61\x72\x61\x20\x61\x64\x69\x63\x69\x6F\x6E\x61\x72\x20\x65\x73\x74\x65\x20\x61\x70\x70\x20\xE0\x20\x74\x65\x6C\x61\x20\x64\x65\x20\x69\x6E\xED\x63\x69\x6F\x3A\x20\x63\x6C\x69\x71\x75\x65\x20\x25\x69\x63\x6F\x6E\x20\x65\x20\x65\x6E\x74\xE3\x6F\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x54\x65\x6C\x61\x20\x64\x65\x20\x69\x6E\xED\x63\x69\x6F\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      pt_pt: {
+        ios: "\x50\x61\x72\x61\x20\x61\x64\x69\x63\x69\x6F\x6E\x61\x72\x20\x65\x73\x74\x61\x20\x61\x70\x70\x20\x61\x6F\x20\x65\x63\x72\xE3\x20\x70\x72\x69\x6E\x63\x69\x70\x61\x6C\x3A\x20\x63\x6C\x69\x71\x75\x65\x20\x25\x69\x63\x6F\x6E\x20\x65\x20\x64\x65\x70\x6F\x69\x73\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x45\x63\x72\xE3\x20\x70\x72\x69\x6E\x63\x69\x70\x61\x6C\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      nl_nl: {
+        ios: "\x4F\x6D\x20\x64\x65\x7A\x65\x20\x77\x65\x62\x61\x70\x70\x20\x61\x61\x6E\x20\x6A\x65\x20\x73\x74\x61\x72\x74\x73\x63\x68\x65\x72\x6D\x20\x74\x6F\x65\x20\x74\x65\x20\x76\x6F\x65\x67\x65\x6E\x2C\x20\x6B\x6C\x69\x6B\x20\x6F\x70\x20\x25\x69\x63\x6F\x6E\x20\x65\x6E\x20\x64\x61\x6E\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x5A\x65\x74\x20\x69\x6E\x20\x73\x74\x61\x72\x74\x73\x63\x68\x65\x72\x6D\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      ru_ru: {
+        ios: "\u0427\u0442\u043E\u0431\u044B\x20\u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C\x20\u044D\u0442\u043E\u0442\x20\u0441\u0430\u0439\u0442\x20\u043D\u0430\x20\u0441\u0432\u043E\u0439\x20\u0434\u043E\u043C\u0430\u0448\u043D\u0438\u0439\x20\u044D\u043A\u0440\u0430\u043D\x2C\x20\u043D\u0430\u0436\u043C\u0438\u0442\u0435\x20\u043D\u0430\x20\u0438\u043A\u043E\u043D\u043A\u0443\x20\x25\x69\x63\x6F\x6E\x20\u0438\x20\u0437\u0430\u0442\u0435\u043C\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\u041D\u0430\x20\u044D\u043A\u0440\u0430\u043D\x20\x22\u0414\u043E\u043C\u043E\u0439\x22\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      sk_sk: {
+        ios: "\x50\x72\x65\x20\x70\x72\x69\x64\x61\x6E\x69\x65\x20\x74\x65\x6A\x74\x6F\x20\x77\x65\x62\x6F\x76\x65\x6A\x20\x61\x70\x6C\x69\x6B\xE1\x63\x69\x65\x20\x6E\x61\x20\xFA\x76\x6F\x64\x6E\xFA\x20\x6F\x62\x72\x61\x7A\x6F\x76\x6B\x75\x3A\x20\x73\x74\x6C\x61\u010D\x74\x65\x20\x25\x69\x63\x6F\x6E\x20\x61\x20\x70\x6F\x74\x6F\x6D\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x50\x72\x69\x64\x61\u0165\x20\x6E\x61\x20\xFA\x76\x6F\x64\x6E\xFA\x20\x6F\x62\x72\x61\x7A\x6F\x76\x6B\x75\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      sv_se: {
+        ios: "\x46\xF6\x72\x20\x61\x74\x74\x20\x6C\xE4\x67\x67\x61\x20\x74\x69\x6C\x6C\x20\x64\x65\x6E\x6E\x61\x20\x77\x65\x62\x62\x61\x70\x70\x6C\x69\x6B\x61\x74\x69\x6F\x6E\x20\x70\xE5\x20\x68\x65\x6D\x73\x6B\xE4\x72\x6D\x65\x6E\x3A\x20\x74\x72\x79\x63\x6B\x20\x70\xE5\x20\x25\x69\x63\x6F\x6E\x20\x6F\x63\x68\x20\x64\xE4\x72\x65\x66\x74\x65\x72\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x4C\xE4\x67\x67\x20\x74\x69\x6C\x6C\x20\x70\xE5\x20\x68\x65\x6D\x73\x6B\xE4\x72\x6D\x65\x6E\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      tr_tr: {
+        ios: "\x55\x79\x67\x75\x6C\x61\x6D\x61\x79\u0131\x20\x61\x6E\x61\x20\x65\x6B\x72\x61\x6E\x61\x20\x65\x6B\x6C\x65\x6D\x65\x6B\x20\x69\xE7\x69\x6E\x2C\x20\x25\x69\x63\x6F\x6E\x20\x76\x65\x20\x61\x72\x64\u0131\x6E\x64\x61\x6E\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\x61\x6E\x61\x20\x65\x6B\x72\x61\x6E\x61\x20\x65\x6B\x6C\x65\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x20\x62\x75\x74\x6F\x6E\x75\x6E\x75\x20\x74\u0131\x6B\x6C\x61\x79\u0131\x6E\x2E",
+      },
+      uk_ua: {
+        ios: "\u0429\u043E\u0431\x20\u0434\u043E\u0434\u0430\u0442\u0438\x20\u0446\u0435\u0439\x20\u0441\u0430\u0439\u0442\x20\u043D\u0430\x20\u043F\u043E\u0447\u0430\u0442\u043A\u043E\u0432\u0438\u0439\x20\u0435\u043A\u0440\u0430\u043D\x2C\x20\u043D\u0430\u0442\u0438\u0441\u043D\u0456\u0442\u044C\x20\x25\x69\x63\x6F\x6E\x2C\x20\u0430\x20\u043F\u043E\u0442\u0456\u043C\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E\u041D\u0430\x20\u043F\u043E\u0447\u0430\u0442\u043A\u043E\u0432\u0438\u0439\x20\u0435\u043A\u0440\u0430\u043D\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+      zh_cn: {
+        ios: "\u5982\u8981\u628A\u5E94\u7528\u7A0B\u5E8F\u52A0\u81F3\u4E3B\u5C4F\u5E55\x2C\u8BF7\u70B9\u51FB\x25\x69\x63\x6F\x6E\x2C\x20\u7136\u540E\x3C\x73\x74\x72\x6F\x6E\x67\x3E\u6DFB\u52A0\u5230\u4E3B\u5C4F\u5E55\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E",
+      },
+      zh_tw: {
+        ios: "\u5982\u8981\u628A\u61C9\u7528\u7A0B\u5F0F\u52A0\u81F3\u4E3B\u5C4F\u5E55\x2C\x20\u8ACB\u9EDE\u64CA\x25\x69\x63\x6F\x6E\x2C\x20\u7136\u5F8C\x3C\x73\x74\x72\x6F\x6E\x67\x3E\u52A0\u81F3\u4E3B\u5C4F\u5E55\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x2E",
+      },
+    };
+    for (var _0x11777 in _0x11705.intl) {
+      _0x11705.intl[_0x11777.substr(0, 2)] = _0x11705.intl[_0x11777];
+    }
+    _0x11705.defaults = {
+      appID:
+        "\x6F\x72\x67\x2E\x63\x75\x62\x69\x71\x2E\x61\x64\x64\x74\x6F\x68\x6F\x6D\x65",
+      fontSize: 15,
+      debug: false,
+      logging: false,
+      modal: false,
+      mandatory: false,
+      autostart: true,
+      skipFirstVisit: false,
+      startDelay: 1,
+      lifespan: 15,
+      displayPace: 1440,
+      maxDisplayCount: 0,
+      icon: true,
+      message: "",
+      validLocation: [],
+      onInit: null,
+      onShow: null,
+      onRemove: null,
+      onAdd: null,
+      onPrivate: null,
+      privateModeOverride: false,
+      detectHomescreen: false,
+    };
+    var _0x116CC = _0x117E9.navigator.userAgent;
+    var _0x115E8 = _0x117E9.navigator;
+    _0x11576(_0x11705, {
+      hasToken:
+        _0x1173E.location.hash == "\x23\x61\x74\x68" ||
+        _0x11693.test(_0x1173E.location.href) ||
+        _0x1165A.test(_0x1173E.location.search),
+      isRetina: _0x117E9.devicePixelRatio && _0x117E9.devicePixelRatio > 1,
+      isIDevice: /iphone|ipod|ipad/i.test(_0x116CC),
+      isMobileChrome:
+        _0x116CC.indexOf("\x41\x6E\x64\x72\x6F\x69\x64") > -1 &&
+        /Chrome\/[.0-9]*/.test(_0x116CC) &&
+        _0x116CC.indexOf("\x56\x65\x72\x73\x69\x6F\x6E") == -1,
+      isMobileIE:
+        _0x116CC.indexOf(
+          "\x57\x69\x6E\x64\x6F\x77\x73\x20\x50\x68\x6F\x6E\x65"
+        ) > -1,
+      language:
+        (_0x115E8.language &&
+          _0x115E8.language.toLowerCase().replace("\x2D", "\x5F")) ||
+        "",
+    });
+    _0x11705.language =
+      _0x11705.language && _0x11705.language in _0x11705.intl
+        ? _0x11705.language
+        : "\x65\x6E\x5F\x75\x73";
+    _0x11705.isMobileSafari =
+      _0x11705.isIDevice &&
+      _0x116CC.indexOf("\x53\x61\x66\x61\x72\x69") > -1 &&
+      _0x116CC.indexOf("\x43\x72\x69\x4F\x53") < 0;
+    _0x11705.OS = _0x11705.isIDevice
+      ? "\x69\x6F\x73"
+      : _0x11705.isMobileChrome
+      ? "\x61\x6E\x64\x72\x6F\x69\x64"
+      : _0x11705.isMobileIE
+      ? "\x77\x69\x6E\x64\x6F\x77\x73"
+      : "\x75\x6E\x73\x75\x70\x70\x6F\x72\x74\x65\x64";
+    _0x11705.OSVersion = _0x116CC.match(/(OS|Android) (\d+[_\.]\d+)/);
+    _0x11705.OSVersion =
+      _0x11705.OSVersion && _0x11705.OSVersion[2]
+        ? +_0x11705.OSVersion[2].replace("\x5F", "\x2E")
+        : 0;
+    _0x11705.isStandalone =
+      "\x73\x74\x61\x6E\x64\x61\x6C\x6F\x6E\x65" in _0x117E9.navigator &&
+      _0x117E9.navigator.standalone;
+    _0x11705.isTablet =
+      (_0x11705.isMobileSafari && _0x116CC.indexOf("\x69\x50\x61\x64") > -1) ||
+      (_0x11705.isMobileChrome &&
+        _0x116CC.indexOf("\x4D\x6F\x62\x69\x6C\x65") < 0);
+    _0x11705.isCompatible = _0x11705.isMobileSafari && _0x11705.OSVersion >= 6;
+    var _0x114CB = {
+      lastDisplayTime: 0,
+      returningVisitor: false,
+      displayCount: 0,
+      optedout: false,
+      added: false,
+    };
+    _0x11705.removeSession = function (_0x114CB) {
+      try {
+        if (!localStorage) {
+          throw new Error(
+            "\x6C\x6F\x63\x61\x6C\x53\x74\x6F\x72\x61\x67\x65\x20\x69\x73\x20\x6E\x6F\x74\x20\x64\x65\x66\x69\x6E\x65\x64"
+          );
+        }
+        localStorage.removeItem(_0x114CB || _0x11705.defaults.appID);
+      } catch (e) {}
+    };
+    _0x11705.doLog = function (_0x114CB) {
+      if (this.options.logging) {
+        console.log(_0x114CB);
+      }
+    };
+    _0x11705.Class = function (_0x115E8) {
+      this.doLog = _0x11705.doLog;
+      this.options = _0x11576({}, _0x11705.defaults);
+      _0x11576(this.options, _0x115E8);
+      if (
+        this.options &&
+        this.options.debug &&
+        typeof this.options.logging === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64"
+      ) {
+        this.options.logging = true;
+      }
+      if (!_0x1153D) {
+        return;
+      }
+      this.options.mandatory =
+        this.options.mandatory &&
+        ("\x73\x74\x61\x6E\x64\x61\x6C\x6F\x6E\x65" in _0x117E9.navigator ||
+          this.options.debug);
+      this.options.modal = this.options.modal || this.options.mandatory;
+      if (this.options.mandatory) {
+        this.options.startDelay = -0.5;
+      }
+      this.options.detectHomescreen =
+        this.options.detectHomescreen === true
+          ? "\x68\x61\x73\x68"
+          : this.options.detectHomescreen;
+      if (this.options.debug) {
+        _0x11705.isCompatible = true;
+        _0x11705.OS =
+          typeof this.options.debug == "\x73\x74\x72\x69\x6E\x67"
+            ? this.options.debug
+            : _0x11705.OS == "\x75\x6E\x73\x75\x70\x70\x6F\x72\x74\x65\x64"
+            ? "\x61\x6E\x64\x72\x6F\x69\x64"
+            : _0x11705.OS;
+        _0x11705.OSVersion = _0x11705.OS == "\x69\x6F\x73" ? "\x38" : "\x34";
+      }
+      this.container = _0x1173E.body;
+      this.session = this.getItem(this.options.appID);
+      this.session = this.session ? JSON.parse(this.session) : undefined;
+      if (_0x11705.hasToken && (!_0x11705.isCompatible || !this.session)) {
+        _0x11705.hasToken = false;
+        _0x11621();
+      }
+      if (!_0x11705.isCompatible) {
+        this.doLog(
+          "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x64\x65\x76\x69\x63\x65\x20\x6E\x6F\x74\x20\x73\x75\x70\x70\x6F\x72\x74\x65\x64"
+        );
+        return;
+      }
+      this.session = this.session || _0x114CB;
+      try {
+        if (!localStorage) {
+          throw new Error(
+            "\x6C\x6F\x63\x61\x6C\x53\x74\x6F\x72\x61\x67\x65\x20\x69\x73\x20\x6E\x6F\x74\x20\x64\x65\x66\x69\x6E\x65\x64"
+          );
+        }
+        localStorage.setItem(this.options.appID, JSON.stringify(this.session));
+        _0x11705.hasLocalStorage = true;
+      } catch (e) {
+        _0x11705.hasLocalStorage = false;
+        if (this.options.onPrivate) {
+          this.options.onPrivate.call(this);
+        }
+      }
+      var _0x115AF = !this.options.validLocation.length;
+      for (var _0x11504 = this.options.validLocation.length; _0x11504--; ) {
+        if (this.options.validLocation[_0x11504].test(_0x1173E.location.href)) {
+          _0x115AF = true;
+          break;
+        }
+      }
+      if (this.getItem("\x61\x64\x64\x54\x6F\x48\x6F\x6D\x65")) {
+        this.optOut();
+      }
+      if (this.session.optedout) {
+        this.doLog(
+          "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x75\x73\x65\x72\x20\x6F\x70\x74\x65\x64\x20\x6F\x75\x74"
+        );
+        return;
+      }
+      if (this.session.added) {
+        this.doLog(
+          "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x61\x6C\x72\x65\x61\x64\x79\x20\x61\x64\x64\x65\x64\x20\x74\x6F\x20\x74\x68\x65\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E"
+        );
+        return;
+      }
+      if (!_0x115AF) {
+        this.doLog(
+          "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x6E\x6F\x74\x20\x61\x20\x76\x61\x6C\x69\x64\x20\x6C\x6F\x63\x61\x74\x69\x6F\x6E"
+        );
+        return;
+      }
+      if (_0x11705.isStandalone) {
+        if (!this.session.added) {
+          this.session.added = true;
+          this.updateSession();
+          if (this.options.onAdd && _0x11705.hasLocalStorage) {
+            this.options.onAdd.call(this);
+          }
+        }
+        this.doLog(
+          "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x69\x6E\x20\x73\x74\x61\x6E\x64\x61\x6C\x6F\x6E\x65\x20\x6D\x6F\x64\x65"
+        );
+        return;
+      }
+      if (this.options.detectHomescreen) {
+        if (_0x11705.hasToken) {
+          _0x11621();
+          if (!this.session.added) {
+            this.session.added = true;
+            this.updateSession();
+            if (this.options.onAdd && _0x11705.hasLocalStorage) {
+              this.options.onAdd.call(this);
+            }
+          }
+          this.doLog(
+            "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x55\x52\x4C\x20\x68\x61\x73\x20\x74\x6F\x6B\x65\x6E\x2C\x20\x73\x6F\x20\x77\x65\x20\x61\x72\x65\x20\x6C\x69\x6B\x65\x6C\x79\x20\x63\x6F\x6D\x69\x6E\x67\x20\x66\x72\x6F\x6D\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E"
+          );
+          return;
+        }
+        if (this.options.detectHomescreen == "\x68\x61\x73\x68") {
+          history.replaceState(
+            "",
+            _0x117E9.document.title,
+            _0x1173E.location.href + "\x23\x61\x74\x68"
+          );
+        } else {
+          if (
+            this.options.detectHomescreen == "\x73\x6D\x61\x72\x74\x55\x52\x4C"
+          ) {
+            history.replaceState(
+              "",
+              _0x117E9.document.title,
+              _0x1173E.location.href.replace(
+                /(\/)?$/,
+                "\x2F\x61\x74\x68\x24\x31"
+              )
+            );
+          } else {
+            history.replaceState(
+              "",
+              _0x117E9.document.title,
+              _0x1173E.location.href +
+                (_0x1173E.location.search ? "\x26" : "\x3F") +
+                "\x61\x74\x68\x3D"
+            );
+          }
+        }
+      }
+      if (!this.session.returningVisitor) {
+        this.session.returningVisitor = true;
+        this.updateSession();
+        if (this.options.skipFirstVisit) {
+          this.doLog(
+            "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x73\x6B\x69\x70\x70\x69\x6E\x67\x20\x66\x69\x72\x73\x74\x20\x76\x69\x73\x69\x74"
+          );
+          return;
+        }
+      }
+      if (!this.options.privateModeOverride && !_0x11705.hasLocalStorage) {
+        this.doLog(
+          "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x62\x72\x6F\x77\x73\x65\x72\x20\x69\x73\x20\x69\x6E\x20\x70\x72\x69\x76\x61\x74\x65\x20\x6D\x6F\x64\x65"
+        );
+        return;
+      }
+      this.ready = true;
+      if (this.options.onInit) {
+        this.options.onInit.call(this);
+      }
+      if (this.options.autostart) {
+        this.doLog(
+          "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x61\x75\x74\x6F\x73\x74\x61\x72\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74"
+        );
+        this.show();
+      }
+    };
+    _0x11705.Class.prototype = {
+      events: {
+        load: "\x5F\x64\x65\x6C\x61\x79\x65\x64\x53\x68\x6F\x77",
+        error: "\x5F\x64\x65\x6C\x61\x79\x65\x64\x53\x68\x6F\x77",
+        orientationchange: "\x72\x65\x73\x69\x7A\x65",
+        resize: "\x72\x65\x73\x69\x7A\x65",
+        scroll: "\x72\x65\x73\x69\x7A\x65",
+        click: "\x72\x65\x6D\x6F\x76\x65",
+        touchmove:
+          "\x5F\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74",
+        transitionend:
+          "\x5F\x72\x65\x6D\x6F\x76\x65\x45\x6C\x65\x6D\x65\x6E\x74\x73",
+        webkitTransitionEnd:
+          "\x5F\x72\x65\x6D\x6F\x76\x65\x45\x6C\x65\x6D\x65\x6E\x74\x73",
+        MSTransitionEnd:
+          "\x5F\x72\x65\x6D\x6F\x76\x65\x45\x6C\x65\x6D\x65\x6E\x74\x73",
+      },
+      handleEvent: function (_0x114CB) {
+        var _0x11504 = this.events[_0x114CB.type];
+        if (_0x11504) {
+          this[_0x11504](_0x114CB);
+        }
+      },
+      show: function (_0x114CB) {
+        if (this.options.autostart && !_0x11504) {
+          setTimeout(this.show.bind(this), 50);
+          return;
+        }
+        if (this.shown) {
+          this.doLog(
+            "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x61\x6C\x72\x65\x61\x64\x79\x20\x73\x68\x6F\x77\x6E\x20\x6F\x6E\x20\x73\x63\x72\x65\x65\x6E"
+          );
+          return;
+        }
+        var _0x115AF = Date.now();
+        var _0x1153D = this.session.lastDisplayTime;
+        if (_0x114CB !== true) {
+          if (!this.ready) {
+            this.doLog(
+              "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x6E\x6F\x74\x20\x72\x65\x61\x64\x79"
+            );
+            return;
+          }
+          if (_0x115AF - _0x1153D < this.options.displayPace * 60000) {
+            this.doLog(
+              "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x64\x69\x73\x70\x6C\x61\x79\x65\x64\x20\x72\x65\x63\x65\x6E\x74\x6C\x79"
+            );
+            return;
+          }
+          if (
+            this.options.maxDisplayCount &&
+            this.session.displayCount >= this.options.maxDisplayCount
+          ) {
+            this.doLog(
+              "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x64\x69\x73\x70\x6C\x61\x79\x65\x64\x20\x74\x6F\x6F\x20\x6D\x61\x6E\x79\x20\x74\x69\x6D\x65\x73\x20\x61\x6C\x72\x65\x61\x64\x79"
+            );
+            return;
+          }
+        }
+        this.shown = true;
+        this.session.lastDisplayTime = _0x115AF;
+        this.session.displayCount++;
+        this.updateSession();
+        if (!this.applicationIcon) {
+          if (_0x11705.OS == "\x69\x6F\x73") {
+            this.applicationIcon = _0x1173E.querySelector(
+              "\x68\x65\x61\x64\x20\x6C\x69\x6E\x6B\x5B\x72\x65\x6C\x5E\x3D\x61\x70\x70\x6C\x65\x2D\x74\x6F\x75\x63\x68\x2D\x69\x63\x6F\x6E\x5D\x5B\x73\x69\x7A\x65\x73\x3D\x22\x31\x35\x32\x78\x31\x35\x32\x22\x5D\x2C\x68\x65\x61\x64\x20\x6C\x69\x6E\x6B\x5B\x72\x65\x6C\x5E\x3D\x61\x70\x70\x6C\x65\x2D\x74\x6F\x75\x63\x68\x2D\x69\x63\x6F\x6E\x5D\x5B\x73\x69\x7A\x65\x73\x3D\x22\x31\x34\x34\x78\x31\x34\x34\x22\x5D\x2C\x68\x65\x61\x64\x20\x6C\x69\x6E\x6B\x5B\x72\x65\x6C\x5E\x3D\x61\x70\x70\x6C\x65\x2D\x74\x6F\x75\x63\x68\x2D\x69\x63\x6F\x6E\x5D\x5B\x73\x69\x7A\x65\x73\x3D\x22\x31\x32\x30\x78\x31\x32\x30\x22\x5D\x2C\x68\x65\x61\x64\x20\x6C\x69\x6E\x6B\x5B\x72\x65\x6C\x5E\x3D\x61\x70\x70\x6C\x65\x2D\x74\x6F\x75\x63\x68\x2D\x69\x63\x6F\x6E\x5D\x5B\x73\x69\x7A\x65\x73\x3D\x22\x31\x31\x34\x78\x31\x31\x34\x22\x5D\x2C\x68\x65\x61\x64\x20\x6C\x69\x6E\x6B\x5B\x72\x65\x6C\x5E\x3D\x61\x70\x70\x6C\x65\x2D\x74\x6F\x75\x63\x68\x2D\x69\x63\x6F\x6E\x5D"
+            );
+          } else {
+            this.applicationIcon = _0x1173E.querySelector(
+              "\x68\x65\x61\x64\x20\x6C\x69\x6E\x6B\x5B\x72\x65\x6C\x5E\x3D\x22\x73\x68\x6F\x72\x74\x63\x75\x74\x20\x69\x63\x6F\x6E\x22\x5D\x5B\x73\x69\x7A\x65\x73\x3D\x22\x31\x39\x36\x78\x31\x39\x36\x22\x5D\x2C\x68\x65\x61\x64\x20\x6C\x69\x6E\x6B\x5B\x72\x65\x6C\x5E\x3D\x61\x70\x70\x6C\x65\x2D\x74\x6F\x75\x63\x68\x2D\x69\x63\x6F\x6E\x5D"
+            );
+          }
+        }
+        var _0x11576 = "";
+        if (
+          typeof this.options.message == "\x6F\x62\x6A\x65\x63\x74" &&
+          _0x11705.language in this.options.message
+        ) {
+          _0x11576 = this.options.message[_0x11705.language][_0x11705.OS];
+        } else {
+          if (
+            typeof this.options.message == "\x6F\x62\x6A\x65\x63\x74" &&
+            _0x11705.OS in this.options.message
+          ) {
+            _0x11576 = this.options.message[_0x11705.OS];
+          } else {
+            if (this.options.message in _0x11705.intl) {
+              _0x11576 = _0x11705.intl[this.options.message][_0x11705.OS];
+            } else {
+              if (this.options.message !== "") {
+                _0x11576 = this.options.message;
+              } else {
+                if (_0x11705.OS in _0x11705.intl[_0x11705.language]) {
+                  _0x11576 = _0x11705.intl[_0x11705.language][_0x11705.OS];
+                }
+              }
+            }
+          }
+        }
+        _0x11576 =
+          "\x3C\x70\x3E" +
+          _0x11576.replace(
+            /%icon(?:\[([^\]]+)\])?/gi,
+            function (_0x11504, _0x114CB) {
+              return (
+                "\x3C\x73\x70\x61\x6E\x20\x63\x6C\x61\x73\x73\x3D\x22\x61\x74\x68\x2D\x61\x63\x74\x69\x6F\x6E\x2D\x69\x63\x6F\x6E\x22\x3E" +
+                (!!_0x114CB ? _0x114CB : "\x69\x63\x6F\x6E") +
+                "\x3C\x2F\x73\x70\x61\x6E\x3E"
+              );
+            }
+          ) +
+          "\x3C\x2F\x70\x3E";
+        this.viewport = _0x1173E.createElement("\x64\x69\x76");
+        this.viewport.className =
+          "\x61\x74\x68\x2D\x76\x69\x65\x77\x70\x6F\x72\x74";
+        if (this.options.modal) {
+          this.viewport.className += "\x20\x61\x74\x68\x2D\x6D\x6F\x64\x61\x6C";
+        }
+        if (this.options.mandatory) {
+          this.viewport.className +=
+            "\x20\x61\x74\x68\x2D\x6D\x61\x6E\x64\x61\x74\x6F\x72\x79";
+        }
+        this.viewport.style.position = "\x61\x62\x73\x6F\x6C\x75\x74\x65";
+        this.element = _0x1173E.createElement("\x64\x69\x76");
+        this.element.className =
+          "\x61\x74\x68\x2D\x63\x6F\x6E\x74\x61\x69\x6E\x65\x72\x20\x61\x74\x68\x2D" +
+          _0x11705.OS +
+          "\x20\x61\x74\x68\x2D" +
+          _0x11705.OS +
+          (parseInt(_0x11705.OSVersion) || "") +
+          "\x20\x61\x74\x68\x2D" +
+          (_0x11705.isTablet
+            ? "\x74\x61\x62\x6C\x65\x74"
+            : "\x70\x68\x6F\x6E\x65");
+        this.element.style.cssText =
+          "\x2D\x77\x65\x62\x6B\x69\x74\x2D\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x2D\x70\x72\x6F\x70\x65\x72\x74\x79\x3A\x2D\x77\x65\x62\x6B\x69\x74\x2D\x74\x72\x61\x6E\x73\x66\x6F\x72\x6D\x2C\x6F\x70\x61\x63\x69\x74\x79\x3B\x2D\x77\x65\x62\x6B\x69\x74\x2D\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x2D\x64\x75\x72\x61\x74\x69\x6F\x6E\x3A\x30\x73\x3B\x2D\x77\x65\x62\x6B\x69\x74\x2D\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x2D\x74\x69\x6D\x69\x6E\x67\x2D\x66\x75\x6E\x63\x74\x69\x6F\x6E\x3A\x65\x61\x73\x65\x2D\x6F\x75\x74\x3B\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x2D\x70\x72\x6F\x70\x65\x72\x74\x79\x3A\x74\x72\x61\x6E\x73\x66\x6F\x72\x6D\x2C\x6F\x70\x61\x63\x69\x74\x79\x3B\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x2D\x64\x75\x72\x61\x74\x69\x6F\x6E\x3A\x30\x73\x3B\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x2D\x74\x69\x6D\x69\x6E\x67\x2D\x66\x75\x6E\x63\x74\x69\x6F\x6E\x3A\x65\x61\x73\x65\x2D\x6F\x75\x74\x3B";
+        this.element.style.webkitTransform =
+          "\x74\x72\x61\x6E\x73\x6C\x61\x74\x65\x33\x64\x28\x30\x2C\x2D" +
+          _0x117E9.innerHeight +
+          "\x70\x78\x2C\x30\x29";
+        this.element.style.transform =
+          "\x74\x72\x61\x6E\x73\x6C\x61\x74\x65\x33\x64\x28\x30\x2C\x2D" +
+          _0x117E9.innerHeight +
+          "\x70\x78\x2C\x30\x29";
+        if (this.options.icon && this.applicationIcon) {
+          this.element.className += "\x20\x61\x74\x68\x2D\x69\x63\x6F\x6E";
+          this.img = _0x1173E.createElement("\x69\x6D\x67");
+          this.img.className =
+            "\x61\x74\x68\x2D\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x2D\x69\x63\x6F\x6E";
+          this.img.addEventListener("\x6C\x6F\x61\x64", this, false);
+          this.img.addEventListener("\x65\x72\x72\x6F\x72", this, false);
+          this.img.src = this.applicationIcon.href;
+          this.element.appendChild(this.img);
+        }
+        this.element.innerHTML += _0x11576;
+        this.viewport.style.left = "\x2D\x39\x39\x39\x39\x39\x65\x6D";
+        this.viewport.appendChild(this.element);
+        this.container.appendChild(this.viewport);
+        if (this.img) {
+          this.doLog(
+            "\x41\x64\x64\x20\x74\x6F\x20\x68\x6F\x6D\x65\x73\x63\x72\x65\x65\x6E\x3A\x20\x6E\x6F\x74\x20\x64\x69\x73\x70\x6C\x61\x79\x69\x6E\x67\x20\x63\x61\x6C\x6C\x6F\x75\x74\x20\x62\x65\x63\x61\x75\x73\x65\x20\x77\x61\x69\x74\x69\x6E\x67\x20\x66\x6F\x72\x20\x69\x6D\x67\x20\x74\x6F\x20\x6C\x6F\x61\x64"
+          );
+        } else {
+          this._delayedShow();
+        }
+      },
+      _delayedShow: function (_0x114CB) {
+        setTimeout(this._show.bind(this), this.options.startDelay * 1000 + 500);
+      },
+      _show: function () {
+        var _0x114CB = this;
+        this.updateViewport();
+        _0x117E9.addEventListener("\x72\x65\x73\x69\x7A\x65", this, false);
+        _0x117E9.addEventListener("\x73\x63\x72\x6F\x6C\x6C", this, false);
+        _0x117E9.addEventListener(
+          "\x6F\x72\x69\x65\x6E\x74\x61\x74\x69\x6F\x6E\x63\x68\x61\x6E\x67\x65",
+          this,
+          false
+        );
+        if (this.options.modal) {
+          _0x1173E.addEventListener(
+            "\x74\x6F\x75\x63\x68\x6D\x6F\x76\x65",
+            this,
+            true
+          );
+        }
+        if (!this.options.mandatory) {
+          setTimeout(function () {
+            _0x114CB.element.addEventListener(
+              "\x63\x6C\x69\x63\x6B",
+              _0x114CB,
+              true
+            );
+          }, 1000);
+        }
+        setTimeout(function () {
+          _0x114CB.element.style.webkitTransitionDuration = "\x31\x2E\x32\x73";
+          _0x114CB.element.style.transitionDuration = "\x31\x2E\x32\x73";
+          _0x114CB.element.style.webkitTransform =
+            "\x74\x72\x61\x6E\x73\x6C\x61\x74\x65\x33\x64\x28\x30\x2C\x30\x2C\x30\x29";
+          _0x114CB.element.style.transform =
+            "\x74\x72\x61\x6E\x73\x6C\x61\x74\x65\x33\x64\x28\x30\x2C\x30\x2C\x30\x29";
+        }, 0);
+        if (this.options.lifespan) {
+          this.removeTimer = setTimeout(
+            this.remove.bind(this),
+            this.options.lifespan * 1000
+          );
+        }
+        if (this.options.onShow) {
+          this.options.onShow.call(this);
+        }
+      },
+      remove: function () {
+        clearTimeout(this.removeTimer);
+        if (this.img) {
+          this.img.removeEventListener("\x6C\x6F\x61\x64", this, false);
+          this.img.removeEventListener("\x65\x72\x72\x6F\x72", this, false);
+        }
+        _0x117E9.removeEventListener("\x72\x65\x73\x69\x7A\x65", this, false);
+        _0x117E9.removeEventListener("\x73\x63\x72\x6F\x6C\x6C", this, false);
+        _0x117E9.removeEventListener(
+          "\x6F\x72\x69\x65\x6E\x74\x61\x74\x69\x6F\x6E\x63\x68\x61\x6E\x67\x65",
+          this,
+          false
+        );
+        _0x1173E.removeEventListener(
+          "\x74\x6F\x75\x63\x68\x6D\x6F\x76\x65",
+          this,
+          true
+        );
+        this.element.removeEventListener("\x63\x6C\x69\x63\x6B", this, true);
+        this.element.addEventListener(
+          "\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x65\x6E\x64",
+          this,
+          false
+        );
+        this.element.addEventListener(
+          "\x77\x65\x62\x6B\x69\x74\x54\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x45\x6E\x64",
+          this,
+          false
+        );
+        this.element.addEventListener(
+          "\x4D\x53\x54\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x45\x6E\x64",
+          this,
+          false
+        );
+        this.element.style.webkitTransitionDuration = "\x30\x2E\x33\x73";
+        this.element.style.opacity = "\x30";
+      },
+      _removeElements: function () {
+        this.element.removeEventListener(
+          "\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x65\x6E\x64",
+          this,
+          false
+        );
+        this.element.removeEventListener(
+          "\x77\x65\x62\x6B\x69\x74\x54\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x45\x6E\x64",
+          this,
+          false
+        );
+        this.element.removeEventListener(
+          "\x4D\x53\x54\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E\x45\x6E\x64",
+          this,
+          false
+        );
+        this.container.removeChild(this.viewport);
+        this.shown = false;
+        if (this.options.onRemove) {
+          this.options.onRemove.call(this);
+        }
+      },
+      updateViewport: function () {
+        if (!this.shown) {
+          return;
+        }
+        this.viewport.style.width = _0x117E9.innerWidth + "\x70\x78";
+        this.viewport.style.height = _0x117E9.innerHeight + "\x70\x78";
+        this.viewport.style.left = _0x117E9.scrollX + "\x70\x78";
+        this.viewport.style.top = _0x117E9.scrollY + "\x70\x78";
+        var _0x114CB = _0x1173E.documentElement.clientWidth;
+        this.orientation =
+          _0x114CB > _0x1173E.documentElement.clientHeight
+            ? "\x6C\x61\x6E\x64\x73\x63\x61\x70\x65"
+            : "\x70\x6F\x72\x74\x72\x61\x69\x74";
+        var _0x11504 =
+          _0x11705.OS == "\x69\x6F\x73"
+            ? this.orientation == "\x70\x6F\x72\x74\x72\x61\x69\x74"
+              ? screen.width
+              : screen.height
+            : screen.width;
+        this.scale =
+          screen.width > _0x114CB ? 1 : _0x11504 / _0x117E9.innerWidth;
+        this.element.style.fontSize =
+          this.options.fontSize / this.scale + "\x70\x78";
+      },
+      resize: function () {
+        clearTimeout(this.resizeTimer);
+        this.resizeTimer = setTimeout(this.updateViewport.bind(this), 100);
+      },
+      updateSession: function () {
+        if (_0x11705.hasLocalStorage === false) {
+          return;
+        }
+        if (localStorage) {
+          localStorage.setItem(
+            this.options.appID,
+            JSON.stringify(this.session)
+          );
+        }
+      },
+      clearSession: function () {
+        this.session = _0x114CB;
+        this.updateSession();
+      },
+      getItem: function (_0x114CB) {
+        try {
+          if (!localStorage) {
+            throw new Error(
+              "\x6C\x6F\x63\x61\x6C\x53\x74\x6F\x72\x61\x67\x65\x20\x69\x73\x20\x6E\x6F\x74\x20\x64\x65\x66\x69\x6E\x65\x64"
+            );
+          }
+          return localStorage.getItem(_0x114CB);
+        } catch (e) {
+          _0x11705.hasLocalStorage = false;
+        }
+      },
+      optOut: function () {
+        this.session.optedout = true;
+        this.updateSession();
+      },
+      optIn: function () {
+        this.session.optedout = false;
+        this.updateSession();
+      },
+      clearDisplayCount: function () {
+        this.session.displayCount = 0;
+        this.updateSession();
+      },
+      _preventDefault: function (_0x114CB) {
+        _0x114CB.preventDefault();
+        _0x114CB.stopPropagation();
+      },
+    };
+    function _0x11576(_0x1153D, _0x11504) {
+      for (var _0x114CB in _0x11504) {
+        _0x1153D[_0x114CB] = _0x11504[_0x114CB];
+      }
+      return _0x1153D;
+    }
+    function _0x11621() {
+      if (_0x1173E.location.hash == "\x23\x61\x74\x68") {
+        history.replaceState(
+          "",
+          _0x117E9.document.title,
+          _0x1173E.location.href.split("\x23")[0]
+        );
+      }
+      if (_0x11693.test(_0x1173E.location.href)) {
+        history.replaceState(
+          "",
+          _0x117E9.document.title,
+          _0x1173E.location.href.replace(_0x11693, "\x24\x31")
+        );
+      }
+      if (_0x1165A.test(_0x1173E.location.search)) {
+        history.replaceState(
+          "",
+          _0x117E9.document.title,
+          _0x1173E.location.href.replace(_0x1165A, "\x24\x32")
+        );
+      }
+    }
+    _0x117E9.addToHomescreen = _0x11705;
+  }
+  function _0x12947(_0x114CB) {
+    addToHomescreen({
+      appID:
+        "\x6E\x6C\x2E\x7A\x79\x67\x6F\x6D\x61\x74\x69\x63\x2E" +
+        _0x114CB.gameName,
+      maxDisplayCount: 1,
+      skipFirstVisit: true,
+    });
+  }
+  function _0x12980(_0x11576, _0x11504) {
+    var _0x1153D,
+      _0x114CB = document.getElementsByTagName("\x73\x63\x72\x69\x70\x74")[0];
+    _0x1153D = document.createElement("\x73\x63\x72\x69\x70\x74");
+    if (_0x11504) {
+      _0x1153D.addEventListener("\x6C\x6F\x61\x64", _0x11504, false);
+    }
+    _0x1153D.src = _0x11576;
+    _0x114CB.parentNode.insertBefore(_0x1153D, _0x114CB);
+  }
+  function _0x129B9(_0x11504) {
+    this.soundMuted =
+      GameLib.getStorage("\x73\x6F\x75\x6E\x64\x4D\x75\x74\x65\x64") === true;
+    this.musicMuted =
+      GameLib.getStorage("\x6D\x75\x73\x69\x63\x4D\x75\x74\x65\x64") === true;
+    this.sprite = _0x11504;
+    var _0x114CB = /http/.test(location.protocol);
+    if (
+      !_0x114CB ||
+      /(Trident|MSIE|IEMobile|Silk)/.test(this.ua) ||
+      (/Android/.test(this.ua) && !/(Chrome|Firefox|Opera)/.test(this.ua))
+    ) {
+      this.useWebAudioBGM = false;
+    }
+    if (
+      /Silk/.test(this.ua) ||
+      (/Android/.test(this.ua) && !/(Chrome|Firefox|Opera)/.test(this.ua))
+    ) {
+      this.playSoundFX = false;
+    }
+    this.musicHowl = new Howl({
+      src: ["\x73\x6F\x75\x6E\x64\x73\x2F\x47\x61\x6D\x65\x2E\x6D\x70\x33"],
+      loop: true,
+      duration: GameConfig.BGMduration || 0,
+    });
+    if (this.playSoundFX) {
+      if (Howler.usingWebAudio) {
+        GameSound.soundHowl = new Howl({
+          src: [
+            "\x73\x6F\x75\x6E\x64\x73\x2F\x73\x70\x72\x69\x74\x65\x2E\x6D\x70\x33",
+          ],
+          sprite: _0x11504,
+        });
+      } else {
+        this.loadScript(
+          "\x73\x6F\x75\x6E\x64\x73\x2F\x73\x70\x72\x69\x74\x65\x2E\x6A\x73",
+          function () {
+            GameSound.soundHowl = new Howl({
+              src: [
+                soundSprite,
+                "\x73\x6F\x75\x6E\x64\x73\x2F\x73\x70\x72\x69\x74\x65\x2E\x6D\x70\x33",
+              ],
+              sprite: _0x11504,
+            });
+          }
+        );
+      }
+    }
+  }
+  function _0x129F2() {
+    if (!Howler.usingWebAudio) {
+      return;
+    }
+    var _0x11504 = Howler.ctx,
+      _0x114CB = _0x11504.createBuffer(1, 1, 22050),
+      _0x1153D = _0x11504.createBufferSource();
+    _0x1153D.buffer = _0x114CB;
+    _0x1153D.connect(_0x11504.destination);
+    if (typeof _0x1153D.start === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+      _0x1153D.noteOn(0);
+    } else {
+      _0x1153D.start(0);
+    }
+  }
+  function _0x12A2B(_0x115AF, _0x114CB, _0x11504) {
+    var _0x1153D = this;
+    if (_0x114CB && this.loopPlaying) {
+      this.soundHowl.stop(this.loopPlaying);
+      this.loopPlaying = null;
+    }
+    if (!this.sprite[_0x115AF] || !this.playSoundFX || this.soundMuted) {
+      if (!_0x114CB && _0x11504) {
+        _0x11504(false);
+      }
+      return;
+    }
+    var _0x11576 = this.soundHowl.play(_0x115AF, _0x11504);
+    if (_0x114CB) {
+      _0x1153D.loopPlaying = _0x11576;
+    }
+  }
+  function _0x12A64() {
+    if (this.musicPlaying) {
+      return;
+    }
+    this.musicHowl.play();
+    if (this.musicMuted) {
+      this.musicHowl.mute(true);
+    }
+    this.musicPlaying = true;
+  }
+  function _0x12A9D() {
+    if (this.musicPlaying) {
+      this.musicHowl.stop();
+      this.musicPlaying = false;
+    }
+  }
+  function _0x12AD6(_0x114CB) {
+    this.musicMuted = _0x114CB;
+    this.musicHowl.mute(_0x114CB);
+    GameLib.setStorage("\x6D\x75\x73\x69\x63\x4D\x75\x74\x65\x64", _0x114CB);
+  }
+  function _0x12B0F(_0x114CB) {
+    this.soundMuted = _0x114CB;
+    if (_0x114CB) {
+      this.soundHowl.mute(true);
+    } else {
+      this.soundHowl.mute(false);
+    }
+    GameLib.setStorage("\x73\x6F\x75\x6E\x64\x4D\x75\x74\x65\x64", _0x114CB);
+  }
+  function _0x12B48(_0x114CB) {
+    Howler.mute(_0x114CB);
+  }
+  function _0x12B81(_0x114CB) {
+    GameSound.init(GameConfig.soundSprite);
+  }
+  _0x114CB(
+    "\x34\x33\x39\x39\x2E\x63\x6F\x6D\x2C\x68\x2E\x34\x33\x39\x39\x2E\x63\x6F\x6D\x2C\x34\x33\x39\x39\x61\x70\x69\x2E\x63\x6F\x6D\x2C\x34\x33\x39\x39\x61\x70\x69\x2E\x6E\x65\x74\x2C\x64\x65\x76\x68\x35\x2E\x63\x6F\x6D\x2C\x61\x76\x6F\x69\x64\x2E\x6F\x72\x67",
+    1,
+    "\x54\x68\x69\x73\x20\x67\x61\x6D\x65\x20\x69\x73\x20\x6E\x6F\x74\x20\x61\x6C\x6C\x6F\x77\x65\x64\x20\x74\x6F\x20\x72\x75\x6E\x20\x68\x65\x72\x65\x21"
+  );
+  _0x11504();
+  GameConfig = {
+    debug: false,
+    gaUA: "\x55\x41\x2D\x34\x36\x39\x32\x31\x31\x33\x37\x2D\x32\x30",
+    ads: {
+      adsense: {
+        url: "\x68\x74\x74\x70\x3A\x2F\x2F\x67\x6F\x6F\x67\x6C\x65\x61\x64\x73\x2E\x67\x2E\x64\x6F\x75\x62\x6C\x65\x63\x6C\x69\x63\x6B\x2E\x6E\x65\x74\x2F\x70\x61\x67\x65\x61\x64\x2F\x61\x64\x73\x3F\x63\x6C\x69\x65\x6E\x74\x3D\x63\x61\x2D\x67\x61\x6D\x65\x73\x2D\x70\x75\x62\x2D\x35\x30\x32\x39\x32\x35\x37\x30\x31\x33\x35\x36\x30\x36\x39\x38\x26\x63\x68\x61\x6E\x6E\x65\x6C\x3D\x31\x35\x39\x34\x39\x32\x38\x36\x39\x38\x2B\x47\x61\x6D\x69\x6E\x67\x2B\x45\x6E\x74\x65\x72\x74\x61\x69\x6E\x6D\x65\x6E\x74\x26\x61\x64\x5F\x74\x79\x70\x65\x3D\x74\x65\x78\x74\x5F\x69\x6D\x61\x67\x65\x5F\x76\x69\x64\x65\x6F\x26\x6D\x61\x78\x5F\x61\x64\x5F\x64\x75\x72\x61\x74\x69\x6F\x6E\x3D\x33\x30\x30\x30\x30\x26\x64\x65\x73\x63\x72\x69\x70\x74\x69\x6F\x6E\x5F\x75\x72\x6C\x3D\x5B\x64\x65\x73\x63\x72\x69\x70\x74\x69\x6F\x6E\x5F\x75\x72\x6C\x5D",
+      },
+    },
+    dataArr: { length: 3 },
+    xxxxArr: [11, 88, 165, 242, 341, 418, 495, 572],
+    soundSprite: {
+      ok: [606, 645],
+      next: [171, 230],
+      fly: [1510, 241],
+      STick: [2146, 616],
+      fan: [1893, 146],
+    },
+  };
+  if (!(window.console && console.log)) {
+    console = {
+      log: _0x1153D,
+      debug: _0x11576,
+      info: _0x115AF,
+      warn: _0x115E8,
+      error: _0x11621,
+    };
+  }
+  GameLib = {
+    gameWidth: 800,
+    gameHeight: 480,
+    containerDiv: null,
+    storageJar: {},
+    scale: 1,
+    scalable: true,
+    gameName: "",
+    lang: "\x65\x6E",
+    isTouch:
+      "\x6F\x6E\x74\x6F\x75\x63\x68\x73\x74\x61\x72\x74" in window ||
+      navigator.msMaxTouchPoints,
+    isAndroid: /Android/.test(navigator.userAgent),
+    isIE: /IEMobile/.test(navigator.userAgent),
+    online: true,
+    popup: null,
+    IEversion: _0x1165A(),
+    iOSversion: _0x11693(),
+    isMobile: _0x116CC(),
+    moreGames: _0x11705,
+    $_GET: _0x1173E,
+    getLang: _0x11777,
+    setLang: _0x117B0,
+    getHostDomain: _0x117E9,
+    showPopup: _0x11822,
+    closePopup: _0x1185B,
+    scaleGame: _0x11894,
+    getStorage: _0x118CD,
+    setStorage: _0x11906,
+    saveStorage: _0x1193F,
+    init: _0x11978,
+  };
+  CreateGame = {
+    CreatedDiv: _0x119B1,
+    CreatedHiddenDiv: _0x119EA,
+    CreatedCanvas: _0x11A23,
+    CreatedImg: _0x11A5C,
+    CreatedShowNumber: _0x11A95,
+    CreatedRemDiv: _0x11ACE,
+    CreatedRem0Div: _0x11B07,
+    CreateText: _0x11B40,
+    setButton: _0x11B79,
+    CreatedButton: _0x11BB2,
+    getAnimation: _0x11BEB,
+    getAnimationH: _0x11C24,
+    getAnimationWH: _0x11C5D,
+    getImg: _0x11C96,
+    disorder: _0x11CCF,
+  };
+  TransformUtil = { rotate: _0x11D08, scale: _0x11D41 };
+  MouseUtil = { getMouseX: _0x11D7A, getMouseY: _0x11DB3 };
+  GameOver = { showOver: _0x11DEC, data: [], remAll: _0x11E25 };
+  loadRec = {
+    images: [
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x31\x2E\x70\x6E\x67",
+        id: "\x62\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x32\x2E\x70\x6E\x67",
+        id: "\x62\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x33\x2E\x70\x6E\x67",
+        id: "\x62\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x34\x2E\x70\x6E\x67",
+        id: "\x62\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x35\x2E\x70\x6E\x67",
+        id: "\x62\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x36\x2E\x70\x6E\x67",
+        id: "\x62\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x37\x2E\x70\x6E\x67",
+        id: "\x62\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x38\x2E\x70\x6E\x67",
+        id: "\x62\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x30\x39\x2E\x70\x6E\x67",
+        id: "\x62\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x30\x2E\x70\x6E\x67",
+        id: "\x62\x31\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x31\x2E\x70\x6E\x67",
+        id: "\x62\x31\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x32\x2E\x70\x6E\x67",
+        id: "\x62\x31\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x33\x2E\x70\x6E\x67",
+        id: "\x62\x31\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x34\x2E\x70\x6E\x67",
+        id: "\x62\x31\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x35\x2E\x70\x6E\x67",
+        id: "\x62\x31\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x36\x2E\x70\x6E\x67",
+        id: "\x62\x31\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x37\x2E\x70\x6E\x67",
+        id: "\x62\x31\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x38\x2E\x70\x6E\x67",
+        id: "\x62\x31\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x31\x39\x2E\x70\x6E\x67",
+        id: "\x62\x31\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x30\x2E\x70\x6E\x67",
+        id: "\x62\x32\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x31\x2E\x70\x6E\x67",
+        id: "\x62\x32\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x32\x2E\x70\x6E\x67",
+        id: "\x62\x32\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x33\x2E\x70\x6E\x67",
+        id: "\x62\x32\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x34\x2E\x70\x6E\x67",
+        id: "\x62\x32\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x35\x2E\x70\x6E\x67",
+        id: "\x62\x32\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x36\x2E\x70\x6E\x67",
+        id: "\x62\x32\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x37\x2E\x70\x6E\x67",
+        id: "\x62\x32\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x38\x2E\x70\x6E\x67",
+        id: "\x62\x32\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x32\x39\x2E\x70\x6E\x67",
+        id: "\x62\x32\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x30\x2E\x70\x6E\x67",
+        id: "\x62\x33\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x31\x2E\x70\x6E\x67",
+        id: "\x62\x33\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x32\x2E\x70\x6E\x67",
+        id: "\x62\x33\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x33\x2E\x70\x6E\x67",
+        id: "\x62\x33\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x34\x2E\x70\x6E\x67",
+        id: "\x62\x33\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x35\x2E\x70\x6E\x67",
+        id: "\x62\x33\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x36\x2E\x70\x6E\x67",
+        id: "\x62\x33\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x37\x2E\x70\x6E\x67",
+        id: "\x62\x33\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x38\x2E\x70\x6E\x67",
+        id: "\x62\x33\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x33\x39\x2E\x70\x6E\x67",
+        id: "\x62\x33\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x30\x2E\x70\x6E\x67",
+        id: "\x62\x34\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x31\x2E\x70\x6E\x67",
+        id: "\x62\x34\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x32\x2E\x70\x6E\x67",
+        id: "\x62\x34\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x33\x2E\x70\x6E\x67",
+        id: "\x62\x34\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x34\x2E\x70\x6E\x67",
+        id: "\x62\x34\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x35\x2E\x70\x6E\x67",
+        id: "\x62\x34\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x36\x2E\x70\x6E\x67",
+        id: "\x62\x34\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x37\x2E\x70\x6E\x67",
+        id: "\x62\x34\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x38\x2E\x70\x6E\x67",
+        id: "\x62\x34\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x34\x39\x2E\x70\x6E\x67",
+        id: "\x62\x34\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x35\x30\x2E\x70\x6E\x67",
+        id: "\x62\x35\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x35\x31\x2E\x70\x6E\x67",
+        id: "\x62\x35\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x62\x30\x30\x35\x32\x2E\x70\x6E\x67",
+        id: "\x62\x35\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x31\x2E\x70\x6E\x67",
+        id: "\x61\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x32\x2E\x70\x6E\x67",
+        id: "\x61\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x33\x2E\x70\x6E\x67",
+        id: "\x61\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x34\x2E\x70\x6E\x67",
+        id: "\x61\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x35\x2E\x70\x6E\x67",
+        id: "\x61\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x36\x2E\x70\x6E\x67",
+        id: "\x61\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x37\x2E\x70\x6E\x67",
+        id: "\x61\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x38\x2E\x70\x6E\x67",
+        id: "\x61\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x30\x39\x2E\x70\x6E\x67",
+        id: "\x61\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x30\x2E\x70\x6E\x67",
+        id: "\x61\x31\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x31\x2E\x70\x6E\x67",
+        id: "\x61\x31\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x32\x2E\x70\x6E\x67",
+        id: "\x61\x31\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x33\x2E\x70\x6E\x67",
+        id: "\x61\x31\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x34\x2E\x70\x6E\x67",
+        id: "\x61\x31\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x35\x2E\x70\x6E\x67",
+        id: "\x61\x31\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x36\x2E\x70\x6E\x67",
+        id: "\x61\x31\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x37\x2E\x70\x6E\x67",
+        id: "\x61\x31\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x38\x2E\x70\x6E\x67",
+        id: "\x61\x31\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x31\x39\x2E\x70\x6E\x67",
+        id: "\x61\x31\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x30\x2E\x70\x6E\x67",
+        id: "\x61\x32\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x31\x2E\x70\x6E\x67",
+        id: "\x61\x32\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x32\x2E\x70\x6E\x67",
+        id: "\x61\x32\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x33\x2E\x70\x6E\x67",
+        id: "\x61\x32\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x34\x2E\x70\x6E\x67",
+        id: "\x61\x32\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x35\x2E\x70\x6E\x67",
+        id: "\x61\x32\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x36\x2E\x70\x6E\x67",
+        id: "\x61\x32\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x37\x2E\x70\x6E\x67",
+        id: "\x61\x32\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x38\x2E\x70\x6E\x67",
+        id: "\x61\x32\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x32\x39\x2E\x70\x6E\x67",
+        id: "\x61\x32\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x30\x2E\x70\x6E\x67",
+        id: "\x61\x33\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x31\x2E\x70\x6E\x67",
+        id: "\x61\x33\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x32\x2E\x70\x6E\x67",
+        id: "\x61\x33\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x33\x2E\x70\x6E\x67",
+        id: "\x61\x33\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x34\x2E\x70\x6E\x67",
+        id: "\x61\x33\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x35\x2E\x70\x6E\x67",
+        id: "\x61\x33\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x36\x2E\x70\x6E\x67",
+        id: "\x61\x33\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x37\x2E\x70\x6E\x67",
+        id: "\x61\x33\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x38\x2E\x70\x6E\x67",
+        id: "\x61\x33\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x33\x39\x2E\x70\x6E\x67",
+        id: "\x61\x33\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x30\x2E\x70\x6E\x67",
+        id: "\x61\x34\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x31\x2E\x70\x6E\x67",
+        id: "\x61\x34\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x32\x2E\x70\x6E\x67",
+        id: "\x61\x34\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x33\x2E\x70\x6E\x67",
+        id: "\x61\x34\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x34\x2E\x70\x6E\x67",
+        id: "\x61\x34\x34",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x35\x2E\x70\x6E\x67",
+        id: "\x61\x34\x35",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x36\x2E\x70\x6E\x67",
+        id: "\x61\x34\x36",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x37\x2E\x70\x6E\x67",
+        id: "\x61\x34\x37",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x38\x2E\x70\x6E\x67",
+        id: "\x61\x34\x38",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x34\x39\x2E\x70\x6E\x67",
+        id: "\x61\x34\x39",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x35\x30\x2E\x70\x6E\x67",
+        id: "\x61\x35\x30",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x35\x31\x2E\x70\x6E\x67",
+        id: "\x61\x35\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x35\x32\x2E\x70\x6E\x67",
+        id: "\x61\x35\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x61\x30\x30\x35\x33\x2E\x70\x6E\x67",
+        id: "\x61\x35\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x61\x68\x6A\x6F\x6E\x67\x2F\x6E\x6F\x2E\x70\x6E\x67",
+        id: "\x6E\x6F\x6E\x6F",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x67\x61\x6D\x65\x5F\x62\x61\x63\x6B\x2E\x6A\x70\x67",
+        id: "\x67\x61\x6D\x65\x5F\x62\x61\x63\x6B",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x65\x6E\x75\x5F\x62\x61\x63\x6B\x2E\x6A\x70\x67",
+        id: "\x62\x61\x63\x6B\x5F\x6D\x65\x6E\x75",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x68\x65\x6C\x70\x5F\x62\x61\x63\x6B\x2E\x6A\x70\x67",
+        id: "\x62\x61\x63\x6B\x5F\x68\x65\x6C\x70",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6F\x76\x65\x72\x5F\x62\x61\x63\x6B\x2E\x6A\x70\x67",
+        id: "\x62\x61\x63\x6B\x5F\x6F\x76\x65\x72",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x62\x61\x63\x6B\x2E\x70\x6E\x67",
+        id: "\x65\x6E\x64\x5F\x62\x61\x63\x6B",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x62\x61\x63\x6B\x2E\x70\x6E\x67",
+        id: "\x66\x61\x63\x65\x5F\x6C\x65\x76\x65\x6C",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x62\x61\x63\x6B\x2E\x70\x6E\x67",
+        id: "\x66\x61\x63\x65\x5F\x70\x61\x75\x73\x65",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x62\x61\x63\x6B\x2E\x70\x6E\x67",
+        id: "\x73\x61\x76\x65\x62\x61\x63\x6B",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x62\x61\x63\x6B\x2E\x70\x6E\x67",
+        id: "\x62\x61\x63\x6B\x31\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x63\x6C\x6F\x73\x65\x2E\x70\x6E\x67",
+        id: "\x63\x6C\x6F\x73\x65",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x65\x6E\x75\x31\x2E\x70\x6E\x67",
+        id: "\x6D\x65\x6E\x75\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x65\x6E\x75\x32\x2E\x70\x6E\x67",
+        id: "\x6D\x65\x6E\x75\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x65\x6E\x75\x33\x2E\x70\x6E\x67",
+        id: "\x6D\x65\x6E\x75\x33",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x64\x65\x42\x75\x67\x2E\x70\x6E\x67",
+        id: "\x64\x65\x42\x75\x67",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x2D\x6F\x66\x66\x2E\x70\x6E\x67",
+        id: "\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x5F\x6F\x66\x66",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x2D\x6F\x6E\x2E\x70\x6E\x67",
+        id: "\x66\x75\x6C\x6C\x73\x63\x72\x65\x65\x6E\x5F\x6F\x6E",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x62\x75\x74\x74\x6F\x6E\x2E\x70\x6E\x67",
+        id: "\x62\x75\x74\x74\x6F\x6E",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x62\x75\x74\x74\x6F\x6E\x31\x2E\x70\x6E\x67",
+        id: "\x62\x75\x74\x74\x6F\x6E\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x62\x75\x74\x74\x6F\x6E\x32\x2E\x70\x6E\x67",
+        id: "\x62\x75\x74\x74\x6F\x6E\x32",
+      },
+      { src: "\x69\x6D\x67\x2F\x70\x31\x2E\x70\x6E\x67", id: "\x70\x31" },
+      {
+        src: "\x69\x6D\x67\x2F\x6F\x70\x65\x6E\x2E\x70\x6E\x67",
+        id: "\x6F\x70\x65\x6E",
+      },
+      { src: "\x69\x6D\x67\x2F\x68\x31\x2E\x70\x6E\x67", id: "\x68\x31" },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x75\x73\x69\x63\x31\x2E\x70\x6E\x67",
+        id: "\x6D\x75\x73\x69\x63\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x6D\x75\x73\x69\x63\x32\x2E\x70\x6E\x67",
+        id: "\x6D\x75\x73\x69\x63\x31",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x73\x6F\x75\x6E\x64\x31\x2E\x70\x6E\x67",
+        id: "\x73\x6F\x75\x6E\x64\x32",
+      },
+      {
+        src: "\x69\x6D\x67\x2F\x73\x6F\x75\x6E\x64\x32\x2E\x70\x6E\x67",
+        id: "\x73\x6F\x75\x6E\x64\x31",
+      },
+    ],
+    fonts: ["\x41\x6C\x61\x64\x69\x6E"],
+    loadPerc: null,
+    resource: {},
+    data: [],
+    creatloading: _0x11E5E,
+    preload: _0x11E97,
+    remAll: _0x11ED0,
+  };
+  GameMenu = {
+    startGame: _0x11F09,
+    timeID: null,
+    remCanvas: [],
+    moveArr: [],
+    setImGo: _0x11F42,
+    onFrame: _0x11F7B,
+    maskID: null,
+    maskGo: _0x11FB4,
+    maskFrame: _0x11FED,
+    showMenu: _0x12026,
+    data: [],
+    remAll: _0x1205F,
+  };
+  GameHelp = { showHelp: _0x12098, data: [], remAll: _0x120D1 };
+  GamePlay = {
+    data: [],
+    remAll: _0x1210A,
+    time: 0,
+    score: 0,
+    level: 0,
+    txtScore: null,
+    txtTime: null,
+    txtLevel: null,
+    showTime: _0x12143,
+    addScore: _0x1217C,
+    txtNum: null,
+    pause: null,
+    createPause: _0x121B5,
+    timeOutDiv: null,
+    createTimeOutDiv: _0x121EE,
+    restartDiv: null,
+    createRestartDiv: _0x12227,
+    nopossibleDiv: null,
+    createNopossibleDiv: _0x12260,
+    levelDiv: null,
+    createLevelDiv: _0x12299,
+    levelUp: _0x122D2,
+    timeID: null,
+    div_all: null,
+    div888: null,
+    fullscreen_on: null,
+    fullscreen_off: null,
+    fullscreenChange: _0x1230B,
+    pauseGame: _0x12344,
+    btUndo: null,
+    showPlay: _0x1237D,
+    fanArr: [],
+    flyArr: [],
+    playArr: [],
+    arrUndo: [],
+    dataArr: [],
+    addGame: _0x123B6,
+    getPuKe: _0x123EF,
+    hh: 24,
+    showHH: _0x12428,
+    getHH: _0x12461,
+    saveUndo: _0x1249A,
+    goUndo: _0x124D3,
+    checkingMove: _0x1250C,
+    checkingGo: _0x12545,
+    startDragEvent: _0x1257E,
+    dragEvent: _0x125B7,
+    endDragEvent: _0x125F0,
+    downDiv: null,
+    clientX: 0,
+    clientY: 0,
+    downX: 0,
+    downY: 0,
+    divX: 0,
+    divY: 0,
+    index: 0,
+    isDow11: false,
+    firstDiv: false,
+    tapEvent: _0x12629,
+    onFrame: _0x12662,
+  };
+  languageUI = {
+    uiDiv: null,
+    buDiv: null,
+    canGuoQi: null,
+    canWenZi: null,
+    showLanguage: [1, 2, 0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    arr: [
+      ["\x43\x4E", "\x7A\x68\x2D\x63\x6E", 3, "\x7A\x68", 5],
+      ["\x55\x53", "\x65\x6E\x5F\x75\x73", 12, "\x65\x6E", 1],
+      ["\x4E\x4C", "\x6E\x6C", 2, "\x6E\x6C", 4],
+      ["\x45\x4E", "\x65\x6E\x5F\x75\x73", 11, "\x65\x6E", 2],
+      ["\x45\x53", "\x65\x73\x5F\x73\x70\x61\x69\x6E", 5, "\x65\x73", 6],
+      [
+        "\x50\x54",
+        "\x70\x74\x5F\x70\x6F\x72\x74\x75\x67\x61\x6C",
+        9,
+        "\x70\x74",
+        9,
+      ],
+      [
+        "\x42\x52",
+        "\x62\x72\x5F\x70\x6F\x72\x74\x75\x67\x61\x6C",
+        1,
+        "\x70\x74",
+        10,
+      ],
+      ["\x46\x52", "\x66\x72\x5F\x66\x72\x61\x6E\x63\x65", 6, "\x66\x72", 11],
+      ["\x49\x54", "\x69\x74\x5F\x69\x74\x61\x6C\x79", 8, "\x69\x74", 12],
+      [
+        "\x44\x45",
+        "\x64\x65\x5F\x67\x65\x72\x6D\x61\x6E\x79",
+        4,
+        "\x64\x65",
+        13,
+      ],
+      [
+        "\x52\x55",
+        "\x72\x75\x5F\x72\x75\x73\x73\x69\x61\x6E",
+        10,
+        "\x72\x75",
+        14,
+      ],
+      ["\x4D\x58", "\x65\x73\x5F\x73\x70\x61\x69\x6E", 13, "\x65\x73", 7],
+      ["\x41\x52\x47", "\x65\x73\x5F\x73\x70\x61\x69\x6E", 14, "\x65\x73", 8],
+      ["\x49\x4E", "\x69\x6E\x5F\x69\x6E\x64\x69\x61", 7, "\x69\x6E", 3],
+      [
+        "\x50\x4F\x4C",
+        "\x70\x6F\x6C\x5F\x70\x6F\x6C\x69\x73\x68",
+        15,
+        "\x70\x6C",
+        15,
+      ],
+      [
+        "\x54\x55\x52",
+        "\x74\x75\x72\x5F\x74\x75\x72\x6B\x69\x73\x68",
+        16,
+        "\x74\x72",
+        16,
+      ],
+    ],
+    remData: [],
+    getStyle: _0x1269B,
+    init: _0x126D4,
+    closeUI: _0x1270D,
+    getButton: _0x12746,
+    getText: _0x1277F,
+    scaleTexts: _0x127B8,
+    setXuanZhe: _0x127F1,
+    language: "\x7A\x68\x2D\x63\x6E",
+    languageInt: 0,
+  };
+  _0x1282A(window);
+  _0x12863();
+  _0x1289C(window, document);
+  _0x128D5();
+  _0x1290E(window, document);
+  document.addEventListener(
+    "\x67\x61\x6D\x65\x72\x65\x61\x64\x79",
+    _0x12947,
+    false
+  );
+  languageData = {
+    d_ContinuePreviousGame: [
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x65\x20\x50\x72\x65\x76\x69\x6F\x75\x73\x20\x47\x61\x6D\x65",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x65\x20\x50\x72\x65\x76\x69\x6F\x75\x73\x20\x47\x61\x6D\x65",
+      "\x50\x69\x63\x68\x68\x61\x6C\x61\x20\x67\x61\x6D\x65\x20\x6A\x61\x72\x69",
+      "\x47\x61\x20\x44\x6F\x6F\x72\x20\x4D\x65\x74\x20\x56\x6F\x72\x69\x67\x20\x53\x70\x65\x6C",
+      "\u7EE7\u7EED\u73A9",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72\x20\x6A\x75\x65\x67\x6F\x20\x61\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72\x20\x6A\x75\x65\x67\x6F\x20\x61\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72\x20\x6A\x75\x65\x67\x6F\x20\x61\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72\x20\x6F\x20\x6A\x6F\x67\x6F\x20\x61\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72\x20\x6F\x20\x6A\x6F\x67\x6F\x20\x61\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x65\x72\x20\x6C\x61\x20\x70\x61\x72\x74\x69\x65",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x20\x6C\x61\x20\x70\x61\x72\x74\x69\x74\x61\x20\x70\x72\x65\x63\x65\x64\x65\x6E\x74\x65",
+      "\x56\x6F\x72\x68\x65\x72\x69\x67\x65\x73\x20\x53\x70\x69\x65\x6C\x20\x66\x6F\x72\x74\x73\x65\x74\x7A\x65\x6E",
+      "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C\x20\u0438\u0433\u0440\u0443",
+      "\x4B\x6F\x6E\x74\x79\x6E\x75\x75\x6A\x20\x70\x6F\x70\x72\x7A\x65\x64\x6E\x69\u0105\x20\x67\x72\u0119",
+      "\xD6\x6E\x63\x65\x6B\x69\x20\x6F\x79\x75\x6E\x61\x20\x64\x65\x76\x61\x6D",
+    ],
+    d_Nopossiblemoves: [
+      "\x4E\x6F\x20\x70\x6F\x73\x73\x69\x62\x6C\x65\x20\x6D\x6F\x76\x65\x73\x21",
+      "\x4E\x6F\x20\x70\x6F\x73\x73\x69\x62\x6C\x65\x20\x6D\x6F\x76\x65\x73\x21",
+      "\x43\x68\x61\x6C\x6E\x61\x20\x53\x61\x6D\x62\x68\x61\x76\x20\x4E\x61\x68\x69",
+      "\x47\x65\x65\x6E\x20\x7A\x65\x74\x74\x65\x6E\x20\x6D\x6F\x67\x65\x6C\x69\x6A\x6B",
+      "\u4E0D\u53EF\u80FD\u518D\u79FB\u52A8\u724C\u4E86\uFF01",
+      "\x4E\x6F\x20\x68\x61\x79\x20\x6D\xE1\x73\x20\x6D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73",
+      "\x4E\x6F\x20\x68\x61\x79\x20\x6D\xE1\x73\x20\x6D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73",
+      "\x4E\x6F\x20\x68\x61\x79\x20\x6D\xE1\x73\x20\x6D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73",
+      "\x4E\xE3\x6F\x20\x65\x78\x69\x73\x74\x65\x6D\x20\x6D\x61\x69\x73\x20\x6A\x6F\x67\x61\x64\x61\x73\x20\x70\x6F\x73\x73\xED\x76\x65\x69\x73\x21",
+      "\x4E\xE3\x6F\x20\x68\xE1\x20\x6D\x61\x69\x73\x20\x6A\x6F\x67\x61\x64\x61\x73\x20\x70\x6F\x73\x73\xED\x76\x65\x69\x73\x21",
+      "\x50\x61\x73\x20\x64\x65\x20\x64\xE9\x70\x6C\x61\x63\x65\x6D\x65\x6E\x74\x73\x20\x70\x6F\x73\x73\x69\x62\x6C\x65\x73\x20\x21",
+      "\x4E\x65\x73\x73\x75\x6E\x6F\x20\x73\x70\x6F\x73\x74\x61\x6D\x65\x6E\x74\x6F\x20\x70\x6F\x73\x73\x69\x62\x69\x6C\x65\x21",
+      "\x4B\x65\x69\x6E\x65\x20\x6D\xF6\x67\x6C\x69\x63\x68\x65\x6E\x20\x53\x70\x69\x65\x6C\x7A\xFC\x67\x65\x21",
+      "\u041D\u0435\u0442\x20\u0445\u043E\u0434\u043E\u0432\x21",
+      "\x42\x72\x61\x6B\x20\x6D\x6F\u017C\x6C\x69\x77\x79\x63\x68\x20\x72\x75\x63\x68\xF3\x77\x21",
+      "\x48\x61\x6D\x6C\x65\x20\x6D\xFC\x6D\x6B\xFC\x6E\x20\x64\x65\u011F\x69\x6C\x21\x20",
+    ],
+    d_Reset: [
+      "\x52\x65\x73\x65\x74",
+      "\x52\x65\x73\x65\x74",
+      "\x52\x65\x73\x65\x74\x20\x6B\x61\x72\x65",
+      "\x52\x65\x73\x65\x74",
+      "\u91CD\u7F6E",
+      "\x52\x65\x73\x65\x74\x65\x61\x72",
+      "\x52\x65\x73\x65\x74\x65\x61\x72",
+      "\x52\x65\x73\x65\x74\x65\x61\x72",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72",
+      "\x52\xE9\x69\x6E\x69\x74\x69\x61\x6C\x69\x73\x65\x72",
+      "\x52\x69\x70\x72\x69\x73\x74\x69\x6E\x61",
+      "\x5A\x75\x72\xFC\x63\x6B\x73\x65\x74\x7A\x65\x6E",
+      "\u0421\u0431\u0440\u043E\u0441",
+      "\x52\x65\x73\x65\x74\x75\x6A",
+      "\x53\u0131\x66\u0131\x72\x6C\x61",
+    ],
+    d_ResetClick: [
+      "\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x72\x65\x73\x65\x74\x20\x62\x75\x74\x74\x6F\x6E\x20\x74\x6F\x20\x63\x6F\x6D\x70\x6C\x65\x74\x65\x6C\x79\x20\x72\x65\x73\x65\x74\x20\x79\x6F\x75\x72\x20\x70\x72\x6F\x67\x72\x65\x73\x73\x20\x69\x6E\x20\x74\x68\x65\x20\x67\x61\x6D\x65\x2E",
+      "\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x72\x65\x73\x65\x74\x20\x62\x75\x74\x74\x6F\x6E\x20\x74\x6F\x20\x63\x6F\x6D\x70\x6C\x65\x74\x65\x6C\x79\x20\x72\x65\x73\x65\x74\x20\x79\x6F\x75\x72\x20\x70\x72\x6F\x67\x72\x65\x73\x73\x20\x69\x6E\x20\x74\x68\x65\x20\x67\x61\x6D\x65\x2E",
+      "\x50\x75\x72\x69\x20\x74\x61\x72\x61\x68\x20\x73\x65\x20\x69\x73\x20\x6B\x68\x65\x6C\x20\x6D\x65\x20\x61\x70\x6E\x69\x20\x70\x72\x61\x67\x61\x74\x69\x20\x6B\x6F\x20\x70\x75\x6E\x72\x74\x68\x61\x70\x69\x74\x20\x6B\x61\x72\x6E\x65\x20\x6B\x65\x20\x6C\x69\x79\x65\x20\x72\x65\x73\x65\x74\x20\x62\x61\x74\x61\x6E\x20\x70\x65\x72\x20\x63\x6C\x69\x63\x6B\x20\x6B\x61\x72\x65\x2E",
+      "\x4B\x6C\x69\x6B\x20\x6F\x70\x20\x64\x65\x20\x72\x65\x73\x65\x74\x2D\x6B\x6E\x6F\x70\x20\x6F\x6D\x20\x69\x6E\x20\x64\x69\x74\x20\x73\x70\x65\x6C\x20\x68\x65\x6C\x65\x6D\x61\x61\x6C\x20\x6F\x70\x6E\x69\x65\x75\x77\x20\x74\x65\x20\x62\x65\x67\x69\x6E\x6E\x65\x6E\x2E",
+      "\u70B9\u51FB\u91CD\u7F6E\u6309\u94AE\u53EF\u5B8C\u5168\u91CD\u7F6E\u6E38\u620F\u8FDB\u5EA6\u3002",
+      "\x48\x61\x7A\x20\x63\x6C\x69\x63\x20\x65\x6E\x20\x65\x6C\x20\x62\x6F\x74\xF3\x6E\x20\x52\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x70\x61\x72\x61\x20\x72\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x6C\x61\x20\x70\x61\x72\x74\x69\x64\x61\x2E",
+      "\x48\x61\x7A\x20\x63\x6C\x69\x63\x20\x65\x6E\x20\x65\x6C\x20\x62\x6F\x74\xF3\x6E\x20\x52\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x70\x61\x72\x61\x20\x72\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x6C\x61\x20\x70\x61\x72\x74\x69\x64\x61\x2E",
+      "\x48\x61\x7A\x20\x63\x6C\x69\x63\x20\x65\x6E\x20\x65\x6C\x20\x62\x6F\x74\xF3\x6E\x20\x52\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x70\x61\x72\x61\x20\x72\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x6C\x61\x20\x70\x61\x72\x74\x69\x64\x61\x2E",
+      "\x43\x6C\x69\x63\x61\x20\x6E\x6F\x20\x62\x6F\x74\xE3\x6F\x20\x72\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x70\x61\x72\x61\x20\x72\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x70\x6F\x72\x20\x63\x6F\x6D\x70\x6C\x65\x74\x6F\x20\x6F\x20\x74\x65\x75\x20\x70\x72\x6F\x67\x72\x65\x73\x73\x6F\x20\x6E\x6F\x20\x6A\x6F\x67\x6F\x2E",
+      "\x43\x6C\x69\x71\x75\x65\x20\x6E\x6F\x20\x62\x6F\x74\xE3\x6F\x20\x72\x65\x69\x6E\x69\x63\x69\x61\x72\x20\x70\x61\x72\x61\x20\x72\x65\x63\x6F\x6D\x65\xE7\x61\x72\x20\x64\x6F\x20\x7A\x65\x72\x6F\x20\x73\x65\x75\x20\x70\x72\x6F\x67\x72\x65\x73\x73\x6F\x20\x6E\x6F\x20\x6A\x6F\x67\x6F\x2E",
+      "\x43\x6C\x69\x71\x75\x65\x7A\x20\x73\x75\x72\x20\x6C\x65\x20\x62\x6F\x75\x74\x6F\x6E\x20\x64\x65\x20\x72\xE9\x69\x6E\x69\x74\x69\x61\x6C\x69\x73\x61\x74\x69\x6F\x6E\x20\x70\x6F\x75\x72\x20\x72\xE9\x69\x6E\x69\x74\x69\x61\x6C\x69\x73\x65\x72\x20\x76\x6F\x74\x72\x65\x20\x70\x72\x6F\x67\x72\x65\x73\x73\x69\x6F\x6E\x20\x64\x61\x6E\x73\x20\x6C\x65\x20\x6A\x65\x75\x2E",
+      "\x46\x61\x69\x20\x63\x6C\x69\x63\x20\x73\x75\x6C\x20\x70\x75\x6C\x73\x61\x6E\x74\x65\x20\x64\x69\x20\x72\x65\x73\x65\x74\x20\x70\x65\x72\x20\x61\x7A\x7A\x65\x72\x61\x72\x65\x20\x63\x6F\x6D\x70\x6C\x65\x74\x61\x6D\x65\x6E\x74\x65\x20\x69\x6C\x20\x74\x75\x6F\x20\x6C\x69\x76\x65\x6C\x6C\x6F\x20\x64\x69\x20\x70\x72\x6F\x67\x72\x65\x73\x73\x69\x6F\x6E\x65\x20\x6E\x65\x6C\x20\x67\x69\x6F\x63\x6F\x2E",
+      "\x4B\x6C\x69\x63\x6B\x65\x20\x61\x75\x66\x20\x64\x69\x65\x20\x52\x65\x73\x65\x74\x2D\x54\x61\x73\x74\x65\x2C\x20\x75\x6D\x20\x64\x69\x65\x73\x65\x73\x20\x53\x70\x69\x65\x6C\x20\x77\x69\x65\x64\x65\x72\x20\x67\x61\x6E\x7A\x20\x76\x6F\x6E\x20\x76\x6F\x72\x6E\x65\x20\x7A\x75\x20\x62\x65\x67\x69\x6E\x6E\x65\x6E\x2E",
+      "\u0429\u0435\u043B\u043A\u043D\u0438\x20\u043F\u043E\x20\u043A\u043D\u043E\u043F\u043A\u0435\x20\u0441\u0431\u0440\u043E\u0441\u0430\x2C\x20\u0447\u0442\u043E\u0431\u044B\x20\u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E\x20\u0441\u0431\u0440\u043E\u0441\u0438\u0442\u044C\x20\u043D\u0430\u0431\u0440\u0430\u043D\u043D\u043E\u0435\x20\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\x20\u043E\u0447\u043A\u043E\u0432\x2E",
+      "\x4B\x6C\x69\x6B\x6E\x69\x6A\x20\x70\x72\x7A\x79\x63\x69\x73\x6B\x20\x52\x65\x73\x65\x74\x75\x6A\x2C\x20\x61\x62\x79\x20\x73\x6B\x61\x73\x6F\x77\x61\u0107\x20\x63\x61\u0142\x6B\x6F\x77\x69\x74\x79\x20\x70\x6F\x73\x74\u0119\x70\x20\x77\x20\x67\x72\x7A\x65\x2E",
+      "\x4F\x79\x75\x6E\x64\x61\x6B\x69\x20\x69\x6C\x65\x72\x6C\x65\x79\x69\u015F\x69\x6E\x69\x20\x74\x61\x6D\x61\x6D\x65\x6E\x20\x73\u0131\x66\u0131\x72\x6C\x61\x6D\x61\x6B\x20\x69\xE7\x69\x6E\x20\x73\u0131\x66\u0131\x72\x6C\x61\x6D\x61\x20\x64\xFC\u011F\x6D\x65\x73\x69\x6E\x65\x20\x74\u0131\x6B\x6C\x61\x2E",
+    ],
+    d_Matches: [
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+      "\x4D\x61\x74\x63\x68\x65\x73\x3A",
+    ],
+    d_Freecell: [
+      "\x46\x72\x65\x65\x43\x65\x6C\x6C",
+      "\x46\x72\x65\x65\x43\x65\x6C\x6C",
+      "\x46\x72\x65\x65\x43\x65\x6C\x6C",
+      "\x46\x72\x65\x65\x43\x65\x6C\x6C",
+      "\u7A7A\u4F4D",
+      "\x43\x61\x72\x74\x61\x20\x62\x6C\x61\x6E\x63\x61",
+      "\x43\x61\x72\x74\x61\x20\x62\x6C\x61\x6E\x63\x61",
+      "\x43\x61\x72\x74\x61\x20\x62\x6C\x61\x6E\x63\x61",
+      "\x43\xE9\x6C\x75\x6C\x61\x4C\x69\x76\x72\x65",
+      "\x46\x72\x65\x65\x43\x65\x6C\x6C",
+      "\x46\x72\x65\x65\x20\x43\x65\x6C\x6C",
+      "\x46\x72\x65\x65\x43\x65\x6C\x6C",
+      "\x46\x72\x65\x65\x43\x65\x6C\x6C",
+      "\u0421\u0432\u043E\u0431\u043E\u0434\u043D\u0430\u044F\x20\u044F\u0447\u0435\u0439\u043A\u0430",
+      "\x46\x72\x65\x65\x63\x65\x6C\x6C",
+      "\x46\x72\x65\x65\x43\x65\x6C\x6C",
+    ],
+    d_Start: [
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x50\x72\x61\x72\x61\x6D\x62\x68",
+      "\x53\x74\x61\x72\x74",
+      "\u5F00\u59CB",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+      "\x53\x74\x61\x72\x74",
+    ],
+    d_StartNewGame: [
+      "\x53\x74\x61\x72\x74\x20\x4E\x65\x77\x20\x47\x61\x6D\x65",
+      "\x53\x74\x61\x72\x74\x20\x4E\x65\x77\x20\x47\x61\x6D\x65",
+      "\x4E\x61\x79\x61\x20\x67\x61\x6D\x65\x20\x53\x68\x75\x72\x75",
+      "\x53\x74\x61\x72\x74\x20\x4E\x69\x65\x75\x77\x20\x53\x70\x65\x6C",
+      "\u91CD\u65B0\u5F00\u59CB",
+      "\x49\x6E\x69\x63\x69\x61\x20\x6E\x75\x65\x76\x6F\x20\x6A\x75\x65\x67\x6F",
+      "\x49\x6E\x69\x63\x69\x61\x20\x6E\x75\x65\x76\x6F\x20\x6A\x75\x65\x67\x6F",
+      "\x49\x6E\x69\x63\x69\x61\x20\x6E\x75\x65\x76\x6F\x20\x6A\x75\x65\x67\x6F",
+      "\x4E\x6F\x76\x6F\x20\x4A\x6F\x67\x6F",
+      "\x4E\x6F\x76\x6F\x20\x4A\x6F\x67\x6F",
+      "\x43\x6F\x6D\x6D\x65\x6E\x63\x65\x72\x20\x75\x6E\x65\x20\x6E\x6F\x75\x76\x65\x6C\x6C\x65",
+      "\x49\x6E\x69\x7A\x69\x61\x20\x75\x6E\x61\x20\x6E\x75\x6F\x76\x61\x20\x70\x61\x72\x74\x69\x74\x61",
+      "\x4E\x65\x75\x65\x73\x20\x53\x70\x69\x65\x6C\x20\x73\x74\x61\x72\x74\x65\x6E",
+      "\u041D\u043E\u0432\u0430\u044F\x20\u0438\u0433\u0440\u0430",
+      "\x52\x6F\x7A\x70\x6F\x63\x7A\x6E\x69\x6A\x20\x6E\x6F\x77\u0105\x20\x67\x72\u0119",
+      "\x59\x65\x6E\x69\x20\x6F\x79\x75\x6E\x61\x20\x62\x61\u015F\x6C\x61",
+    ],
+    d_Play: [
+      "\x50\x6C\x61\x79",
+      "\x50\x6C\x61\x79",
+      "\x50\x6C\x61\x79",
+      "\x53\x70\x65\x6C\x65\x6E",
+      "\u5F00\u59CB\u6E38\u620F",
+      "\x4A\x75\x67\x61\x72",
+      "\x4A\x75\x67\x61\x72",
+      "\x4A\x75\x67\x61\x72",
+      "\x4A\x6F\x67\x61\x72",
+      "\x4A\x6F\x67\x61\x72",
+      "\x4A\x6F\x75\x65\x72",
+      "\x47\x69\x6F\x63\x61",
+      "\x53\x70\x69\x65\x6C\x65\x6E",
+      "\u0418\u0433\u0440\u0430\u0442\u044C",
+      "\x47\x72\x61\x6A",
+      "\x4F\x79\x6E\x61",
+    ],
+    d_Help: [
+      "\x48\x65\x6C\x70",
+      "\x48\x65\x6C\x70",
+      "\x53\x61\x68\x61\x79\x61\x74\x61",
+      "\x48\x65\x6C\x70",
+      "\u5E2E\u52A9",
+      "\x41\x79\x75\x64\x61",
+      "\x41\x79\x75\x64\x61",
+      "\x41\x79\x75\x64\x61",
+      "\x41\x6A\x75\x64\x61",
+      "\x41\x6A\x75\x64\x61",
+      "\x41\x69\x64\x65",
+      "\x47\x75\x69\x64\x61",
+      "\x48\x69\x6C\x66\x65",
+      "\u0421\u043F\u0440\u0430\u0432\u043A\u0430",
+      "\x50\x6F\x6D\x6F\x63",
+      "\x59\x61\x72\x64\u0131\x6D",
+    ],
+    d_HighScore: [
+      "\x48\x69\x67\x68\x20\x53\x63\x6F\x72\x65\x73",
+      "\x48\x69\x67\x68\x20\x53\x63\x6F\x72\x65\x73",
+      "\x55\x63\x68\x61\x20\x73\x63\x6F\x72\x65",
+      "\x48\x69\x67\x68\x73\x63\x6F\x72\x65",
+      "\u9AD8\u5206",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x20\x61\x6C\x74\x61",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x20\x61\x6C\x74\x61",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x20\x61\x6C\x74\x61",
+      "\x50\x6F\x6E\x74\x75\x61\xE7\xE3\x6F\x20\x4D\xE1\x78\x2E",
+      "\x50\x6F\x6E\x74\x75\x61\xE7\xE3\x6F\x20\x4D\xE1\x78\x2E",
+      "\x48\x61\x75\x74\x20\x73\x63\x6F\x72\x65",
+      "\x50\x75\x6E\x74\x65\x67\x67\x69\x6F",
+      "\x42\x65\x73\x74\x65\x6E\x6C\x69\x73\x74\x65",
+      "\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B",
+      "\x4E\x61\x6A\x77\x79\u017C\x73\x7A\x65\x20\x77\x79\x6E\x69\x6B\x69",
+      "\x45\x6E\x20\x79\xFC\x6B\x73\x65\x6B\x20\x70\x75\x61\x6E",
+    ],
+    d_More: [
+      "\x4D\x6F\x72\x65\x20\x47\x61\x6D\x65\x73",
+      "\x4D\x6F\x72\x65\x20\x47\x61\x6D\x65\x73",
+      "\x41\x6E\x79\x61\x20\x67\x61\x6D\x65\x73",
+      "\x4D\x65\x65\x72\x20\x73\x70\x65\x6C\x6C\x65\x6E",
+      "\u66F4\u591A\u6E38\u620F",
+      "\x4D\xE1\x73\x20\x6A\x75\x65\x67\x6F\x73",
+      "\x4D\xE1\x73\x20\x6A\x75\x65\x67\x6F\x73",
+      "\x4D\xE1\x73\x20\x6A\x75\x65\x67\x6F\x73",
+      "\x4D\x61\x69\x73\x20\x4A\x6F\x67\x6F\x73",
+      "\x4D\x61\x69\x73\x20\x4A\x6F\x67\x6F\x73",
+      "\x50\x6C\x75\x73\x20\x64\x65\x20\x6A\x65\x75\x78",
+      "\x41\x6C\x74\x72\x69\x20\x67\x69\x6F\x63\x68\x69",
+      "\x4D\x65\x68\x72\x20\x53\x70\x69\x65\x6C\x65",
+      "\u0415\u0449\u0435\x20\u0438\u0433\u0440\u044B",
+      "\x57\x69\u0119\x63\x65\x6A\x20\x67\x69\x65\x72",
+      "\x44\x61\x68\x61\x20\x46\x61\x7A\x6C\x61\x20\x4F\x79\x75\x6E",
+    ],
+    d_Howtoplay: [
+      "\x48\x6F\x77\x20\x54\x6F\x20\x50\x6C\x61\x79",
+      "\x48\x6F\x77\x20\x54\x6F\x20\x50\x6C\x61\x79",
+      "\x50\x6C\x61\x79\x20\x6B\x61\x69\x73\x65\x20\x6B\x61\x72\x65",
+      "\x49\x6E\x73\x74\x72\x75\x63\x74\x69\x65\x73",
+      "\u6E38\u620F\u8BF4\u660E",
+      "\x43\xF3\x6D\x6F\x20\x6A\x75\x67\x61\x72",
+      "\x43\xF3\x6D\x6F\x20\x6A\x75\x67\x61\x72",
+      "\x43\xF3\x6D\x6F\x20\x6A\x75\x67\x61\x72",
+      "\x43\x6F\x6D\x6F\x20\x6A\x6F\x67\x61\x72",
+      "\x43\x6F\x6D\x6F\x20\x6A\x6F\x67\x61\x72",
+      "\x43\x6F\x6D\x6D\x65\x6E\x74\x20\x6A\x6F\x75\x65\x72",
+      "\x52\x65\x67\x6F\x6C\x65\x20\x64\x65\x6C\x20\x67\x69\x6F\x63\x6F",
+      "\x41\x6E\x6C\x65\x69\x74\x75\x6E\x67",
+      "\u0418\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044F",
+      "\x4A\x61\x6B\x20\x67\x72\x61\u0107",
+      "\x4E\x61\x73\u0131\x6C\x20\x4F\x79\x6E\x61\x6E\u0131\x72",
+    ],
+    d_HowtoplayText_MahjongMain: [
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x56\x65\x72\x70\x6C\x61\x61\x74\x73\x20\x61\x6C\x6C\x65\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x6E\x61\x61\x72\x20\x64\x65\x20\x65\x6E\x6B\x65\x6C\x65\x20\x61\x66\x6C\x65\x67\x73\x74\x61\x70\x65\x6C\x2E\x20\x50\x6C\x61\x61\x74\x73\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x6F\x70\x20\x64\x65\x20\x61\x66\x6C\x65\x67\x73\x74\x61\x70\x65\x6C\x20\x62\x65\x67\x69\x6E\x6E\x65\x6E\x64\x20\x6D\x65\x74\x20\x64\x65\x20\x48\x61\x72\x74\x65\x6E\x20\x41\x61\x73\x20\x6E\x61\x61\x72\x20\x65\x65\x6E\x20\x4B\x6F\x6E\x69\x6E\x67\x20\x28\x6B\x6C\x65\x75\x72\x20\x6D\x61\x61\x6B\x74\x20\x6E\x69\x65\x74\x20\x75\x69\x74\x29\x20\x65\x6E\x20\x64\x61\x6E\x20\x6F\x70\x6E\x69\x65\x75\x77\x20\x65\x65\x6E\x20\x41\x61\x73\x2E\x20\x50\x6C\x61\x61\x74\x73\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x6F\x70\x20\x68\x65\x74\x20\x73\x70\x65\x65\x6C\x76\x65\x6C\x64\x20\x61\x66\x6C\x6F\x70\x65\x6E\x64\x20\x65\x6E\x20\x70\x65\x72\x20\x73\x6F\x6F\x72\x74\x2E\x20\x47\x72\x6F\x65\x70\x65\x6E\x20\x76\x61\x6E\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x6B\x75\x6E\x6E\x65\x6E\x20\x28\x6F\x6E\x61\x66\x68\x61\x6E\x6B\x65\x6C\x69\x6A\x6B\x20\x76\x61\x6E\x20\x76\x6F\x6C\x67\x6F\x72\x64\x65\x29\x20\x77\x6F\x72\x64\x65\x6E\x20\x76\x65\x72\x70\x6C\x61\x61\x74\x73\x74\x2E\x20\x4C\x65\x67\x65\x20\x70\x6C\x65\x6B\x6B\x65\x6E\x20\x6B\x75\x6E\x6E\x65\x6E\x20\x77\x6F\x72\x64\x65\x6E\x20\x67\x65\x76\x75\x6C\x64\x20\x64\x6F\x6F\x72\x20\x65\x65\x6E\x20\x4B\x6F\x6E\x69\x6E\x67\x20\x6F\x66\x20\x67\x72\x6F\x65\x70\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x77\x61\x61\x72\x76\x61\x6E\x20\x64\x65\x20\x62\x6F\x76\x65\x6E\x73\x74\x65\x20\x65\x65\x6E\x20\x4B\x6F\x6E\x69\x6E\x67\x20\x69\x73\x2E\x20\x4B\x6C\x69\x6B\x20\x6F\x70\x20\x64\x65\x20\x76\x6F\x6F\x72\x72\x61\x61\x64\x20\x6F\x6D\x20\x6E\x69\x65\x75\x77\x65\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x6F\x70\x20\x68\x65\x74\x20\x73\x70\x65\x65\x6C\x76\x65\x6C\x64\x20\x74\x65\x20\x70\x6C\x61\x61\x74\x73\x65\x6E\x2E",
+      "\u79FB\u52A8\u6240\u6709\u6251\u514B\u5230\u5355\u4E00\u76EE\u6807\u4F4D\u3002\u7531\u7EA2\u6843\x41\u5F00\u59CB\u4E0D\u8BBA\u82B1\u8272\u4ECE\u5C0F\u5230\u5927\u6392\u5217\u5230\x4B\uFF0C\u7136\u540E\u518D\u7531\x41\u5230\x4B\uFF0C\u5982\u6B64\u53CD\u590D\u3002\u5728\u684C\u9762\u6839\u636E\u82B1\u8272\u964D\u5E8F\u6392\u5217\u3002\u53EF\u4EE5\u79FB\u52A8\u4E00\u7EC4\u4E0D\u6210\u5E8F\u5217\u7684\u724C\uFF0C\u7A7A\u4F4D\u53EF\u4EE5\u653E\u7F6E\x4B\u6216\u8005\u4EE5\x4B\u4E3A\u5F00\u5934\u7684\u4E00\u7EC4\u724C\u3002\u70B9\u51FB\u5907\u7528\u724C\u53D1\u724C\u3002",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+      "\x4D\x6F\x76\x65\x20\x61\x6C\x6C\x20\x74\x68\x65\x20\x63\x61\x72\x64\x73\x20\x74\x6F\x20\x6F\x6E\x65\x20\x73\x69\x6E\x67\x6C\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x2E\x20\x42\x75\x69\x6C\x64\x20\x75\x70\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x75\x69\x74\x20\x61\x6E\x64\x20\x73\x74\x61\x72\x74\x20\x77\x69\x74\x68\x20\x74\x68\x65\x20\x41\x63\x65\x20\x6F\x66\x20\x48\x65\x61\x72\x74\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x4B\x69\x6E\x67\x20\x61\x6E\x64\x20\x74\x68\x65\x6E\x20\x61\x6E\x20\x41\x63\x65\x20\x61\x67\x61\x69\x6E\x2E\x20\x4F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x62\x75\x69\x6C\x64\x20\x64\x6F\x77\x6E\x20\x62\x79\x20\x73\x75\x69\x74\x2E\x20\x47\x72\x6F\x75\x70\x73\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x72\x65\x67\x61\x72\x64\x6C\x65\x73\x73\x20\x6F\x66\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x61\x6E\x64\x20\x73\x70\x61\x63\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x66\x69\x6C\x6C\x65\x64\x20\x77\x69\x74\x68\x20\x4B\x69\x6E\x67\x73\x20\x6F\x72\x20\x61\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x68\x65\x61\x64\x65\x64\x20\x62\x79\x20\x61\x20\x4B\x69\x6E\x67\x2E\x20\x43\x6C\x69\x63\x6B\x20\x6F\x6E\x20\x74\x68\x65\x20\x73\x74\x6F\x63\x6B\x20\x66\x6F\x72\x20\x6E\x65\x77\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x2E",
+    ],
+    d_HowtoplayText_Sub: [
+      "\x59\x6F\x75\x20\x63\x61\x6E\x20\x63\x6F\x6D\x62\x69\x6E\x65\x20\x61\x6E\x79\x20\x66\x6C\x6F\x77\x65\x72\x20\x74\x69\x6C\x65\x20\x77\x69\x74\x68\x20\x61\x6E\x6F\x74\x68\x65\x72\x2C\x20\x74\x68\x65\x20\x73\x61\x6D\x65\x20\x61\x70\x70\x6C\x69\x65\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x73\x65\x61\x73\x6F\x6E\x20\x74\x69\x6C\x65\x73\x2E",
+      "\x59\x6F\x75\x20\x63\x61\x6E\x20\x63\x6F\x6D\x62\x69\x6E\x65\x20\x61\x6E\x79\x20\x66\x6C\x6F\x77\x65\x72\x20\x74\x69\x6C\x65\x20\x77\x69\x74\x68\x20\x61\x6E\x6F\x74\x68\x65\x72\x2C\x20\x74\x68\x65\x20\x73\x61\x6D\x65\x20\x61\x70\x70\x6C\x69\x65\x73\x20\x74\x6F\x20\x74\x68\x65\x20\x73\x65\x61\x73\x6F\x6E\x20\x74\x69\x6C\x65\x73\x2E",
+      "\x41\x61\x70\x20\x6B\x69\x73\x69\x20\x62\x68\x69\x20\x66\x6C\x6F\x77\x65\x72\x20\x74\x69\x6C\x65\x20\x6B\x61\x20\x6D\x69\x6C\x61\x6E\x20\x6B\x69\x73\x69\x20\x61\x6E\x79\x61\x20\x6B\x65\x20\x73\x61\x74\x68\x20\x6B\x61\x72\x20\x73\x61\x6B\x74\x65\x20\x68\x61\x69\x2C\x20\x79\x61\x68\x69\x20\x70\x72\x61\x6B\x72\x69\x79\x61\x20\x73\x65\x61\x73\x6F\x6E\x20\x74\x69\x6C\x65\x73\x20\x6B\x65\x20\x6C\x69\x79\x65\x20\x62\x68\x69\x20\x75\x73\x65\x20\x6D\x65\x20\x6C\x61\x61\x79\x69\x20\x6A\x61\x74\x69\x20\x68\x61\x69\x2E",
+      "\x4A\x65\x20\x6B\x75\x6E\x74\x20\x65\x6C\x6B\x65\x20\x62\x6C\x6F\x65\x6D\x20\x73\x74\x65\x65\x6E\x20\x63\x6F\x6D\x62\x69\x6E\x65\x72\x65\x6E\x20\x6D\x65\x74\x20\x65\x65\x6E\x20\x61\x6E\x64\x65\x72\x65\x2E\x20\x44\x69\x74\x20\x67\x65\x6C\x64\x74\x20\x6F\x6F\x6B\x20\x76\x6F\x6F\x72\x20\x64\x65\x20\x73\x65\x69\x7A\x6F\x65\x6E\x65\x6E\x20\x73\x74\x65\x6E\x65\x6E\x2E",
+      "\u82B1\u6735\u56FE\u6848\u53EF\u4EE5\u76F8\u4E92\u7EC4\u5408\uFF0C\u56DB\u5B63\u56FE\u6848\u4E5F\u53EF\u4EE5\u76F8\u4E92\u7EC4\u5408\u3002",
+      "\x50\x75\x65\x64\x65\x73\x20\x63\x6F\x6D\x62\x69\x6E\x61\x72\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x66\x69\x63\x68\x61\x20\x64\x65\x20\x66\x6C\x6F\x72\x20\x63\x6F\x6E\x20\x6F\x74\x72\x61\x2C\x20\x79\x20\x6C\x6F\x20\x6D\x69\x73\x6D\x6F\x20\x70\x61\x72\x61\x20\x6C\x61\x73\x20\x66\x69\x63\x68\x61\x73\x20\x64\x65\x20\x65\x73\x74\x61\x63\x69\x6F\x6E\x65\x73\x2E",
+      "\x50\x75\x65\x64\x65\x73\x20\x63\x6F\x6D\x62\x69\x6E\x61\x72\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x66\x69\x63\x68\x61\x20\x64\x65\x20\x66\x6C\x6F\x72\x20\x63\x6F\x6E\x20\x6F\x74\x72\x61\x2C\x20\x79\x20\x6C\x6F\x20\x6D\x69\x73\x6D\x6F\x20\x70\x61\x72\x61\x20\x6C\x61\x73\x20\x66\x69\x63\x68\x61\x73\x20\x64\x65\x20\x65\x73\x74\x61\x63\x69\x6F\x6E\x65\x73\x2E",
+      "\x50\x75\x65\x64\x65\x73\x20\x63\x6F\x6D\x62\x69\x6E\x61\x72\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x66\x69\x63\x68\x61\x20\x64\x65\x20\x66\x6C\x6F\x72\x20\x63\x6F\x6E\x20\x6F\x74\x72\x61\x2C\x20\x79\x20\x6C\x6F\x20\x6D\x69\x73\x6D\x6F\x20\x70\x61\x72\x61\x20\x6C\x61\x73\x20\x66\x69\x63\x68\x61\x73\x20\x64\x65\x20\x65\x73\x74\x61\x63\x69\x6F\x6E\x65\x73\x2E",
+      "\x50\x6F\x64\x65\x20\x63\x6F\x6D\x62\x69\x6E\x61\x72\x20\x71\x75\x61\x6C\x71\x75\x65\x72\x20\x6D\x6F\x73\x61\x69\x63\x6F\x20\x63\x6F\x6D\x20\x75\x6D\x61\x20\x66\x6C\x6F\x72\x20\x63\x6F\x6D\x20\x6F\x75\x74\x72\x6F\x20\x69\x67\x75\x61\x6C\x2E\x20\x4F\x20\x6D\x65\x73\x6D\x6F\x20\x73\x65\x20\x61\x70\x6C\x69\x63\x61\x20\x61\x6F\x73\x20\x6D\x6F\x73\x61\x69\x63\x6F\x73\x20\x63\x6F\x6D\x20\x69\x6D\x61\x67\x65\x6E\x73\x20\x64\x61\x73\x20\x65\x73\x74\x61\xE7\xF5\x65\x73\x20\x64\x6F\x20\x61\x6E\x6F\x2E",
+      "\x56\x6F\x63\xEA\x20\x70\x6F\x64\x65\x20\x63\x6F\x6D\x62\x69\x6E\x61\x72\x20\x71\x75\x61\x6C\x71\x75\x65\x72\x20\x70\x65\xE7\x61\x20\x64\x65\x20\x66\x6C\x6F\x72\x20\x63\x6F\x6D\x20\x6F\x75\x74\x72\x61\x20\x69\x67\x75\x61\x6C\x2E\x20\x4F\x20\x6D\x65\x73\x6D\x6F\x20\x73\x65\x20\x61\x70\x6C\x69\x63\x61\x20\xE0\x73\x20\x70\x65\xE7\x61\x73\x20\x64\x65\x20\x65\x73\x74\x61\xE7\xF5\x65\x73\x20\x64\x6F\x20\x61\x6E\x6F\x2E",
+      "\x56\x6F\x75\x73\x20\x70\x6F\x75\x76\x65\x7A\x20\x63\x6F\x6D\x62\x69\x6E\x65\x72\x20\x6E\x27\x69\x6D\x70\x6F\x72\x74\x65\x20\x71\x75\x65\x6C\x6C\x65\x20\x74\x75\x69\x6C\x65\x20\x72\x65\x70\x72\xE9\x73\x65\x6E\x74\x61\x6E\x74\x20\x75\x6E\x65\x20\x66\x6C\x65\x75\x72\x20\x61\x76\x65\x63\x20\x75\x6E\x65\x20\x61\x75\x74\x72\x65\x20\x74\x75\x69\x6C\x65\x20\x69\x64\x65\x6E\x74\x69\x71\x75\x65\x2E\x20\x43\x65\x6C\x61\x20\x65\x73\x74\x20\xE9\x67\x61\x6C\x65\x6D\x65\x6E\x74\x20\x76\x61\x6C\x61\x62\x6C\x65\x20\x70\x6F\x75\x72\x20\x6C\x65\x73\x20\x74\x75\x69\x6C\x65\x73\x20\x72\x65\x70\x72\xE9\x73\x65\x6E\x74\x61\x6E\x74\x20\x64\x65\x73\x20\x73\x61\x69\x73\x6F\x6E\x73\x2E",
+      "\x50\x75\x6F\x69\x20\x63\x6F\x6D\x62\x69\x6E\x61\x72\x65\x20\x71\x75\x61\x6C\x73\x69\x61\x73\x69\x20\x74\x65\x67\x6F\x6C\x61\x20\x63\x6F\x6E\x20\x66\x69\x6F\x72\x65\x20\x63\x6F\x6E\x20\x75\x6E\x27\x61\x6C\x74\x72\x61\x2C\x20\x6C\x6F\x20\x73\x74\x65\x73\x73\x6F\x20\x76\x61\x6C\x65\x20\x70\x65\x72\x20\x6C\x65\x20\x74\x65\x67\x6F\x6C\x65\x20\x63\x6F\x6E\x20\x73\x74\x61\x67\x69\x6F\x6E\x69\x2E",
+      "\x44\x75\x20\x6B\x61\x6E\x6E\x73\x74\x20\x6A\x65\x64\x65\x6E\x20\x42\x6C\x75\x6D\x65\x6E\x2D\x53\x70\x69\x65\x6C\x73\x74\x65\x69\x6E\x20\x6D\x69\x74\x20\x65\x69\x6E\x65\x6D\x20\x61\x6E\x64\x65\x72\x65\x6E\x20\x6B\x6F\x6D\x62\x69\x6E\x69\x65\x72\x65\x6E\x2C\x20\x64\x61\x73\x20\x47\x6C\x65\x69\x63\x68\x65\x20\x67\x69\x6C\x74\x20\x66\xFC\x72\x20\x64\x69\x65\x20\x4A\x61\x68\x72\x65\x73\x7A\x65\x69\x74\x65\x6E\x2D\x53\x70\x69\x65\x6C\x73\x74\x65\x69\x6E\x65\x2E",
+      "\u0426\u0432\u0435\u0442\u043E\u0447\u043D\u0430\u044F\x20\u043F\u043B\u0438\u0442\u043A\u0430\x20\u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0435\u0442\u0441\u044F\x20\u0441\x20\u0434\u0440\u0443\u0433\u043E\u0439\x20\u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0435\u0439\x20\u0446\u0432\u0435\u0442\u043E\u0447\u043D\u043E\u0439\x20\u043F\u043B\u0438\u0442\u043A\u043E\u0439\x2C\x20\u0442\u0430\u043A\x20\u0436\u0435\x20\u0438\u0434\u0435\u0442\x20\u0438\u0433\u0440\u0430\x20\u0438\x20\u0441\x20\u043F\u043B\u0438\u0442\u043A\u0430\u043C\u0438\x20\u0432\u0440\u0435\u043C\u0435\u043D\x20\u0433\u043E\u0434\u0430\x2E",
+      "\x4D\x6F\u017C\x6E\x61\x20\x70\x6F\u0142\u0105\x63\x7A\x79\u0107\x20\x64\x6F\x77\x6F\x6C\x6E\u0105\x20\x70\u0142\x79\x74\x6B\u0119\x20\x7A\x20\x6B\x77\x69\x61\x74\x65\x6D\x20\x7A\x20\x69\x6E\x6E\u0105\x2C\x20\x74\x6F\x20\x73\x61\x6D\x6F\x20\x64\x6F\x74\x79\x63\x7A\x79\x20\x70\u0142\x79\x74\x65\x6B\x20\x7A\x20\x73\x79\x6D\x62\x6F\x6C\x65\x6D\x20\x70\x6F\x72\x79\x20\x72\x6F\x6B\x75\x2E",
+      "\x48\x65\x72\x68\x61\x6E\x67\x69\x20\x62\x69\x72\x20\xE7\x69\xE7\x65\x6B\x6C\x69\x20\x6B\x75\x74\x75\x63\x75\u011F\x75\x20\x62\x69\x72\x20\x64\x69\u011F\x65\x72\x69\x79\x6C\x65\x20\x65\u015F\x6C\x65\u015F\x74\x69\x72\x65\x62\x69\x6C\x69\x72\x73\x69\x6E\x2E\x20\x41\x79\x6E\u0131\x73\u0131\x20\x6D\x65\x76\x73\x69\x6D\x20\x6B\x75\x74\x75\x63\x75\x6B\x6C\x61\x72\u0131\x20\x69\xE7\x69\x6E\x20\x64\x65\x20\x67\x65\xE7\x65\x72\x6C\x69\x64\x69\x72\x2E",
+    ],
+    d_Back: [
+      "\x42\x61\x63\x6B",
+      "\x42\x61\x63\x6B",
+      "\x57\x61\x70\x61\x73",
+      "\x54\x65\x72\x75\x67",
+      "\u8FD4\u56DE",
+      "\x41\x74\x72\xE1\x73",
+      "\x41\x74\x72\xE1\x73",
+      "\x41\x74\x72\xE1\x73",
+      "\x56\x6F\x6C\x74\x61\x72",
+      "\x56\x6F\x6C\x74\x61\x72",
+      "\x52\x65\x74\x6F\x75\x72",
+      "\x49\x6E\x64\x69\x65\x74\x72\x6F",
+      "\x5A\x75\x72\xFC\x63\x6B",
+      "\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F",
+      "\x50\x6F\x77\x72\xF3\x74",
+      "\x47\x65\x72\x69",
+    ],
+    d_Endgame: [
+      "\x45\x6E\x64\x20\x47\x61\x6D\x65",
+      "\x45\x6E\x64\x20\x47\x61\x6D\x65",
+      "\x47\x61\x6D\x65\x20\x53\x61\x6D\x61\x70\x74\x69",
+      "\x53\x74\x6F\x70\x20\x73\x70\x65\x6C",
+      "\u7ED3\u675F",
+      "\x54\x65\x72\x6D\x69\x6E\x61\x72\x20\x65\x6C\x20\x6A\x75\x65\x67\x6F",
+      "\x54\x65\x72\x6D\x69\x6E\x61\x72\x20\x65\x6C\x20\x6A\x75\x65\x67\x6F",
+      "\x54\x65\x72\x6D\x69\x6E\x61\x72\x20\x65\x6C\x20\x6A\x75\x65\x67\x6F",
+      "\x54\x65\x72\x6D\x69\x6E\x61\x72\x20\x6A\x6F\x67\x6F",
+      "\x54\x65\x72\x6D\x69\x6E\x61\x72\x20\x6A\x6F\x67\x6F",
+      "\x41\x72\x72\xEA\x74\x65\x72\x20\x6C\x65\x20\x6A\x65\x75",
+      "\x54\x65\x72\x6D\x69\x6E\x61\x20\x67\x69\x6F\x63\x6F",
+      "\x53\x70\x69\x65\x6C\x20\x62\x65\x65\x6E\x64\x65\x6E",
+      "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C",
+      "\x5A\x61\x6B\x6F\u0144\x63\x7A\x20\x67\x72\u0119",
+      "\x4F\x79\x75\x6E\x75\x20\x42\x69\x74\x69\x72",
+    ],
+    d_Timeout: [
+      "\x54\x69\x6D\x65\x20\x6F\x75\x74",
+      "\x54\x69\x6D\x65\x20\x6F\x75\x74",
+      "\x53\x61\x6D\x61\x79\x61\x20\x53\x61\x6D\x61\x70\x74\x61",
+      "\x54\x69\x6A\x64\x20\x76\x6F\x6F\x72\x62\x69\x6A",
+      "\u65F6\u95F4\u5230",
+      "\x54\x69\x65\x6D\x70\x6F\x20\x61\x67\x6F\x74\x61\x64\x6F",
+      "\x54\x69\x65\x6D\x70\x6F\x20\x61\x67\x6F\x74\x61\x64\x6F",
+      "\x54\x69\x65\x6D\x70\x6F\x20\x61\x67\x6F\x74\x61\x64\x6F",
+      "\x41\x63\x61\x62\x6F\x75\x20\x6F\x20\x74\x65\x6D\x70\x6F\x21",
+      "\x41\x63\x61\x62\x6F\x75\x20\x6F\x20\x74\x65\x6D\x70\x6F\x21",
+      "\x54\x65\x6D\x70\x73\x20\xE9\x63\x6F\x75\x6C\xE9",
+      "\x54\x65\x6D\x70\x6F\x20\x73\x63\x61\x64\x75\x74\x6F",
+      "\x5A\x65\x69\x74\x20\x7A\x75\x20\x45\x6E\x64\x65",
+      "\u0412\u0440\u0435\u043C\u044F\x20\u0432\u044B\u0448\u043B\u043E",
+      "\x4B\x6F\x6E\x69\x65\x63\x20\x63\x7A\x61\x73\x75",
+      "\x53\xFC\x72\x65\x20\x62\x69\x74\x74\x69",
+    ],
+    d_LevelFailed: [
+      "\x4C\x65\x76\x65\x6C\x20\x46\x61\x69\x6C\x65\x64",
+      "\x4C\x65\x76\x65\x6C\x20\x46\x61\x69\x6C\x65\x64",
+      "\u0938\u094D\u0924\u0930\x20\u092E\u0947\u0902\x20\u0935\u093F\u092B\u0932",
+      "\x4C\x65\x76\x65\x6C\x20\x6E\x69\x65\x74\x20\x67\x65\x68\x61\x61\x6C\x64",
+      "\u95EF\u5173\u5931\u8D25",
+      "\x4E\x69\x76\x65\x6C\x20\x6E\x6F\x20\x63\x6F\x6D\x70\x6C\x65\x74\x61\x64\x6F",
+      "\x4E\x69\x76\x65\x6C\x20\x6E\x6F\x20\x63\x6F\x6D\x70\x6C\x65\x74\x61\x64\x6F",
+      "\x4E\x69\x76\x65\x6C\x20\x6E\x6F\x20\x63\x6F\x6D\x70\x6C\x65\x74\x61\x64\x6F",
+      "\x4E\xED\x76\x65\x6C\x20\x66\x61\x6C\x68\x61\x64\x6F",
+      "\x4E\xED\x76\x65\x6C\x20\x66\x61\x6C\x68\x6F",
+      "\xC9\x63\x68\x65\x63",
+      "\x4C\x69\x76\x65\x6C\x6C\x6F\x20\x6E\x6F\x6E\x20\x73\x75\x70\x65\x72\x61\x74\x6F",
+      "\x4C\x65\x76\x65\x6C\x20\x6E\x69\x63\x68\x74\x20\x62\x65\x73\x74\x61\x6E\x64\x65\x6E",
+      "\u0423\u0440\u043E\u0432\u0435\u043D\u044C\x20\u043F\u0440\u043E\u0432\u0430\u043B\u0435\u043D",
+      "\x50\x6F\x7A\x69\x6F\x6D",
+      "\x53\x65\x76\x69\x79\x65\x20\x47\x65\xE7\x69\x6C\x65\x6D\x65\x64\x69",
+    ],
+    d_LevelCompleted: [
+      "\x4C\x65\x76\x65\x6C\x20\x43\x6F\x6D\x70\x6C\x65\x74\x65\x64",
+      "\x4C\x65\x76\x65\x6C\x20\x43\x6F\x6D\x70\x6C\x65\x74\x65\x64",
+      "\x53\x74\x61\x72\x61\x20\x43\x6F\x6D\x70\x6C\x65\x74\x65\x20\x48\x75\x61",
+      "\x4C\x65\x76\x65\x6C\x20\x47\x65\x72\x65\x65\x64",
+      "\u606D\u559C\u8FC7\u5173",
+      "\x4E\x69\x76\x65\x6C\x20\x63\x6F\x6D\x70\x6C\x65\x74\x61\x64\x6F",
+      "\x4E\x69\x76\x65\x6C\x20\x63\x6F\x6D\x70\x6C\x65\x74\x61\x64\x6F",
+      "\x4E\x69\x76\x65\x6C\x20\x63\x6F\x6D\x70\x6C\x65\x74\x61\x64\x6F",
+      "\x4E\xED\x76\x65\x6C\x20\x63\x6F\x6E\x63\x6C\x75\xED\x64\x6F",
+      "\x4E\xED\x76\x65\x6C\x20\x63\x6F\x6E\x63\x6C\x75\xED\x64\x6F",
+      "\x4E\x69\x76\x65\x61\x75\x20\x74\x65\x72\x6D\x69\x6E\xE9",
+      "\x4C\x69\x76\x65\x6C\x6C\x6F\x20\x63\x6F\x6D\x70\x6C\x65\x74\x61\x74\x6F",
+      "\x4C\x65\x76\x65\x6C\x20\x61\x62\x67\x65\x73\x63\x68\x6C\x6F\x73\x73\x65\x6E",
+      "\u0423\u0440\u043E\u0432\u0435\u043D\u044C\x20\u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D",
+      "\x50\x6F\x7A\x69\x6F\x6D\x20\x75\x6B\x6F\u0144\x63\x7A\x6F\x6E\x79",
+      "\x53\x65\x76\x69\x79\x65\x20\x54\x61\x6D\x61\x6D\x6C\x61\x6E\x64\u0131",
+    ],
+    d_TimeBonus: [
+      "\x54\x69\x6D\x65\x20\x42\x6F\x6E\x75\x73\x3A",
+      "\x54\x69\x6D\x65\x20\x42\x6F\x6E\x75\x73\x3A",
+      "\x53\x61\x6D\x61\x79\x61\x20\x42\x6F\x6E\x75\x73\x3A",
+      "\x54\x69\x6A\x64\x62\x6F\x6E\x75\x73\x3A",
+      "\u65F6\u95F4\u5956\u52B1\x3A",
+      "\x42\x6F\x6E\x6F\x20\x64\x65\x20\x74\x69\x65\x6D\x70\x6F\x3A",
+      "\x42\x6F\x6E\x6F\x20\x64\x65\x20\x74\x69\x65\x6D\x70\x6F\x3A",
+      "\x42\x6F\x6E\x6F\x20\x64\x65\x20\x74\x69\x65\x6D\x70\x6F\x3A",
+      "\x42\xF3\x6E\x75\x73\x20\x64\x65\x20\x74\x65\x6D\x70\x6F\x3A",
+      "\x42\xF4\x6E\x75\x73\x20\x64\x65\x20\x74\x65\x6D\x70\x6F\x3A",
+      "\x42\x6F\x6E\x75\x73\x20\x74\x65\x6D\x70\x73\x3A",
+      "\x42\x6F\x6E\x75\x73\x20\x61\x20\x74\x65\x6D\x70\x6F\x3A",
+      "\x5A\x65\x69\x74\x62\x6F\x6E\x75\x73\x3A",
+      "\u0411\u043E\u043D\u0443\u0441\x20\u0437\u0430\x20\u0432\u0440\u0435\u043C\u044F\x3A",
+      "\x50\x72\x65\x6D\x69\x61\x20\x7A\x61\x20\x63\x7A\x61\x73\x3A",
+      "\x53\xFC\x72\x65\x20\x42\x6F\x6E\x75\x73\x75\x3A",
+    ],
+    d_ChainBonus: [
+      "\x43\x68\x61\x69\x6E\x20\x42\x6F\x6E\x75\x73",
+      "\x43\x68\x61\x69\x6E\x20\x42\x6F\x6E\x75\x73",
+      "\x53\x72\x72\x69\x6E\x6B\x68\x61\x6C\x61\x20\x42\x6F\x6E\x75\x73",
+      "\x4B\x65\x74\x74\x69\x6E\x67\x62\x6F\x6E\x75\x73",
+      "\u8FDE\u7EED\u5956\u52B1",
+      "\x42\x6F\x6E\x6F\x20\x6D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73\x20\x65\x6E\x63\x61\x64\x65\x6E\x61\x64\x6F\x73",
+      "\x42\x6F\x6E\x6F\x20\x6D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73\x20\x65\x6E\x63\x61\x64\x65\x6E\x61\x64\x6F\x73",
+      "\x42\x6F\x6E\x6F\x20\x6D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73\x20\x65\x6E\x63\x61\x64\x65\x6E\x61\x64\x6F\x73",
+      "\x42\xF3\x6E\x75\x73\x20\x64\x65\x20\x63\x61\x64\x65\x69\x61",
+      "\x42\xF4\x6E\x75\x73\x20\x64\x65\x20\x63\x61\x64\x65\x69\x61",
+      "\x42\x6F\x6E\x75\x73\x20\x63\x68\x61\xEE\x6E\x65",
+      "\x42\x6F\x6E\x75\x73\x20\x63\x61\x74\x65\x6E\x61",
+      "\x4B\x65\x74\x74\x65\x6E\x62\x6F\x6E\x75\x73",
+      "\u0411\u043E\u043D\u0443\u0441\x20\u0437\u0430\x20\u0441\u0435\u0440\u0438\u044E",
+      "\x50\x72\x65\x6D\x69\x61\x20\x7A\x61\x20\u0142\x61\u0144\x63\x75\x73\x7A\x65\x6B",
+      "\x5A\x69\x6E\x63\x69\x72\x20\x42\x6F\x6E\x75\x73\x75",
+    ],
+    d_NextLevel: [
+      "\x4E\x65\x78\x74\x20\x4C\x65\x76\x65\x6C",
+      "\x4E\x65\x78\x74\x20\x4C\x65\x76\x65\x6C",
+      "\x41\x67\x61\x6C\x61\x20\x53\x74\x61\x72\x61",
+      "\x56\x6F\x6C\x67\x65\x6E\x64\x20\x4C\x65\x76\x65\x6C",
+      "\u4E0B\u4E00\u5173",
+      "\x53\x69\x67\x75\x69\x65\x6E\x74\x65\x20\x6E\x69\x76\x65\x6C",
+      "\x53\x69\x67\x75\x69\x65\x6E\x74\x65\x20\x6E\x69\x76\x65\x6C",
+      "\x53\x69\x67\x75\x69\x65\x6E\x74\x65\x20\x6E\x69\x76\x65\x6C",
+      "\x4E\xED\x76\x65\x6C\x20\x73\x65\x67\x75\x69\x6E\x74\x65",
+      "\x4E\xED\x76\x65\x6C\x20\x73\x65\x67\x75\x69\x6E\x74\x65",
+      "\x4E\x69\x76\x65\x61\x75\x20\x73\x75\x69\x76\x61\x6E\x74",
+      "\x4C\x69\x76\x65\x6C\x6C\x6F\x20\x73\x75\x63\x63\x65\x73\x73\x69\x76\x6F",
+      "\x4E\xE4\x63\x68\x73\x74\x65\x72\x20\x4C\x65\x76\x65\x6C",
+      "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439\x20\u0443\u0440\u043E\u0432\u0435\u043D\u044C",
+      "\x4E\x61\x73\x74\u0119\x70\x6E\x79\x20\x70\x6F\x7A\x69\x6F\x6D",
+      "\x53\x6F\x6E\x72\x61\x6B\x69\x20\x73\x65\x76\x69\x79\x65",
+    ],
+    d_Score: [
+      "\x53\x63\x6F\x72\x65\x3A",
+      "\x53\x63\x6F\x72\x65\x3A",
+      "\x53\x63\x6F\x72\x65\x3A",
+      "\x53\x63\x6F\x72\x65\x3A",
+      "\u5206\u6570\x3A",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x3A",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x3A",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x3A",
+      "\x50\x6F\x6E\x74\x75\x61\xE7\xE3\x6F\x3A",
+      "\x50\x6F\x6E\x74\x75\x61\xE7\xE3\x6F\x3A",
+      "\x53\x63\x6F\x72\x65\x3A",
+      "\x50\x75\x6E\x74\x65\x67\x67\x69\x6F\x3A",
+      "\x53\x70\x69\x65\x6C\x73\x74\x61\x6E\x64\x3A",
+      "\u041E\u0447\u043A\u0438\x3A",
+      "\x50\x75\x6E\x6B\x74\x79\x3A",
+      "\x50\x75\x61\x6E\x3A",
+    ],
+    d_Time: [
+      "\x54\x69\x6D\x65\x3A",
+      "\x54\x69\x6D\x65\x3A",
+      "\x53\x61\x6D\x61\x79\x61\x3A",
+      "\x54\x69\x6A\x64\x3A",
+      "\u65F6\u95F4\uFF1A",
+      "\x54\x69\x65\x6D\x70\x6F\x3A",
+      "\x54\x69\x65\x6D\x70\x6F\x3A",
+      "\x54\x69\x65\x6D\x70\x6F\x3A",
+      "\x54\x65\x6D\x70\x6F\x3A",
+      "\x54\x65\x6D\x70\x6F\x3A",
+      "\x54\x65\x6D\x70\x73\x3A",
+      "\x54\x65\x6D\x70\x6F\x3A",
+      "\x5A\x65\x69\x74\x3A",
+      "\u0412\u0440\u0435\u043C\u044F\x3A",
+      "\x43\x7A\x61\x73\x3A",
+      "\x53\xFC\x72\x65\x3A",
+    ],
+    d_Level: [
+      "\x4C\x65\x76\x65\x6C\x3A",
+      "\x4C\x65\x76\x65\x6C\x3A",
+      "\x53\x74\x61\x72\x61\x3A",
+      "\x4C\x65\x76\x65\x6C\x3A",
+      "\u5173\uFF1A",
+      "\x4E\x69\x76\x65\x6C\x3A",
+      "\x4E\x69\x76\x65\x6C\x3A",
+      "\x4E\x69\x76\x65\x6C\x3A",
+      "\x4E\xED\x76\x65\x6C\x3A",
+      "\x4E\xED\x76\x65\x6C\x3A",
+      "\x4E\x69\x76\x65\x61\x75\x3A",
+      "\x4C\x69\x76\x65\x6C\x6C\x6F\x3A",
+      "\x4C\x65\x76\x65\x6C\x3A",
+      "\u0423\u0440\u043E\u0432\u0435\u043D\u044C\x3A",
+      "\x50\x6F\x7A\x69\x6F\x6D\x3A",
+      "\x53\x65\x76\x69\x79\x65\x3A",
+    ],
+    d_Hint: [
+      "\x48\x69\x6E\x74",
+      "\x48\x69\x6E\x74",
+      "\x53\x61\x6E\x6B\x65\x74\x61",
+      "\x48\x69\x6E\x74",
+      "\u63D0\u793A",
+      "\x53\x75\x67\x65\x72\x65\x6E\x63\x69\x61",
+      "\x53\x75\x67\x65\x72\x65\x6E\x63\x69\x61",
+      "\x53\x75\x67\x65\x72\x65\x6E\x63\x69\x61",
+      "\x44\x69\x63\x61",
+      "\x44\x69\x63\x61",
+      "\x41\x73\x74\x75\x63\x65",
+      "\x53\x75\x67\x67\x65\x72\x69\x6D\x65\x6E\x74\x6F",
+      "\x54\x69\x70\x70",
+      "\u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430",
+      "\x50\x6F\x64\x70\x6F\x77\x69\x65\x64\u017A",
+      "\u0130\x70\x75\x63\x75",
+    ],
+    d_Shuffle: [
+      "\x53\x68\x75\x66\x66\x6C\x65",
+      "\x53\x68\x75\x66\x66\x6C\x65",
+      "\x47\x68\x61\x73\x69\x74\x61\x6E\x61",
+      "\x53\x63\x68\x75\x64\x64\x65\x6E",
+      "\u5237\u65B0",
+      "\x42\x61\x72\x61\x6A\x61\x72",
+      "\x42\x61\x72\x61\x6A\x61\x72",
+      "\x42\x61\x72\x61\x6A\x61\x72",
+      "\x42\x61\x72\x61\x6C\x68\x61\x72",
+      "\x45\x6D\x62\x61\x72\x61\x6C\x68\x61\x72",
+      "\x42\x61\x74\x74\x72\x65",
+      "\x4D\x65\x73\x63\x6F\x6C\x61",
+      "\x4D\x69\x73\x63\x68\x65\x6E",
+      "\u041F\u0435\u0440\u0435\u043C\u0435\u0448\u0430\u0442\u044C",
+      "\x54\x61\x73\x75\x6A",
+      "\x4B\x61\x72\u0131\u015F\x74\u0131\x72",
+    ],
+    d_Pause: [
+      "\x50\x61\x75\x73\x65",
+      "\x50\x61\x75\x73\x65",
+      "\x56\x69\x61\x72\x61\x6D",
+      "\x50\x61\x75\x7A\x65",
+      "\u6682\u505C",
+      "\x50\x61\x75\x73\x61",
+      "\x50\x61\x75\x73\x61",
+      "\x50\x61\x75\x73\x61",
+      "\x50\x61\x75\x73\x61",
+      "\x50\x61\x75\x73\x61",
+      "\x50\x61\x75\x73\x65",
+      "\x50\x61\x75\x73\x61",
+      "\x50\x61\x75\x73\x65",
+      "\u041F\u0430\u0443\u0437\u0430",
+      "\x50\x61\x75\x7A\x61",
+      "\x44\x75\x72\x61\x6B\x6C\x61\x74",
+    ],
+    d_Continue: [
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x65",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x65",
+      "\x4A\x61\x72\x69",
+      "\x47\x61\x20\x64\x6F\x6F\x72",
+      "\u7EE7\u7EED",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x65\x72",
+      "\x43\x6F\x6E\x74\x69\x6E\x75\x61",
+      "\x46\x6F\x72\x74\x66\x61\x68\x72\x65\x6E",
+      "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C",
+      "\x4B\x6F\x6E\x74\x79\x6E\x75\x75\x6A",
+      "\x44\x65\x76\x61\x6D",
+    ],
+    d_Menu: [
+      "\x4D\x65\x6E\x75",
+      "\x4D\x65\x6E\x75",
+      "\x4D\x65\x6E\x75",
+      "\x4D\x65\x6E\x75",
+      "\u83DC\u5355",
+      "\x4D\x65\x6E\xFA",
+      "\x4D\x65\x6E\xFA",
+      "\x4D\x65\x6E\xFA",
+      "\x4D\x65\x6E\x75",
+      "\x4D\x65\x6E\x75",
+      "\x4D\x65\x6E\x75",
+      "\x4D\x65\x6E\x75",
+      "\x4D\x65\x6E\xFC",
+      "\u041C\u0435\u043D\u044E",
+      "\x4D\x65\x6E\x75",
+      "\x4D\x65\x6E\xFC",
+    ],
+    d_SubmitScore: [
+      "\x53\x75\x62\x6D\x69\x74\x20\x53\x63\x6F\x72\x65",
+      "\x53\x75\x62\x6D\x69\x74\x20\x53\x63\x6F\x72\x65",
+      "\x53\x63\x6F\x72\x65\x20\x50\x72\x61\x73\x74\x75\x74\x61\x20\x4B\x61\x72\x65\x6E",
+      "\x56\x65\x72\x73\x74\x75\x75\x72\x20\x73\x63\x6F\x72\x65",
+      "\u63D0\u4EA4\u5206\u6570",
+      "\x45\x6E\x76\x69\x61\x72\x20\x70\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E",
+      "\x45\x6E\x76\x69\x61\x72\x20\x70\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E",
+      "\x45\x6E\x76\x69\x61\x72\x20\x70\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E",
+      "\x53\x75\x62\x6D\x65\x74\x65\x72\x20\x70\x6F\x6E\x74\x75\x61\xE7\xE3\x6F",
+      "\x45\x6E\x76\x69\x61\x72\x20\x70\x6F\x6E\x74\x75\x61\xE7\xE3\x6F",
+      "\x53\x6F\x75\x6D\x65\x74\x74\x72\x65\x20\x73\x63\x6F\x72\x65",
+      "\x49\x6E\x76\x69\x61\x20\x70\x75\x6E\x74\x65\x67\x67\x69\x6F",
+      "\x53\x70\x69\x65\x6C\x73\x74\x61\x6E\x64\x20\xFC\x62\x65\x72\x6D\x69\x74\x74\x65\x6C\x6E",
+      "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C\x20\u0441\u0447\u0435\u0442",
+      "\x50\x6F\x64\x61\x6A\x20\x77\x79\x6E\x69\x6B",
+      "\x50\x75\x61\x6E\u0131\x20\x47\xF6\x6E\x64\x65\x72",
+    ],
+    d_PlayAgain: [
+      "\x54\x72\x79\x20\x41\x67\x61\x69\x6E",
+      "\x54\x72\x79\x20\x41\x67\x61\x69\x6E",
+      "\x46\x69\x72\x20\x73\x65\x20\x6B\x68\x65\x6C\x65\x6E",
+      "\x4E\x6F\x67\x20\x65\x65\x6E\x20\x6B\x65\x65\x72",
+      "\u518D\u8BD5\u4E00\u6B21",
+      "\x4A\x75\x67\x61\x72\x20\x6F\x74\x72\x61\x20\x76\x65\x7A",
+      "\x4A\x75\x67\x61\x72\x20\x6F\x74\x72\x61\x20\x76\x65\x7A",
+      "\x4A\x75\x67\x61\x72\x20\x6F\x74\x72\x61\x20\x76\x65\x7A",
+      "\x4A\x6F\x67\x61\x72\x20\x64\x65\x20\x6E\x6F\x76\x6F",
+      "\x4A\x6F\x67\x61\x72\x20\x64\x65\x20\x6E\x6F\x76\x6F",
+      "\x4A\x6F\x75\x65\x72\x20\x65\x6E\x63\x6F\x72\x65",
+      "\x47\x69\x6F\x63\x61\x20\x64\x69\x20\x6E\x75\x6F\x76\x6F",
+      "\x4E\x6F\x63\x68\x20\x6D\x61\x6C\x20\x73\x70\x69\x65\x6C\x65\x6E",
+      "\u0418\u0433\u0440\u0430\u0442\u044C\x20\u0441\u043D\u043E\u0432\u0430",
+      "\x47\x72\x61\x6A\x20\x70\x6F\x6E\x6F\x77\x6E\x69\x65",
+      "\x54\x65\x6B\x72\x61\x72\x20\x4F\x79\x6E\x61",
+    ],
+    d_YourScore: [
+      "\x59\x6F\x75\x72\x20\x53\x63\x6F\x72\x65",
+      "\x59\x6F\x75\x72\x20\x53\x63\x6F\x72\x65",
+      "\x41\x61\x70\x6B\x61\x20\x53\x63\x6F\x72\x65",
+      "\x59\x6F\x75\x72\x20\x53\x63\x6F\x72\x65",
+      "\u4F60\u7684\u5206\u6570\uFF1A",
+      "\x54\x75\x20\x70\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E",
+      "\x54\x75\x20\x70\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E",
+      "\x54\x75\x20\x70\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E",
+      "\x41\x20\x73\x75\x61\x20\x70\x6F\x6E\x74\x75\x61\xE7\xE3\x6F",
+      "\x53\x75\x61\x20\x70\x6F\x6E\x74\x75\x61\xE7\xE3\x6F",
+      "\x56\x6F\x74\x72\x65\x20\x73\x63\x6F\x72\x65",
+      "\x49\x6C\x20\x74\x75\x6F\x20\x70\x75\x6E\x74\x65\x67\x67\x69\x6F",
+      "\x44\x65\x69\x6E\x20\x53\x70\x69\x65\x6C\x73\x74\x61\x6E\x64",
+      "\u0422\u0432\u043E\u0438\x20\u043E\u0447\u043A\u0438",
+      "\x54\x77\xF3\x6A\x20\x77\x79\x6E\x69\x6B",
+      "\x50\x75\x61\x6E\u0131\x6E",
+    ],
+    d_Musicon: [
+      "\x4D\x75\x73\x69\x63\x20\x4F\x6E",
+      "\x4D\x75\x73\x69\x63\x20\x4F\x6E",
+      "\x53\x61\x6E\x67\x65\x65\x74\x20\x43\x61\x6C\x75",
+      "\x4D\x75\x7A\x69\x65\x6B\x20\x41\x61\x6E",
+      "\u97F3\u4E50\u5F00\u542F",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x45\x6E\x63\x65\x6E\x64\x69\x64\x6F",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x45\x6E\x63\x65\x6E\x64\x69\x64\x6F",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x45\x6E\x63\x65\x6E\x64\x69\x64\x6F",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x4C\x69\x67\x61\x72",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x4C\x69\x67\x61\x72",
+      "\x4D\x75\x73\x69\x71\x75\x65\x20\x41\x63\x74\x69\x76\xE9",
+      "\x4D\x75\x73\x69\x63\x61\x20\x41\x74\x74\x69\x76\x6F",
+      "\x4D\x75\x73\x69\x6B\x20\x45\x69\x6E",
+      "\u041C\u0443\u0437\u044B\u043A\u0430\x20\u0412\u043A\u043B",
+      "\x4D\x75\x7A\x79\x6B\x61\x20\x57\u0142\u0105\x63\x7A",
+      "\x4D\xFC\x7A\x69\x6B\x20\x41\xE7\u0131\x6B",
+    ],
+    d_Musicoff: [
+      "\x4D\x75\x73\x69\x63\x20\x4F\x66\x66",
+      "\x4D\x75\x73\x69\x63\x20\x4F\x66\x66",
+      "\x53\x61\x6E\x67\x65\x65\x74\x20\x42\x61\x6E\x64",
+      "\x4D\x75\x7A\x69\x65\x6B\x20\x55\x69\x74",
+      "\u97F3\u4E50\u5173\u95ED",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x41\x70\x61\x67\x61\x64\x6F",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x41\x70\x61\x67\x61\x64\x6F",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x41\x70\x61\x67\x61\x64\x6F",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x44\x65\x73\x6C\x69\x67\x61\x72",
+      "\x4D\xFA\x73\x69\x63\x61\x20\x44\x65\x73\x6C\x69\x67\x61\x72",
+      "\x4D\x75\x73\x69\x71\x75\x65\x20\x44\xE9\x73\x61\x63\x74\x69\x76\xE9",
+      "\x4D\x75\x73\x69\x63\x61\x20\x44\x69\x73\x61\x74\x74\x69\x76\x6F",
+      "\x4D\x75\x73\x69\x6B\x20\x41\x75\x73",
+      "\u041C\u0443\u0437\u044B\u043A\u0430\x20\u0412\u044B\u043A\u043B",
+      "\x4D\x75\x7A\x79\x6B\x61\x20\x57\x79\u0142\u0105\x63\x7A",
+      "\x4D\xFC\x7A\x69\x6B\x20\x4B\x61\x70\x61\x6C\u0131",
+    ],
+    d_Soundon: [
+      "\x53\x6F\x75\x6E\x64\x20\x4F\x6E",
+      "\x53\x6F\x75\x6E\x64\x20\x4F\x6E",
+      "\x44\x68\x77\x61\x6E\x69\x20\x43\x61\x6C\x75",
+      "\x47\x65\x6C\x75\x69\x64\x20\x41\x61\x6E",
+      "\u97F3\u6548\u5F00\u542F",
+      "\x53\x6F\x6E\x69\x64\x6F\x20\x45\x6E\x63\x65\x6E\x64\x69\x64\x6F",
+      "\x53\x6F\x6E\x69\x64\x6F\x20\x45\x6E\x63\x65\x6E\x64\x69\x64\x6F",
+      "\x53\x6F\x6E\x69\x64\x6F\x20\x45\x6E\x63\x65\x6E\x64\x69\x64\x6F",
+      "\x53\x6F\x6D\x20\x4C\x69\x67\x61\x72",
+      "\x53\x6F\x6D\x20\x4C\x69\x67\x61\x72",
+      "\x53\x6F\x6E\x20\x41\x63\x74\x69\x76\xE9",
+      "\x41\x75\x64\x69\x6F\x20\x41\x74\x74\x69\x76\x6F",
+      "\x54\x6F\x6E\x20\x45\x69\x6E",
+      "\u0417\u0432\u0443\u043A\x20\u0412\u043A\u043B",
+      "\x44\u017A\x77\x69\u0119\x6B\x20\x57\u0142\u0105\x63\x7A",
+      "\x53\x65\x73\x20\x41\xE7\u0131\x6B",
+    ],
+    d_Soundoff: [
+      "\x53\x6F\x75\x6E\x64\x20\x4F\x66\x66",
+      "\x53\x6F\x75\x6E\x64\x20\x4F\x66\x66",
+      "\x44\x68\x77\x61\x6E\x69\x20\x42\x61\x6E\x64",
+      "\x47\x65\x6C\x75\x69\x64\x20\x55\x69\x74",
+      "\u97F3\u6548\u5173\u95ED",
+      "\x53\x6F\x6E\x69\x64\x6F\x20\x41\x70\x61\x67\x61\x64\x6F",
+      "\x53\x6F\x6E\x69\x64\x6F\x20\x41\x70\x61\x67\x61\x64\x6F",
+      "\x53\x6F\x6E\x69\x64\x6F\x20\x41\x70\x61\x67\x61\x64\x6F",
+      "\x53\x6F\x6D\x20\x44\x65\x73\x6C\x69\x67\x61\x72",
+      "\x53\x6F\x6D\x20\x44\x65\x73\x6C\x69\x67\x61\x72",
+      "\x53\x6F\x6E\x20\x44\xE9\x73\x61\x63\x74\x69\x76\xE9",
+      "\x41\x75\x64\x69\x6F\x20\x44\x69\x73\x61\x74\x74\x69\x76\x6F",
+      "\x54\x6F\x6E\x20\x41\x75\x73",
+      "\u0417\u0432\u0443\u043A\x20\u0412\u044B\u043A\u043B",
+      "\x44\u017A\x77\x69\u0119\x6B\x20\x57\x79\u0142\u0105\x63\x7A",
+      "\x53\x65\x73\x20\x4B\x61\x70\x61\x6C\u0131",
+    ],
+    d_Undo: [
+      "\x55\x6E\x64\x6F",
+      "\x55\x6E\x64\x6F",
+      "\x50\x75\x72\x76\x61\x76\x61\x74\x20\x6B\x61\x72\x65\x6E",
+      "\x48\x65\x72\x73\x74\x65\x6C",
+      "\u6094\u724C",
+      "\x44\x65\x73\x68\x61\x63\x65\x72",
+      "\x44\x65\x73\x68\x61\x63\x65\x72",
+      "\x44\x65\x73\x68\x61\x63\x65\x72",
+      "\x41\x6E\x75\x6C\x61\x72",
+      "\x41\x6E\x75\x6C\x61\x72",
+      "\x41\x6E\x6E\x75\x6C\x65\x72",
+      "\x41\x6E\x6E\x75\x6C\x6C\x61\x20\x61\x7A\x69\x6F\x6E\x65",
+      "\x52\xFC\x63\x6B\x67\xE4\x6E\x67\x69\x67",
+      "\u041E\u0442\u043C\u0435\u043D\u0430",
+      "\x43\x6F\x66\x6E\x69\x6A",
+      "\x47\x65\x72\x69\x20\x61\x6C",
+    ],
+    d_Submit: [
+      "\x53\x75\x62\x6D\x69\x74",
+      "\x53\x75\x62\x6D\x69\x74",
+      "\x50\x72\x61\x73\x74\x75\x74\x61\x20\x6B\x61\x72\x61\x6E\x61",
+      "\x56\x65\x72\x73\x74\x75\x75\x72",
+      "\u63D0\u4EA4",
+      "\x45\x6E\x76\x69\x61\x72",
+      "\x45\x6E\x76\x69\x61\x72",
+      "\x45\x6E\x76\x69\x61\x72",
+      "\x53\x75\x62\x6D\x65\x74\x65\x72",
+      "\x45\x6E\x76\x69\x61\x72",
+      "\x53\x6F\x75\x6D\x65\x74\x74\x72\x65",
+      "\x49\x6E\x76\x69\x61",
+      "\xDC\x62\x65\x72\x6D\x69\x74\x74\x65\x6C\x6E",
+      "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C",
+      "\x50\x6F\x64\x61\x6A",
+      "\x47\xF6\x6E\x64\x65\x72",
+    ],
+    d_Clear: [
+      "\x43\x6C\x65\x61\x72",
+      "\x43\x6C\x65\x61\x72",
+      "\x53\x61\x70\x68\x61",
+      "\x4C\x65\x65\x67",
+      "\u6E05\u9664",
+      "\x4C\x69\x6D\x70\x69\x61\x72",
+      "\x4C\x69\x6D\x70\x69\x61\x72",
+      "\x4C\x69\x6D\x70\x69\x61\x72",
+      "\x4C\x69\x6D\x70\x61\x72",
+      "\x4C\x69\x6D\x70\x61\x72",
+      "\x45\x66\x66\x61\x63\x65\x72",
+      "\x53\x76\x75\x6F\x74\x61",
+      "\x4C\xF6\x73\x63\x68\x65\x6E",
+      "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C",
+      "\x57\x79\x63\x7A\x79\u015B\u0107",
+      "\x54\x65\x6D\x69\x7A\x6C\x65",
+    ],
+    d_Restart: [
+      "\x52\x65\x73\x74\x61\x72\x74",
+      "\x52\x65\x73\x74\x61\x72\x74",
+      "\x50\x75\x6E\x61\x68\x20\x73\x74\x61\x72\x74\x20\x6B\x61\x72\x65\x6E",
+      "\x53\x74\x61\x72\x74\x20\x6F\x70\x6E\x69\x65\x75\x77",
+      "\u91CD\u65B0\u5F00\u59CB",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72",
+      "\x52\x65\x64\xE9\x6D\x61\x72\x72\x65\x72",
+      "\x52\x69\x63\x6F\x6D\x69\x6E\x63\x69\x61",
+      "\x4E\x65\x75\x20\x73\x74\x61\x72\x74\x65\x6E",
+      "\u0417\u0430\u043D\u043E\u0432\u043E",
+      "\x5A\x61\x63\x7A\x6E\x69\x6A\x20\x70\x6F\x6E\x6F\x77\x6E\x69\x65",
+      "\x59\x65\x6E\x69\x64\x65\x6E\x20\x42\x61\u015F\x6C\x61\x74",
+    ],
+    d_Goal: [
+      "\x47\x6F\x61\x6C\x3A",
+      "\x47\x6F\x61\x6C\x3A",
+      "\x4C\x61\x6B\u1E63\x79\x61",
+      "\x44\x6F\x65\x6C\x3A",
+      "\u76EE\u6807\x3A",
+      "\x4D\x65\x74\x61\x3A",
+      "\x4D\x65\x74\x61\x3A",
+      "\x4D\x65\x74\x61\x3A",
+      "\x4F\x62\x6A\x65\x74\x69\x76\x6F\x3A",
+      "\x4F\x62\x6A\x65\x74\x69\x76\x6F\x3A",
+      "\x42\x75\x74\x3A",
+      "\x4F\x62\x69\x65\x74\x74\x69\x76\x6F\x3A",
+      "\x5A\x69\x65\x6C\x3A",
+      "\u0426\u0435\u043B\u044C\x3A",
+      "\x43\x65\x6C\x3A",
+      "\x41\x6D\x61\xE7\x3A",
+    ],
+    d_Lives: [
+      "\x4C\x69\x76\x65\x73\x3A",
+      "\x4C\x69\x76\x65\x73\x3A",
+      "\x4A\x69\x76\x61\x6E\x3A",
+      "\x4C\x65\x76\x65\x6E\x73\x3A",
+      "\u751F\u547D\x3A",
+      "\x56\x69\x64\x61\x73\x3A",
+      "\x56\x69\x64\x61\x73\x3A",
+      "\x56\x69\x64\x61\x73\x3A",
+      "\x56\x69\x64\x61\x73\x3A",
+      "\x56\x69\x64\x61\x73\x3A",
+      "\x56\x69\x65\x73\x3A",
+      "\x56\x69\x74\x65\x3A",
+      "\x4C\x65\x62\x65\x6E\x3A",
+      "\u0416\u0438\u0437\u043D\u0438\x3A",
+      "\u017B\x79\x63\x69\x61\x3A",
+      "\x43\x61\x6E\x3A",
+    ],
+    d_Bonus: [
+      "\x42\x6F\x6E\x75\x73",
+      "\x42\x6F\x6E\x75\x73",
+      "\x42\x6F\x6E\x75\x73",
+      "\x42\x6F\x6E\x75\x73",
+      "\u5956\u52B1",
+      "\x42\x6F\x6E\x6F",
+      "\x42\x6F\x6E\x6F",
+      "\x42\x6F\x6E\x6F",
+      "\x42\xF3\x6E\x75\x73",
+      "\x42\xF4\x6E\x75\x73",
+      "\x42\x6F\x6E\x75\x73",
+      "\x42\x6F\x6E\x75\x73",
+      "\x42\x6F\x6E\x75\x73",
+      "\u0411\u043E\u043D\u0443\u0441",
+      "\x50\x72\x65\x6D\x69\x61",
+      "\x42\x6F\x6E\x75\x73",
+    ],
+    d_TotalScore: [
+      "\x54\x6F\x74\x61\x6C\x20\x53\x63\x6F\x72\x65\x3A",
+      "\x54\x6F\x74\x61\x6C\x20\x53\x63\x6F\x72\x65\x3A",
+      "\u0915\u0941\u0932\x20\u0938\u094D\u0915\u094B\u0930\x3A",
+      "\x54\x6F\x74\x61\x6C\x65\x20\x53\x63\x6F\x72\x65\x3A",
+      "\u603B\u5206\uFF1A",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x20\x74\x6F\x74\x61\x6C\x3A",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x20\x74\x6F\x74\x61\x6C\x3A",
+      "\x50\x75\x6E\x74\x75\x61\x63\x69\xF3\x6E\x20\x74\x6F\x74\x61\x6C\x3A",
+      "\x50\x6F\x6E\x74\x75\x61\xE7\xE3\x6F\x20\x54\x6F\x74\x61\x6C\x3A",
+      "\x50\x6F\x6E\x74\x75\x61\xE7\xE3\x6F\x20\x54\x6F\x74\x61\x6C\x3A",
+      "\x53\x63\x6F\x72\x65\x20\x74\x6F\x74\x61\x6C\x3A",
+      "\x50\x75\x6E\x74\x65\x67\x67\x69\x6F\x20\x74\x6F\x74\x61\x6C\x65\x3A",
+      "\x47\x65\x73\x61\x6D\x74\x70\x75\x6E\x6B\x74\x7A\x61\x68\x6C\x3A",
+      "\u041E\u0431\u0449\u0438\u0435\x20\u043E\u0447\u043A\u0438\x3A",
+      "\x50\x75\x6E\x6B\x74\x61\x63\x6A\x61\x20\x6B\x6F\u0144\x63\x6F\x77\x61\x3A",
+      "\x54\x6F\x70\x6C\x61\x6D\x20\x50\x75\x61\x6E\x3A",
+    ],
+    d_Map: [
+      "\x4D\x61\x70",
+      "\x4D\x61\x70",
+      "\x4E\x61\x6B\x73\x68\x61",
+      "\x4B\x61\x61\x72\x74",
+      "\u5730\u56FE",
+      "\x4D\x61\x70\x61",
+      "\x4D\x61\x70\x61",
+      "\x4D\x61\x70\x61",
+      "\x4D\x61\x70\x61",
+      "\x4D\x61\x70\x61",
+      "\x43\x61\x72\x74\x65",
+      "\x4D\x61\x70\x70\x61",
+      "\x4B\x61\x72\x74\x65",
+      "\u041A\u0430\u0440\u0442\u0430",
+      "\x4D\x61\x70\x61",
+      "\x48\x61\x72\x69\x74\x61",
+    ],
+    d_Next: [
+      "\x4E\x65\x78\x74",
+      "\x4E\x65\x78\x74",
+      "\x41\x67\x61\x6C\x61",
+      "\x56\x6F\x6C\x67\x65\x6E\x64\x65",
+      "\u4E0B\u4E00\u4E2A",
+      "\x53\x69\x67\x75\x69\x65\x6E\x74\x65",
+      "\x53\x69\x67\x75\x69\x65\x6E\x74\x65",
+      "\x53\x69\x67\x75\x69\x65\x6E\x74\x65",
+      "\x53\x65\x67\x75\x69\x6E\x74\x65",
+      "\x53\x65\x67\x75\x69\x6E\x74\x65",
+      "\x53\x75\x69\x76\x61\x6E\x74",
+      "\x41\x76\x61\x6E\x74\x69",
+      "\x4E\xE4\x63\x68\x73\x74\x65",
+      "\u0414\u0430\u043B\u0435\u0435",
+      "\x4E\x61\x73\x74\u0119\x70\x6E\x61",
+      "\x53\x6F\x6E\x72\x61\x6B\x69",
+    ],
+    d_Previous: [
+      "\x50\x72\x65\x76\x69\x6F\x75\x73",
+      "\x50\x72\x65\x76\x69\x6F\x75\x73",
+      "\x50\x69\x63\x68\x61\x6C\x61",
+      "\x56\x6F\x72\x69\x67\x65",
+      "\u4E0A\u4E00\u9875",
+      "\x41\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x41\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x41\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x41\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x41\x6E\x74\x65\x72\x69\x6F\x72",
+      "\x50\x72\xE9\x63\xE9\x64\x65\x6E\x74",
+      "\x50\x72\x65\x63\x65\x64\x65\x6E\x74\x65",
+      "\x56\x6F\x72\x68\x65\x72\x69\x67\x65",
+      "\u041D\u0430\u0437\u0430\u0434",
+      "\x50\x6F\x70\x72\x7A\x65\x64\x6E\x69\x61",
+      "\xD6\x6E\x63\x65\x6B\x69",
+    ],
+    d_Tiles: [
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+      "\x54\x69\x6C\x65\x73\x3A",
+    ],
+    d_LevelSelect: [
+      "\x4C\x65\x76\x65\x6C\x20\x53\x65\x6C\x65\x63\x74",
+      "\x4C\x65\x76\x65\x6C\x20\x53\x65\x6C\x65\x63\x74",
+      "\x53\x74\x61\x72\x61\x20\x6B\x61\x20\x63\x68\x61\x79\x61\x6E\x20\x6B\x61\x72\x65\x6E",
+      "\x4B\x69\x65\x73\x20\x6C\x65\x76\x65\x6C",
+      "\u5173\u5361\u9009\u62E9",
+      "\x53\x65\x6C\x65\x63\x63\x69\x6F\x6E\x61\x72\x20\x6E\x69\x76\x65\x6C",
+      "\x53\x65\x6C\x65\x63\x63\x69\x6F\x6E\x61\x72\x20\x6E\x69\x76\x65\x6C",
+      "\x53\x65\x6C\x65\x63\x63\x69\x6F\x6E\x61\x72\x20\x6E\x69\x76\x65\x6C",
+      "\x45\x73\x63\x6F\x6C\x68\x65\x72\x20\x6E\xED\x76\x65\x6C",
+      "\x53\x65\x6C\x65\x63\x69\x6F\x6E\x61\x72\x20\x6E\xED\x76\x65\x6C",
+      "\x53\xE9\x6C\x65\x63\x74\x69\x6F\x6E\x20\x64\x75\x20\x6E\x69\x76\x65\x61\x75",
+      "\x53\x65\x6C\x65\x7A\x69\x6F\x6E\x65\x20\x6C\x69\x76\x65\x6C\x6C\x6F",
+      "\x4C\x65\x76\x65\x6C\x20\x61\x75\x73\x77\xE4\x68\x6C\x65\x6E",
+      "\u0412\u044B\u0431\u043E\u0440\x20\u0443\u0440\u043E\u0432\u043D\u044F",
+      "\x57\x79\x62\x69\x65\x72\x7A\x20\x70\x6F\x7A\x69\x6F\x6D",
+      "\x53\x65\x76\x69\x79\x65\x20\x73\x65\xE7\x69\x6D\x69",
+    ],
+    d_Moves: [
+      "\x4D\x6F\x76\x65\x73\x3A",
+      "\x4D\x6F\x76\x65\x73\x3A",
+      "\x43\x68\x61\x6C\x65\x6E\x3A",
+      "\x5A\x65\x74\x74\x65\x6E\x3A",
+      "\u8D70\u52A8\x3A",
+      "\x4D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73\x3A",
+      "\x4D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73\x3A",
+      "\x4D\x6F\x76\x69\x6D\x69\x65\x6E\x74\x6F\x73\x3A",
+      "\x4A\x6F\x67\x61\x64\x61\x73\x3A",
+      "\x4A\x6F\x67\x61\x64\x61\x73\x3A",
+      "\x44\xE9\x70\x6C\x61\x63\x65\x6D\x65\x6E\x74\x73\x3A",
+      "\x53\x70\x6F\x73\x74\x61\x6D\x65\x6E\x74\x69\x3A",
+      "\x4D\xF6\x67\x6C\x69\x63\x68\x65\x20\x53\x70\x69\x65\x6C\x7A\xFC\x67\x65\x3A",
+      "\u0425\u043E\u0434\u044B\x3A",
+      "\x52\x75\x63\x68\x79\x3A",
+      "\x48\x61\x6D\x6C\x65\x3A",
+    ],
+    d_HowtoplayText_FreecellSolitaire1: [
+      "\x41\x6C\x6C\x20\x63\x61\x72\x64\x73\x20\x66\x72\x6F\x6D\x20\x31\x20\x64\x65\x63\x6B\x20\x61\x72\x65\x20\x64\x65\x61\x6C\x74\x20\x69\x6E\x74\x6F\x20\x38\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x2E\x20\x54\x68\x65\x72\x65\x20\x61\x72\x65\x20\x46\x6F\x75\x72\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\x20\x28\x74\x6F\x70\x20\x6C\x65\x66\x74\x29\x20\x61\x6E\x64\x20\x66\x6F\x75\x72\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x73\x20\x28\x74\x6F\x70\x20\x72\x69\x67\x68\x74\x29\x2E\x20\x54\x68\x65\x20\x6F\x62\x6A\x65\x63\x74\x20\x6F\x66\x20\x74\x68\x65\x20\x67\x61\x6D\x65\x20\x69\x73\x20\x74\x6F\x20\x62\x75\x69\x6C\x64\x20\x75\x70\x20\x61\x6C\x6C\x20\x35\x32\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x73\x20\x66\x72\x6F\x6D\x20\x41\x63\x65\x20\x74\x6F\x20\x4B\x69\x6E\x67\x20\x62\x79\x20\x73\x75\x69\x74\x2E",
+      "\x41\x6C\x6C\x20\x63\x61\x72\x64\x73\x20\x66\x72\x6F\x6D\x20\x31\x20\x64\x65\x63\x6B\x20\x61\x72\x65\x20\x64\x65\x61\x6C\x74\x20\x69\x6E\x74\x6F\x20\x38\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x2E\x20\x54\x68\x65\x72\x65\x20\x61\x72\x65\x20\x46\x6F\x75\x72\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\x20\x28\x74\x6F\x70\x20\x6C\x65\x66\x74\x29\x20\x61\x6E\x64\x20\x66\x6F\x75\x72\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x73\x20\x28\x74\x6F\x70\x20\x72\x69\x67\x68\x74\x29\x2E\x20\x54\x68\x65\x20\x6F\x62\x6A\x65\x63\x74\x20\x6F\x66\x20\x74\x68\x65\x20\x67\x61\x6D\x65\x20\x69\x73\x20\x74\x6F\x20\x62\x75\x69\x6C\x64\x20\x75\x70\x20\x61\x6C\x6C\x20\x35\x32\x20\x63\x61\x72\x64\x73\x20\x6F\x6E\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x73\x20\x66\x72\x6F\x6D\x20\x41\x63\x65\x20\x74\x6F\x20\x4B\x69\x6E\x67\x20\x62\x79\x20\x73\x75\x69\x74\x2E",
+      "\x31\x20\u0921\u0947\u0915\x20\u0938\u0947\x20\u0938\u092D\u0940\x20\u0915\u093E\u0930\u094D\u0921\x20\x38\x20\u091D\u093E\u0902\u0915\u0940\x20\u092C\u0935\u093E\u0938\u0940\u0930\x20\u092E\u0947\u0902\x20\u092A\u0947\u0936\x20\u0915\u0930\x20\u0930\u0939\u0947\x20\u0939\u0948\u0902\x2E\x20\u091A\u093E\u0930\x20\u0938\u094D\u0935\u0924\u0902\u0924\u094D\u0930\x20\u0915\u094B\u0936\u093F\u0915\u093E\u0913\u0902\x20\x28\u090A\u092A\u0930\x20\u092C\u093E\u090F\u0902\x29\x20\u0914\u0930\x20\u091A\u093E\u0930\x20\u0928\u0940\u0902\u0935\x20\u092C\u0935\u093E\u0938\u0940\u0930\x20\x28\u090A\u092A\u0930\x20\u0926\u093E\u090F\u0902\x29\x20\u0915\u0930\x20\u0930\u0939\u0947\x20\u0939\u0948\u0902\x2E\x20\u0916\u0947\u0932\x20\u0915\u093E\x20\u0909\u0926\u094D\u0926\u0947\u0936\u094D\u092F\x20\u0938\u0942\u091F\x20\u0926\u094D\u0935\u093E\u0930\u093E\x20\u0910\u0938\x20\u0938\u0947\x20\u0930\u093E\u091C\u093E\x20\u0915\u0947\x20\u0932\u093F\u090F\x20\u0928\u0940\u0902\u0935\x20\u092A\u0930\x20\u0938\u092D\u0940\x20\x35\x32\x20\u0915\u093E\u0930\u094D\u0921\x20\u0915\u093E\x20\u0928\u093F\u0930\u094D\u092E\u093E\u0923\x20\u0939\u094B",
+      "\x41\x6C\x6C\x65\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x69\x6E\x20\x65\x65\x6E\x20\x6B\x61\x61\x72\x74\x73\x70\x65\x6C\x20\x6C\x69\x67\x67\x65\x6E\x20\x69\x6E\x20\x38\x20\x6B\x6F\x6C\x6F\x6D\x6D\x65\x6E\x2E\x20\x45\x72\x20\x7A\x69\x6A\x6E\x20\x34\x20\x76\x72\x69\x6A\x65\x20\x76\x61\x6B\x6A\x65\x73\x20\x28\x6C\x69\x6E\x6B\x73\x62\x6F\x76\x65\x6E\x29\x2C\x20\x64\x65\x20\x7A\x6F\x67\x65\x6E\x61\x61\x6D\x64\x65\x20\x66\x72\x65\x65\x20\x63\x65\x6C\x6C\x73\x20\x65\x6E\x20\x34\x20\x76\x61\x6B\x6A\x65\x73\x20\x72\x65\x63\x68\x74\x73\x62\x6F\x76\x65\x6E\x20\x77\x61\x61\x72\x6F\x70\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x67\x65\x6C\x65\x67\x64\x20\x6B\x75\x6E\x6E\x65\x6E\x20\x77\x6F\x72\x64\x65\x6E\x2E\x20\x48\x65\x74\x20\x64\x6F\x65\x6C\x20\x69\x73\x20\x6F\x6D\x20\x61\x6C\x6C\x65\x20\x35\x32\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x6F\x70\x20\x64\x65\x20\x34\x20\x76\x61\x6B\x6A\x65\x73\x20\x72\x65\x63\x68\x74\x62\x6F\x76\x65\x6E\x20\x74\x65\x20\x6B\x72\x69\x6A\x67\x65\x6E\x20\x70\x65\x72\x20\x6B\x6C\x65\x75\x72\x20\x65\x6E\x20\x6F\x70\x20\x76\x6F\x6C\x67\x6F\x72\x64\x65\x20\x76\x61\x6E\x20\x41\x61\x73\x20\x6E\x61\x61\x72\x20\x4B\x6F\x6E\x69\x6E\x67\x2E",
+      "\u4E00\u53E0\u724C\u5206\u53D1\u6210\x38\u5217\uFF0C\u5DE6\u4E0A\u89D2\u6709\x34\u4E2A\u81EA\u7531\u4F4D\uFF0C\u53F3\u4E0A\u89D2\u6709\x34\u4E2A\u76EE\u6807\u4F4D\uFF0C\u76EE\u6807\u662F\u5C06\u6240\u6709\u7684\x35\x32\u5F20\u724C\u4ECE\x41\u81F3\x4B\u6446\u653E\u5B8C\u6BD5",
+      "\x54\x6F\x64\x61\x73\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x31\x20\x6D\x61\x7A\x6F\x20\x73\x65\x20\x72\x65\x70\x61\x72\x74\x65\x6E\x20\x65\x6E\x20\x38\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x2E\x20\x48\x61\x79\x20\x63\x75\x61\x74\x72\x6F\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x28\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x69\x7A\x71\x75\x69\x65\x72\x64\x61\x29\x2C\x20\x6C\x61\x73\x20\x64\x65\x6E\x6F\x6D\x69\x6E\x61\x64\x61\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x2C\x20\x79\x20\x34\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x20\x64\x6F\x6E\x64\x65\x20\x73\x65\x20\x70\x75\x65\x64\x65\x6E\x20\x63\x6F\x6C\x6F\x63\x61\x72\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x2E\x20\x45\x6C\x20\x6F\x62\x6A\x65\x74\x69\x76\x6F\x20\x64\x65\x6C\x20\x6A\x75\x65\x67\x6F\x20\x65\x73\x20\x6F\x72\x64\x65\x6E\x61\x72\x20\x6C\x61\x73\x20\x35\x32\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x6C\x61\x73\x20\x34\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x64\x65\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x20\x70\x6F\x72\x20\x63\x6F\x6C\x6F\x72\x20\x79\x20\x70\x6F\x72\x20\x6F\x72\x64\x65\x6E\x20\x61\x73\x63\x65\x6E\x64\x65\x6E\x74\x65\x2C\x20\x64\x65\x6C\x20\x41\x73\x20\x61\x6C\x20\x52\x65\x79\x2E",
+      "\x54\x6F\x64\x61\x73\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x31\x20\x6D\x61\x7A\x6F\x20\x73\x65\x20\x72\x65\x70\x61\x72\x74\x65\x6E\x20\x65\x6E\x20\x38\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x2E\x20\x48\x61\x79\x20\x63\x75\x61\x74\x72\x6F\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x28\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x69\x7A\x71\x75\x69\x65\x72\x64\x61\x29\x2C\x20\x6C\x61\x73\x20\x64\x65\x6E\x6F\x6D\x69\x6E\x61\x64\x61\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x2C\x20\x79\x20\x34\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x20\x64\x6F\x6E\x64\x65\x20\x73\x65\x20\x70\x75\x65\x64\x65\x6E\x20\x63\x6F\x6C\x6F\x63\x61\x72\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x2E\x20\x45\x6C\x20\x6F\x62\x6A\x65\x74\x69\x76\x6F\x20\x64\x65\x6C\x20\x6A\x75\x65\x67\x6F\x20\x65\x73\x20\x6F\x72\x64\x65\x6E\x61\x72\x20\x6C\x61\x73\x20\x35\x32\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x6C\x61\x73\x20\x34\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x64\x65\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x20\x70\x6F\x72\x20\x63\x6F\x6C\x6F\x72\x20\x79\x20\x70\x6F\x72\x20\x6F\x72\x64\x65\x6E\x20\x61\x73\x63\x65\x6E\x64\x65\x6E\x74\x65\x2C\x20\x64\x65\x6C\x20\x41\x73\x20\x61\x6C\x20\x52\x65\x79\x2E",
+      "\x54\x6F\x64\x61\x73\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x31\x20\x6D\x61\x7A\x6F\x20\x73\x65\x20\x72\x65\x70\x61\x72\x74\x65\x6E\x20\x65\x6E\x20\x38\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x2E\x20\x48\x61\x79\x20\x63\x75\x61\x74\x72\x6F\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x28\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x69\x7A\x71\x75\x69\x65\x72\x64\x61\x29\x2C\x20\x6C\x61\x73\x20\x64\x65\x6E\x6F\x6D\x69\x6E\x61\x64\x61\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x2C\x20\x79\x20\x34\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x20\x64\x6F\x6E\x64\x65\x20\x73\x65\x20\x70\x75\x65\x64\x65\x6E\x20\x63\x6F\x6C\x6F\x63\x61\x72\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x2E\x20\x45\x6C\x20\x6F\x62\x6A\x65\x74\x69\x76\x6F\x20\x64\x65\x6C\x20\x6A\x75\x65\x67\x6F\x20\x65\x73\x20\x6F\x72\x64\x65\x6E\x61\x72\x20\x6C\x61\x73\x20\x35\x32\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x6C\x61\x73\x20\x34\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x64\x65\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x20\x70\x6F\x72\x20\x63\x6F\x6C\x6F\x72\x20\x79\x20\x70\x6F\x72\x20\x6F\x72\x64\x65\x6E\x20\x61\x73\x63\x65\x6E\x64\x65\x6E\x74\x65\x2C\x20\x64\x65\x6C\x20\x41\x73\x20\x61\x6C\x20\x52\x65\x79\x2E",
+      "\x54\x6F\x64\x61\x73\x20\x61\x73\x20\x63\x61\x72\x64\x61\x73\x20\x64\x65\x20\x31\x20\x62\x61\x72\x61\x6C\x68\x6F\x20\x73\xE3\x6F\x20\x64\x61\x64\x61\x73\x20\x65\x6D\x20\x38\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x2E\x20\x48\xE1\x20\x51\x75\x61\x74\x72\x6F\x20\x43\xE9\x6C\x75\x6C\x61\x73\x20\x4C\x69\x76\x72\x65\x73\x20\x28\x74\x6F\x70\x6F\x20\xE0\x20\x65\x73\x71\x75\x65\x72\x64\x61\x29\x20\x65\x20\x71\x75\x61\x74\x72\x6F\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x65\x20\x62\x61\x73\x65\x20\x28\x74\x6F\x70\x6F\x20\xE0\x20\x64\x69\x72\x65\x69\x74\x61\x29\x2E\x20\x4F\x20\x6F\x62\x6A\x65\x74\x69\x76\x6F\x20\x64\x6F\x20\x6A\x6F\x67\x6F\x20\xE9\x20\x63\x6F\x6C\x6F\x63\x61\x72\x20\x61\x74\xE9\x20\x61\x6F\x20\x63\x69\x6D\x6F\x20\x61\x73\x20\x35\x32\x20\x63\x61\x72\x74\x61\x73\x20\x6E\x61\x73\x20\x62\x61\x73\x65\x73\x20\x64\x65\x73\x64\x65\x20\x6F\x20\xC1\x73\x20\x61\x74\xE9\x20\x61\x6F\x20\x52\x65\x69\x2C\x20\x70\x6F\x72\x20\x6E\x61\x69\x70\x65\x2E",
+      "\x54\x6F\x64\x61\x73\x20\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x75\x6D\x20\x62\x61\x72\x61\x6C\x68\x6F\x20\x73\xE3\x6F\x20\x64\x61\x64\x61\x73\x20\x65\x6D\x20\x6F\x69\x74\x6F\x20\x70\x69\x6C\x68\x61\x73\x20\x6E\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x2E\x20\x48\xE1\x20\x71\x75\x61\x74\x72\x6F\x20\x63\xE9\x6C\x75\x6C\x61\x73\x20\x6C\x69\x76\x72\x65\x73\x20\x28\x63\x61\x6E\x74\x6F\x20\x73\x75\x70\x65\x72\x69\x6F\x72\x20\x65\x73\x71\x75\x65\x72\x64\x6F\x29\x20\x65\x20\x71\x75\x61\x74\x72\x6F\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x65\x20\x62\x61\x73\x65\x20\x28\x63\x61\x6E\x74\x6F\x20\x73\x75\x70\x65\x72\x69\x6F\x72\x20\x64\x69\x72\x65\x69\x74\x6F\x29\x2E\x20\x4F\x20\x6F\x62\x6A\x65\x74\x69\x76\x6F\x20\x64\x6F\x20\x6A\x6F\x67\x6F\x20\xE9\x20\x63\x6F\x6C\x6F\x63\x61\x72\x20\x74\x6F\x64\x61\x73\x20\x61\x73\x20\x35\x32\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6D\x20\x62\x61\x73\x65\x73\x20\x64\x65\x20\xE1\x73\x20\x61\x20\x72\x65\x69\x2C\x20\x70\x6F\x72\x20\x6E\x61\x69\x70\x65\x2E",
+      "\x54\x6F\x75\x74\x65\x73\x20\x6C\x65\x73\x20\x63\x61\x72\x74\x65\x73\x20\x64\x27\x75\x6E\x20\x6A\x65\x75\x20\x73\x6F\x6E\x74\x20\x64\x69\x73\x74\x72\x69\x62\x75\xE9\x65\x73\x20\x73\x75\x72\x20\x38\x20\x70\x69\x6C\x65\x73\x20\x64\x75\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x64\x65\x20\x6A\x65\x75\x2E\x20\x49\x6C\x20\x79\x20\x61\x20\x71\x75\x61\x74\x72\x65\x20\x63\x61\x73\x65\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x28\x65\x6E\x20\x68\x61\x75\x74\x20\xE0\x20\x67\x61\x75\x63\x68\x65\x29\x20\x65\x74\x20\x71\x75\x61\x74\x72\x65\x20\x70\x69\x6C\x65\x73\x20\x64\x65\x20\x62\x61\x73\x65\x20\x28\x65\x6E\x20\x68\x61\x75\x74\x20\xE0\x20\x64\x72\x6F\x69\x74\x65\x29\x2E\x20\x4C\x27\x6F\x62\x6A\x65\x63\x74\x69\x66\x20\x64\x75\x20\x6A\x65\x75\x20\x65\x73\x74\x20\x64\x65\x20\x70\x6C\x61\x63\x65\x72\x20\x6C\x61\x20\x74\x6F\x74\x61\x6C\x69\x74\xE9\x20\x64\x65\x73\x20\x35\x32\x20\x63\x61\x72\x74\x65\x73\x20\x73\x75\x72\x20\x6C\x65\x73\x20\x70\x69\x6C\x65\x73\x20\x64\x65\x20\x62\x61\x73\x65\x2C\x20\x65\x6E\x20\x73\x75\x69\x74\x65\x20\x6D\x6F\x6E\x74\x61\x6E\x74\x65\x20\x64\x65\x20\x6C\x27\x61\x73\x20\x61\x75\x20\x72\x6F\x69\x2E",
+      "\x54\x75\x74\x74\x65\x20\x6C\x65\x20\x63\x61\x72\x74\x65\x20\x64\x69\x20\x31\x20\x6D\x61\x7A\x7A\x6F\x20\x73\x6F\x6E\x6F\x20\x73\x75\x64\x64\x69\x76\x69\x73\x65\x20\x69\x6E\x20\x38\x20\x6D\x75\x63\x63\x68\x69\x20\x73\x75\x6C\x20\x74\x61\x76\x6F\x6C\x6F\x2E\x20\x43\x69\x20\x73\x6F\x6E\x6F\x20\x71\x75\x61\x74\x74\x72\x6F\x20\x63\x65\x6C\x6C\x65\x20\x6C\x69\x62\x65\x72\x65\x20\x28\x69\x6E\x20\x61\x6C\x74\x6F\x20\x61\x20\x73\x69\x6E\x69\x73\x74\x72\x61\x29\x20\x65\x20\x71\x75\x61\x74\x74\x72\x6F\x20\x6D\x75\x63\x63\x68\x69\x20\x64\x69\x20\x62\x61\x73\x65\x20\x28\x69\x6E\x20\x61\x6C\x74\x6F\x20\x61\x20\x64\x65\x73\x74\x72\x61\x29\x2E\x20\x4C\x6F\x20\x73\x63\x6F\x70\x6F\x20\x64\x65\x6C\x20\x67\x69\x6F\x63\x6F\x20\xE8\x20\x64\x69\x20\x6D\x65\x74\x74\x65\x72\x65\x20\x74\x75\x74\x74\x65\x20\x6C\x65\x20\x35\x32\x20\x63\x61\x72\x74\x65\x20\x73\x75\x69\x20\x6D\x75\x63\x63\x68\x69\x20\x69\x6E\x20\x61\x6C\x74\x6F\x20\x64\x61\x6C\x6C\x27\x41\x73\x73\x6F\x20\x61\x6C\x20\x52\x65\x20\x65\x20\x70\x65\x72\x20\x73\x65\x6D\x65\x2E",
+      "\x41\x6C\x6C\x65\x20\x4B\x61\x72\x74\x65\x6E\x20\x61\x75\x73\x20\x64\x65\x6D\x20\x4B\x61\x72\x74\x65\x6E\x76\x6F\x72\x72\x61\x74\x20\x31\x20\x77\x65\x72\x64\x65\x6E\x20\x69\x6E\x20\x38\x20\x53\x74\x61\x70\x65\x6C\x6E\x20\x61\x75\x73\x67\x65\x74\x65\x69\x6C\x74\x2E\x20\x45\x73\x20\x67\x69\x62\x74\x20\x34\x20\u201E\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\u201C\x20\x28\x6C\x69\x6E\x6B\x73\x20\x6F\x62\x65\x6E\x29\x20\x75\x6E\x64\x20\x34\x20\x5A\x69\x65\x6C\x73\x74\xF6\xDF\x65\x20\x28\x6F\x62\x65\x6E\x20\x72\x65\x63\x68\x74\x73\x29\x2E\x20\x5A\x69\x65\x6C\x20\x64\x65\x73\x20\x53\x70\x69\x65\x6C\x73\x20\x69\x73\x74\x20\x65\x73\x2C\x20\x61\x6C\x6C\x65\x20\x35\x32\x20\x4B\x61\x72\x74\x65\x6E\x20\x61\x75\x66\x20\x5A\x69\x65\x6C\x73\x74\xF6\xDF\x65\x20\x76\x6F\x6D\x20\x41\x73\x73\x20\x62\x69\x73\x20\x7A\x75\x6D\x20\x4B\xF6\x6E\x69\x67\x20\x75\x6E\x64\x20\x6E\x61\x63\x68\x20\x46\x61\x72\x62\x65\x20\x61\x62\x7A\x75\x6C\x65\x67\x65\x6E\x2E",
+      "\u0412\u0441\u0435\x20\u043A\u0430\u0440\u0442\u044B\x20\x31\x20\u043A\u043E\u043B\u043E\u0434\u044B\x20\u0438\u0433\u0440\u0430\u044E\u0442\x20\u0432\x20\x38\x20\u0441\u0442\u043E\u043F\u043A\u0430\u0445\x20\u0442\u0430\u0431\u043B\u043E\x2E\x20\u0412\u0441\u0435\u0433\u043E\x20\u0432\x20\u043D\u0430\u043B\u0438\u0447\u0438\u0438\x20\u0447\u0435\u0442\u044B\u0440\u0435\x20\u0441\u0432\u043E\u0431\u043E\u0434\u043D\u044B\u0435\x20\u044F\u0447\u0435\u0439\u043A\u0438\x20\x28\u0441\u0432\u0435\u0440\u0445\u0443\x20\u0441\u043B\u0435\u0432\u0430\x29\x20\u0438\x20\u0447\u0435\u0442\u044B\u0440\u0435\x20\u0431\u0430\u0437\u043E\u0432\u044B\u0435\x20\u0441\u0442\u043E\u043F\u043A\u0438\x20\x28\u0441\u0432\u0435\u0440\u0445\u0443\x20\u0441\u043F\u0440\u0430\u0432\u0430\x29\x2E\x20\u0426\u0435\u043B\u044C\x20\u0438\u0433\u0440\u044B\x20\u0437\u0430\u043A\u043B\u044E\u0447\u0430\u0435\u0442\u0441\u044F\x20\u0432\x20\u0441\u0431\u043E\u0440\u0435\x20\u0432\u0441\u0435\u0445\x20\x35\x32\x20\u043A\u0430\u0440\u0442\x20\u0432\x20\u043C\u0430\u0441\u0442\u044C\x20\u043E\u0442\x20\u0422\u0443\u0437\u0430\x20\u0434\u043E\x20\u041A\u043E\u0440\u043E\u043B\u044F\x20\u043D\u0430\x20\u0431\u0430\u0437\u043E\u0432\u044B\u0445\x20\u0441\u0442\u043E\u043F\u043A\u0430\u0445\x2E",
+      "\x57\x73\x7A\x79\x73\x74\x6B\x69\x65\x20\x6B\x61\x72\x74\x79\x20\x7A\x20\x31\x20\x74\x61\x6C\x69\x69\x20\x73\u0105\x20\x72\x6F\x7A\u0142\x6F\u017C\x6F\x6E\x65\x20\x77\x20\x38\x20\x70\x69\x6F\x6E\x6F\x77\x79\x63\x68\x20\x6B\x6F\x6C\x75\x6D\x6E\x61\x63\x68\x2E\x20\x53\u0105\x20\x63\x7A\x74\x65\x72\x79\x20\x77\x6F\x6C\x6E\x65\x20\x6B\x6F\x6D\xF3\x72\x6B\x69\x20\x28\x6C\x65\x77\x79\x20\x67\xF3\x72\x6E\x79\x20\x72\xF3\x67\x29\x20\x69\x20\x63\x7A\x74\x65\x72\x79\x20\x70\x6F\x6C\x61\x20\x70\x6F\x64\x73\x74\x61\x77\x6F\x77\x65\x20\x28\x70\x72\x61\x77\x79\x20\x67\xF3\x72\x6E\x79\x20\x72\xF3\x67\x29\x2E\x20\x43\x65\x6C\x65\x6D\x20\x67\x72\x79\x20\x6A\x65\x73\x74\x20\x75\u0142\x6F\u017C\x65\x6E\x69\x65\x20\x77\x73\x7A\x79\x73\x74\x6B\x69\x63\x68\x20\x35\x32\x20\x6B\x61\x72\x74\x20\x6E\x61\x20\x70\x6F\x6C\x61\x63\x68\x20\x70\x6F\x64\x73\x74\x61\x77\x6F\x77\x79\x63\x68\x20\x6F\x64\x20\x41\x73\x61\x20\x64\x6F\x20\x4B\x72\xF3\x6C\x61\x20\x77\x20\x6A\x65\x64\x6E\x79\x6D\x20\x6B\x6F\x6C\x6F\x72\x7A\x65\x2E\x20",
+      "\x31\x20\x64\x65\x73\x74\x65\x64\x65\x6B\x69\x20\x74\xFC\x6D\x20\x6B\x61\x72\x74\x6C\x61\x72\x20\x38\x20\x73\u0131\x72\x61\x20\u015F\x65\x6B\x6C\x69\x6E\x64\x65\x20\x64\x61\u011F\u0131\x74\u0131\x6C\u0131\x72\x2E\x20\x53\x6F\x6C\x20\xFC\x73\x74\x74\x65\x20\x64\xF6\x72\x74\x20\x61\x64\x65\x74\x20\x53\x65\x72\x62\x65\x73\x74\x20\x48\xFC\x63\x72\x65\x20\x76\x65\x20\x73\x61\u011F\x20\xFC\x73\x74\x74\x65\x20\x68\x65\x72\x20\x6B\x61\u011F\u0131\x74\x20\x67\x72\x75\x62\x75\x20\x69\xE7\x69\x6E\x20\x74\x65\x6D\x65\x6C\x20\x68\xFC\x63\x72\x65\x6C\x65\x72\x20\x62\x75\x6C\x75\x6E\x75\x72\x2E\x20\x4F\x79\x75\x6E\x75\x6E\x20\x61\x6D\x61\x63\u0131\x20\x61\x79\x6E\u0131\x20\x67\x72\x75\x70\x6C\x61\x72\u0131\x20\x41\x73\x27\x74\x61\x6E\x20\x50\x61\x70\x61\x7A\x27\x61\x20\x73\u0131\x72\x61\x6C\x61\x79\x61\x63\x61\x6B\x20\u015F\x65\x6B\x69\x6C\x64\x65\x20\x35\x32\x20\x6B\x61\x72\x74\u0131\x6E\x20\x74\xFC\x6D\xFC\x6E\xFC\x20\x74\x65\x6D\x65\x6C\x20\x68\xFC\x63\x72\x65\x6C\x65\x72\x65\x20\x79\x65\x72\x6C\x65\u015F\x74\x69\x72\x6D\x65\x6B\x74\x69\x72",
+    ],
+    d_HowtoplayText_FreecellSolitaire2: [
+      "\x54\x6F\x70\x20\x63\x61\x72\x64\x73\x20\x6F\x66\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x20\x61\x6E\x64\x20\x63\x61\x72\x64\x73\x20\x66\x72\x6F\x6D\x20\x74\x68\x65\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\x20\x61\x72\x65\x20\x61\x76\x61\x69\x6C\x61\x62\x6C\x65\x20\x66\x6F\x72\x20\x70\x6C\x61\x79\x2E\x20\x59\x6F\x75\x20\x63\x61\x6E\x20\x62\x75\x69\x6C\x64\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x20\x64\x6F\x77\x6E\x20\x61\x6E\x64\x20\x6F\x6E\x20\x73\x75\x69\x74\x2E\x20\x4F\x6E\x6C\x79\x20\x6F\x6E\x65\x20\x63\x61\x72\x64\x20\x61\x74\x20\x61\x20\x74\x69\x6D\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x28\x62\x75\x74\x20\x79\x6F\x75\x20\x63\x61\x6E\x20\x6D\x6F\x76\x65\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x69\x6E\x20\x74\x68\x65\x20\x70\x72\x6F\x70\x65\x72\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x69\x66\x20\x79\x6F\x75\x20\x68\x61\x76\x65\x20\x65\x6E\x6F\x75\x67\x68\x20\x66\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\x20\x61\x6E\x64\x2F\x6F\x72\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x29\x2E\x20\x54\x68\x65\x20\x74\x6F\x70\x20\x63\x61\x72\x64\x20\x6F\x66\x20\x61\x6E\x79\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x20\x63\x61\x6E\x20\x61\x6C\x73\x6F\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x74\x6F\x20\x61\x6E\x79\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x2E\x20\x45\x61\x63\x68\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x20\x6D\x61\x79\x20\x63\x6F\x6E\x74\x61\x69\x6E\x20\x6F\x6E\x6C\x79\x20\x6F\x6E\x65\x20\x63\x61\x72\x64\x2E\x20\x43\x61\x72\x64\x73\x20\x69\x6E\x20\x74\x68\x65\x20\x63\x65\x6C\x6C\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x74\x6F\x20\x74\x68\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x73\x20\x6F\x72\x20\x62\x61\x63\x6B\x20\x74\x6F\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x2C\x20\x69\x66\x20\x70\x6F\x73\x73\x69\x62\x6C\x65\x2E",
+      "\x54\x6F\x70\x20\x63\x61\x72\x64\x73\x20\x6F\x66\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x20\x61\x6E\x64\x20\x63\x61\x72\x64\x73\x20\x66\x72\x6F\x6D\x20\x74\x68\x65\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\x20\x61\x72\x65\x20\x61\x76\x61\x69\x6C\x61\x62\x6C\x65\x20\x66\x6F\x72\x20\x70\x6C\x61\x79\x2E\x20\x59\x6F\x75\x20\x63\x61\x6E\x20\x62\x75\x69\x6C\x64\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x20\x64\x6F\x77\x6E\x20\x61\x6E\x64\x20\x6F\x6E\x20\x73\x75\x69\x74\x2E\x20\x4F\x6E\x6C\x79\x20\x6F\x6E\x65\x20\x63\x61\x72\x64\x20\x61\x74\x20\x61\x20\x74\x69\x6D\x65\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x28\x62\x75\x74\x20\x79\x6F\x75\x20\x63\x61\x6E\x20\x6D\x6F\x76\x65\x20\x67\x72\x6F\x75\x70\x20\x6F\x66\x20\x63\x61\x72\x64\x73\x20\x69\x6E\x20\x74\x68\x65\x20\x70\x72\x6F\x70\x65\x72\x20\x73\x65\x71\x75\x65\x6E\x63\x65\x20\x69\x66\x20\x79\x6F\x75\x20\x68\x61\x76\x65\x20\x65\x6E\x6F\x75\x67\x68\x20\x66\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\x20\x61\x6E\x64\x2F\x6F\x72\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x29\x2E\x20\x54\x68\x65\x20\x74\x6F\x70\x20\x63\x61\x72\x64\x20\x6F\x66\x20\x61\x6E\x79\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x20\x63\x61\x6E\x20\x61\x6C\x73\x6F\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x74\x6F\x20\x61\x6E\x79\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x2E\x20\x45\x61\x63\x68\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x20\x6D\x61\x79\x20\x63\x6F\x6E\x74\x61\x69\x6E\x20\x6F\x6E\x6C\x79\x20\x6F\x6E\x65\x20\x63\x61\x72\x64\x2E\x20\x43\x61\x72\x64\x73\x20\x69\x6E\x20\x74\x68\x65\x20\x63\x65\x6C\x6C\x73\x20\x63\x61\x6E\x20\x62\x65\x20\x6D\x6F\x76\x65\x64\x20\x74\x6F\x20\x74\x68\x65\x20\x66\x6F\x75\x6E\x64\x61\x74\x69\x6F\x6E\x20\x70\x69\x6C\x65\x73\x20\x6F\x72\x20\x62\x61\x63\x6B\x20\x74\x6F\x20\x74\x68\x65\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x69\x6C\x65\x73\x2C\x20\x69\x66\x20\x70\x6F\x73\x73\x69\x62\x6C\x65\x2E",
+      "\u092B\u094D\u0930\u0940\x20\u0938\u0947\u0932\x20\u0938\u0947\x20\u091D\u093E\u0902\u0915\u0940\x20\u092C\u0935\u093E\u0938\u0940\u0930\x20\u0914\u0930\x20\u0924\u093E\u0936\x20\u0915\u0947\x20\u092A\u0924\u094D\u0924\u094B\u0902\x20\u0915\u0940\x20\u0936\u0940\u0930\u094D\u0937\x20\u0915\u093E\u0930\u094D\u0921\x20\u0916\u0947\u0932\u0928\u0947\x20\u0915\u0947\x20\u0932\u093F\u090F\x20\u0909\u092A\u0932\u092C\u094D\u0927\x20\u0939\u0948\u0902\x2E\x20\u0906\u092A\x20\u0928\u0940\u091A\u0947\x20\u0914\u0930\x20\u0938\u0942\u091F\x20\u092A\u0930\x20\u091D\u093E\u0902\u0915\u0940\x20\u092C\u0935\u093E\u0938\u0940\u0930\x20\u0915\u093E\x20\u0928\u093F\u0930\u094D\u092E\u093E\u0923\x20\u0915\u0930\x20\u0938\u0915\u0924\u0947\x20\u0939\u0948\u0902\x2E\x20\u090F\u0915\x20\u0938\u092E\u092F\x20\u092E\u0947\u0902\x20\u0915\u0947\u0935\u0932\x20\u090F\u0915\x20\u0915\u093E\u0930\u094D\u0921\x20\x28\u0932\u0947\u0915\u093F\u0928\x20\u0906\u092A\x20\u092A\u0930\u094D\u092F\u093E\u092A\u094D\u0924\x20\u0916\u093E\u0932\u0940\x20\u0915\u094B\u0936\u093F\u0915\u093E\u0913\u0902\x20\u0914\u0930\x20\x2F\x20\u092F\u093E\x20\u091D\u093E\u0902\u0915\u0940\x20\u092C\u0935\u093E\u0938\u0940\u0930\x20\u0939\u0948\x20\u0905\u0917\u0930\x20\u0906\u092A\x20\u0909\u091A\u093F\u0924\x20\u0915\u094D\u0930\u092E\x20\u092E\u0947\u0902\x20\u0915\u093E\u0930\u094D\u0921\x20\u0915\u093E\x20\u0938\u092E\u0942\u0939\x20\u0932\u0947\x20\u091C\u093E\x20\u0938\u0915\u0924\u0947\x20\u0939\u0948\u0902\x29\x20\u0932\u0947\x20\u091C\u093E\u092F\u093E\x20\u091C\u093E\x20\u0938\u0915\u0924\u093E\x20\u0939\u0948\x2E\x20\u0915\u093F\u0938\u0940\x20\u092D\u0940\x20\u091D\u093E\u0902\u0915\u0940\x20\u0922\u0947\u0930\x20\u0915\u0947\x20\u0936\u0940\u0930\u094D\u0937\x20\u0915\u093E\u0930\u094D\u0921\x20\u092D\u0940\x20\u0915\u093F\u0938\u0940\x20\u092D\u0940\x20\u092E\u0941\u092B\u094D\u0924\x20\u0938\u0947\u0932\x20\u0915\u0930\u0928\u0947\x20\u0915\u0947\x20\u0932\u093F\u090F\x20\u0932\u0947\x20\u091C\u093E\u092F\u093E\x20\u091C\u093E\x20\u0938\u0915\u0924\u093E\x20\u0939\u0948\x2E\x20\u092A\u094D\u0930\u0924\u094D\u092F\u0947\u0915\x20\u092B\u094D\u0930\u0940\x20\u0938\u0947\u0932\x20\u0915\u0947\u0935\u0932\x20\u090F\u0915\x20\u0915\u093E\u0930\u094D\u0921\x20\u0939\u094B\x20\u0938\u0915\u0924\u093E\x20\u0939\u0948\x2E\x20\u092F\u0926\u093F\x20\u0938\u0902\u092D\u0935\x20\u0939\u094B\x20\u0924\u094B\x20\u0915\u094B\u0936\u093F\u0915\u093E\u0913\u0902\x20\u092E\u0947\u0902\x20\u0915\u093E\u0930\u094D\u0921\x2C\x20\u0928\u0940\u0902\u0935\x20\u092C\u0935\u093E\u0938\u0940\u0930\x20\u0915\u0947\x20\u0932\u093F\u090F\x20\u092F\u093E\x20\u0935\u093E\u092A\u0938\x20\u091D\u093E\u0902\u0915\u0940\x20\u092C\u0935\u093E\u0938\u0940\u0930\x20\u0915\u0947\x20\u0932\u093F\u090F\x20\u0932\u0947\x20\u091C\u093E\u092F\u093E\x20\u091C\u093E\x20\u0938\u0915\u0924\u093E\x20\u0939",
+      "\x44\x65\x20\x62\x6F\x76\x65\x6E\x73\x74\x65\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x69\x6E\x20\x64\x65\x20\x6B\x6F\x6C\x6F\x6D\x6D\x65\x6E\x20\x65\x6E\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x6F\x70\x20\x64\x65\x20\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\x20\x6B\x75\x6E\x6E\x65\x6E\x20\x67\x65\x73\x70\x65\x65\x6C\x64\x20\x77\x6F\x72\x64\x65\x6E\x2E\x20\x4A\x65\x20\x6B\x75\x6E\x74\x20\x69\x6E\x20\x64\x65\x20\x6B\x6F\x6C\x6F\x6D\x6D\x65\x6E\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x6C\x65\x67\x67\x65\x6E\x20\x61\x6C\x73\x20\x64\x69\x65\x20\x61\x66\x6C\x6F\x70\x65\x6E\x64\x65\x20\x69\x6E\x20\x77\x61\x61\x72\x64\x65\x20\x7A\x69\x6A\x6E\x20\x65\x6E\x20\x69\x6E\x20\x64\x65\x7A\x65\x6C\x66\x64\x65\x20\x6B\x6C\x65\x75\x72\x2E\x20\x4A\x65\x20\x6B\x75\x6E\x74\x20\x31\x20\x6B\x61\x61\x72\x74\x20\x70\x65\x72\x20\x6B\x65\x65\x72\x20\x76\x65\x72\x70\x6C\x61\x61\x74\x73\x65\x6E\x20\x28\x6D\x61\x61\x72\x20\x6A\x65\x20\x6B\x75\x6E\x74\x20\x6F\x6F\x6B\x20\x65\x65\x6E\x20\x67\x72\x6F\x65\x70\x20\x6B\x61\x61\x72\x74\x65\x6E\x20\x61\x6C\x20\x6F\x70\x20\x76\x6F\x6C\x67\x6F\x72\x64\x65\x20\x76\x65\x72\x70\x6C\x61\x61\x74\x73\x65\x6E\x20\x61\x6C\x73\x20\x6A\x65\x20\x76\x6F\x6C\x64\x6F\x65\x6E\x64\x65\x20\x76\x72\x69\x6A\x65\x20\x63\x65\x6C\x6C\x65\x6E\x20\x68\x65\x62\x74\x20\x65\x6E\x2F\x6F\x66\x20\x6C\x65\x67\x65\x20\x6B\x6F\x6C\x6F\x6D\x6D\x65\x6E\x29\x2E\x20\x44\x65\x20\x62\x6F\x76\x65\x6E\x73\x74\x65\x20\x6B\x61\x61\x72\x74\x20\x69\x6E\x20\x65\x65\x6E\x20\x6B\x6F\x6C\x6F\x6D\x20\x6B\x61\x6E\x20\x6F\x6F\x6B\x20\x6E\x61\x61\x72\x20\x65\x65\x6E\x20\x76\x72\x69\x6A\x65\x20\x63\x65\x6C\x20\x77\x6F\x72\x64\x65\x6E\x20\x76\x65\x72\x70\x6C\x61\x61\x74\x73\x74\x2E\x20\x45\x65\x6E\x20\x76\x72\x69\x6A\x65\x20\x63\x65\x6C\x20\x6B\x61\x6E\x20\x6D\x61\x61\x72\x20\x31\x20\x6B\x61\x61\x72\x74\x20\x62\x65\x76\x61\x74\x74\x65\x6E\x2E\x20\x4B\x61\x61\x72\x74\x65\x6E\x20\x69\x6E\x20\x64\x65\x20\x76\x72\x69\x6A\x20\x63\x65\x6C\x6C\x65\x6E\x20\x6B\x75\x6E\x6E\x65\x6E\x20\x77\x65\x65\x72\x20\x6E\x61\x61\x72\x20\x64\x65\x20\x6B\x6F\x6C\x6F\x6D\x6D\x65\x6E\x20\x77\x6F\x72\x64\x65\x6E\x20\x76\x65\x72\x70\x6C\x61\x61\x74\x73\x74\x20\x6F\x66\x20\x6E\x61\x61\x72\x20\x64\x65\x20\x76\x61\x6B\x6A\x65\x73\x20\x72\x65\x63\x68\x74\x73\x62\x6F\x76\x65\x6E\x20\x28\x69\x6E\x64\x69\x65\x6E\x20\x6D\x6F\x67\x65\x6C\x69\x6A\x6B\x29\x2E",
+      "\u6BCF\u5217\u6700\u4E0A\u9762\u7684\u90A3\u5F20\u548C\u81EA\u7531\u4E34\u65F6\u724C\u4F4D\u7684\u724C\u53EF\u4EE5\u79FB\u52A8\u3002\u53EF\u4EE5\u5728\u6BCF\u5217\u6392\u5E8F\u3002\u6BCF\u6B21\u53EA\u80FD\u79FB\u52A8\u4E00\u5F20\u724C\uFF08\u4F46\u662F\u53EF\u4EE5\u79FB\u52A8\u4E00\u7EC4\u6210\u5E8F\u5217\u7684\u5982\u679C\u6709\u8DB3\u591F\u7684\u81EA\u7531\u4E34\u65F6\u6D3E\u4F4D\uFF09\u3002\u6BCF\u5217\u6700\u4E0A\u9762\u7684\u724C\u53EF\u4EE5\u79FB\u52A8\u5230\u81EA\u7531\u4E34\u65F6\u724C\u4F4D\uFF0C\u6BCF\u4E2A\u81EA\u7531\u4E34\u65F6\u724C\u4F4D\u53EA\u80FD\u6446\u653E\u4E00\u5F20\u724C\uFF0C\u53EF\u4EE5\u79FB\u52A8\u5230\u76EE\u6807\u4F4D\uFF0C\u4E5F\u53EF\u4EE5\u79FB\u52A8\u5230\u4E0B\u9762\u7684\u724C\u5217\u4E2D\u3002",
+      "\x4C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x73\x75\x70\x65\x72\x69\x6F\x72\x65\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x79\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x65\x73\x74\xE1\x6E\x20\x64\x69\x73\x70\x6F\x6E\x69\x62\x6C\x65\x73\x20\x70\x61\x72\x61\x20\x6A\x75\x67\x61\x72\x2E\x20\x53\x65\x20\x70\x75\x65\x64\x65\x6E\x20\x63\x6F\x6C\x6F\x63\x61\x72\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x73\x69\x20\x73\x6F\x6E\x20\x64\x65\x73\x63\x65\x6E\x64\x65\x6E\x74\x65\x73\x20\x65\x6E\x20\x76\x61\x6C\x6F\x72\x20\x79\x20\x64\x65\x6C\x20\x6D\x69\x73\x6D\x6F\x20\x63\x6F\x6C\x6F\x72\x2E\x20\x53\x6F\x6C\x6F\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x75\x6E\x61\x20\x63\x61\x72\x74\x61\x20\x61\x20\x6C\x61\x20\x76\x65\x7A\x20\x28\x70\x65\x72\x6F\x20\x74\x61\x6D\x62\x69\xE9\x6E\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x75\x6E\x20\x67\x72\x75\x70\x6F\x20\x64\x65\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x65\x6C\x20\x6F\x72\x64\x65\x6E\x20\x61\x64\x65\x63\x75\x61\x64\x6F\x20\x73\x69\x20\x65\x78\x69\x73\x74\x65\x6E\x20\x73\x75\x66\x69\x63\x69\x65\x6E\x74\x65\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x79\x2F\x6F\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x76\x61\x63\xED\x61\x73\x29\x2E\x20\x4C\x61\x20\x70\x72\x69\x6D\x65\x72\x61\x20\x63\x61\x72\x74\x61\x20\x64\x65\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x20\x74\x61\x6D\x62\x69\xE9\x6E\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x61\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x2E\x20\x43\x61\x64\x61\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x20\x73\x6F\x6C\x6F\x20\x70\x75\x65\x64\x65\x20\x63\x6F\x6E\x74\x65\x6E\x65\x72\x20\x75\x6E\x61\x20\x63\x61\x72\x74\x61\x2E\x20\x4C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x73\x20\x70\x75\x65\x64\x65\x6E\x20\x76\x6F\x6C\x76\x65\x72\x20\x61\x20\x63\x6F\x6C\x6F\x63\x61\x72\x73\x65\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x6F\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x2C\x20\x73\x69\x20\x65\x73\x20\x70\x6F\x73\x69\x62\x6C\x65\x2E",
+      "\x4C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x73\x75\x70\x65\x72\x69\x6F\x72\x65\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x79\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x65\x73\x74\xE1\x6E\x20\x64\x69\x73\x70\x6F\x6E\x69\x62\x6C\x65\x73\x20\x70\x61\x72\x61\x20\x6A\x75\x67\x61\x72\x2E\x20\x53\x65\x20\x70\x75\x65\x64\x65\x6E\x20\x63\x6F\x6C\x6F\x63\x61\x72\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x73\x69\x20\x73\x6F\x6E\x20\x64\x65\x73\x63\x65\x6E\x64\x65\x6E\x74\x65\x73\x20\x65\x6E\x20\x76\x61\x6C\x6F\x72\x20\x79\x20\x64\x65\x6C\x20\x6D\x69\x73\x6D\x6F\x20\x63\x6F\x6C\x6F\x72\x2E\x20\x53\x6F\x6C\x6F\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x75\x6E\x61\x20\x63\x61\x72\x74\x61\x20\x61\x20\x6C\x61\x20\x76\x65\x7A\x20\x28\x70\x65\x72\x6F\x20\x74\x61\x6D\x62\x69\xE9\x6E\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x75\x6E\x20\x67\x72\x75\x70\x6F\x20\x64\x65\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x65\x6C\x20\x6F\x72\x64\x65\x6E\x20\x61\x64\x65\x63\x75\x61\x64\x6F\x20\x73\x69\x20\x65\x78\x69\x73\x74\x65\x6E\x20\x73\x75\x66\x69\x63\x69\x65\x6E\x74\x65\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x79\x2F\x6F\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x76\x61\x63\xED\x61\x73\x29\x2E\x20\x4C\x61\x20\x70\x72\x69\x6D\x65\x72\x61\x20\x63\x61\x72\x74\x61\x20\x64\x65\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x20\x74\x61\x6D\x62\x69\xE9\x6E\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x61\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x2E\x20\x43\x61\x64\x61\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x20\x73\x6F\x6C\x6F\x20\x70\x75\x65\x64\x65\x20\x63\x6F\x6E\x74\x65\x6E\x65\x72\x20\x75\x6E\x61\x20\x63\x61\x72\x74\x61\x2E\x20\x4C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x73\x20\x70\x75\x65\x64\x65\x6E\x20\x76\x6F\x6C\x76\x65\x72\x20\x61\x20\x63\x6F\x6C\x6F\x63\x61\x72\x73\x65\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x6F\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x2C\x20\x73\x69\x20\x65\x73\x20\x70\x6F\x73\x69\x62\x6C\x65\x2E",
+      "\x4C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x73\x75\x70\x65\x72\x69\x6F\x72\x65\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x79\x20\x6C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x65\x73\x74\xE1\x6E\x20\x64\x69\x73\x70\x6F\x6E\x69\x62\x6C\x65\x73\x20\x70\x61\x72\x61\x20\x6A\x75\x67\x61\x72\x2E\x20\x53\x65\x20\x70\x75\x65\x64\x65\x6E\x20\x63\x6F\x6C\x6F\x63\x61\x72\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x73\x69\x20\x73\x6F\x6E\x20\x64\x65\x73\x63\x65\x6E\x64\x65\x6E\x74\x65\x73\x20\x65\x6E\x20\x76\x61\x6C\x6F\x72\x20\x79\x20\x64\x65\x6C\x20\x6D\x69\x73\x6D\x6F\x20\x63\x6F\x6C\x6F\x72\x2E\x20\x53\x6F\x6C\x6F\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x75\x6E\x61\x20\x63\x61\x72\x74\x61\x20\x61\x20\x6C\x61\x20\x76\x65\x7A\x20\x28\x70\x65\x72\x6F\x20\x74\x61\x6D\x62\x69\xE9\x6E\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x75\x6E\x20\x67\x72\x75\x70\x6F\x20\x64\x65\x20\x63\x61\x72\x74\x61\x73\x20\x65\x6E\x20\x65\x6C\x20\x6F\x72\x64\x65\x6E\x20\x61\x64\x65\x63\x75\x61\x64\x6F\x20\x73\x69\x20\x65\x78\x69\x73\x74\x65\x6E\x20\x73\x75\x66\x69\x63\x69\x65\x6E\x74\x65\x73\x20\x63\x65\x6C\x64\x61\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x79\x2F\x6F\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x76\x61\x63\xED\x61\x73\x29\x2E\x20\x4C\x61\x20\x70\x72\x69\x6D\x65\x72\x61\x20\x63\x61\x72\x74\x61\x20\x64\x65\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x20\x74\x61\x6D\x62\x69\xE9\x6E\x20\x73\x65\x20\x70\x75\x65\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x61\x20\x63\x75\x61\x6C\x71\x75\x69\x65\x72\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x2E\x20\x43\x61\x64\x61\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x20\x73\x6F\x6C\x6F\x20\x70\x75\x65\x64\x65\x20\x63\x6F\x6E\x74\x65\x6E\x65\x72\x20\x75\x6E\x61\x20\x63\x61\x72\x74\x61\x2E\x20\x4C\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x65\x20\x6C\x61\x73\x20\x63\x65\x6C\x64\x61\x20\x6C\x69\x62\x72\x65\x73\x20\x70\x75\x65\x64\x65\x6E\x20\x76\x6F\x6C\x76\x65\x72\x20\x61\x20\x63\x6F\x6C\x6F\x63\x61\x72\x73\x65\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x6F\x6C\x75\x6D\x6E\x61\x73\x20\x6F\x20\x65\x6E\x20\x6C\x61\x73\x20\x63\x61\x73\x69\x6C\x6C\x61\x73\x20\x61\x72\x72\x69\x62\x61\x20\x61\x20\x6C\x61\x20\x64\x65\x72\x65\x63\x68\x61\x2C\x20\x73\x69\x20\x65\x73\x20\x70\x6F\x73\x69\x62\x6C\x65\x2E",
+      "\x41\x73\x20\x63\x61\x72\x74\x61\x73\x20\x6E\x6F\x20\x74\x6F\x70\x6F\x20\x64\x61\x73\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x20\x65\x20\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x61\x73\x20\x43\xE9\x6C\x75\x6C\x61\x73\x20\x4C\x69\x76\x72\x65\x73\x20\x65\x73\x74\xE3\x6F\x20\x64\x69\x73\x70\x6F\x6E\xED\x76\x65\x69\x73\x20\x70\x61\x72\x61\x20\x6A\x6F\x67\x61\x72\x2E\x20\x50\x6F\x64\x65\x73\x20\x63\x6F\x6E\x73\x74\x72\x75\x69\x72\x20\x70\x69\x6C\x68\x61\x73\x20\x6E\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x20\x64\x65\x20\x62\x61\x69\x78\x6F\x20\x65\x20\x70\x6F\x72\x20\x6E\x61\x69\x70\x65\x2E\x20\x53\xF3\x20\x70\x6F\x64\x65\x73\x20\x6D\x6F\x76\x65\x72\x20\x75\x6D\x61\x20\x63\x61\x72\x74\x61\x20\x64\x65\x20\x63\x61\x64\x61\x20\x76\x65\x7A\x20\x28\x6D\x61\x73\x20\x70\x6F\x64\x65\x73\x20\x6D\x6F\x76\x65\x72\x20\x75\x6D\x20\x67\x72\x75\x70\x6F\x20\x64\x65\x20\x63\x61\x72\x74\x61\x73\x20\x6E\x61\x20\x73\x65\x71\x75\xEA\x6E\x63\x69\x61\x20\x63\x65\x72\x74\x61\x20\x73\x65\x20\x74\x69\x76\x65\x72\x65\x73\x20\x63\xE9\x6C\x75\x6C\x61\x73\x20\x6C\x69\x76\x72\x65\x73\x20\x73\x75\x66\x69\x63\x69\x65\x6E\x74\x65\x73\x20\x65\x2F\x6F\x75\x20\x70\x69\x6C\x68\x61\x73\x20\x6E\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x29\x2E\x20\x41\x20\x63\x61\x72\x74\x61\x20\x64\x6F\x20\x74\x6F\x70\x6F\x20\x64\x65\x20\x71\x75\x61\x6C\x71\x75\x65\x72\x20\x70\x69\x6C\x68\x61\x20\x74\x61\x6D\x62\xE9\x6D\x20\x70\x6F\x64\x65\x20\x73\x65\x72\x20\x6D\x6F\x76\x69\x64\x61\x20\x70\x61\x72\x61\x20\x71\x75\x61\x6C\x71\x75\x65\x72\x20\x43\xE9\x6C\x75\x6C\x61\x20\x4C\x69\x76\x72\x65\x2E\x20\x43\x61\x64\x61\x20\x43\xE9\x6C\x75\x6C\x61\x20\x4C\x69\x76\x72\x65\x20\x73\xF3\x20\x70\x6F\x64\x65\x20\x63\x6F\x6E\x74\x65\x72\x20\x75\x6D\x61\x20\xFA\x6E\x69\x63\x61\x20\x63\x61\x72\x74\x61\x2E\x20\x41\x73\x20\x63\x61\x72\x74\x61\x73\x20\x6E\x61\x73\x20\x63\xE9\x6C\x75\x6C\x61\x73\x20\x70\x6F\x64\x65\x6D\x20\x73\x65\x72\x20\x6D\x6F\x76\x69\x64\x61\x73\x20\x70\x61\x72\x61\x20\x61\x73\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x61\x20\x62\x61\x73\x65\x20\x6F\x75\x20\x63\x6F\x6C\x6F\x63\x61\x64\x61\x73\x20\x6E\x6F\x76\x61\x6D\x65\x6E\x74\x65\x20\x6E\x61\x73\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x2C\x20\x73\x65\x20\x70\x6F\x73\x73\xED\x76\x65\x6C\x2E",
+      "\x41\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x6F\x20\x74\x6F\x70\x6F\x20\x64\x61\x73\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x20\x65\x20\x61\x73\x20\x63\x61\x72\x74\x61\x73\x20\x64\x61\x73\x20\x63\xE9\x6C\x75\x6C\x61\x73\x20\x6C\x69\x76\x72\x65\x73\x20\x65\x73\x74\xE3\x6F\x20\x64\x69\x73\x70\x6F\x6E\xED\x76\x65\x69\x73\x20\x70\x61\x72\x61\x20\x6A\x6F\x67\x61\x72\x2E\x20\x56\x6F\x63\xEA\x20\x70\x6F\x64\x65\x20\x63\x72\x69\x61\x72\x20\x70\x69\x6C\x68\x61\x73\x20\x6E\x6F\x20\x6E\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x20\x70\x61\x72\x61\x20\x62\x61\x69\x78\x6F\x20\x65\x20\x70\x6F\x72\x20\x6E\x61\x69\x70\x65\x2E\x20\x41\x70\x65\x6E\x61\x73\x20\x75\x6D\x61\x20\x63\x61\x72\x74\x61\x20\x64\x65\x20\x63\x61\x64\x61\x20\x76\x65\x7A\x20\x70\x6F\x64\x65\x20\x73\x65\x72\x20\x6D\x6F\x76\x69\x64\x61\x20\x28\x6D\x61\x73\x20\x76\x6F\x63\xEA\x20\x70\x6F\x64\x65\x20\x6D\x6F\x76\x65\x72\x20\x67\x72\x75\x70\x6F\x73\x20\x64\x65\x20\x63\x61\x72\x74\x61\x73\x20\x6E\x61\x20\x73\x65\x71\xFC\xEA\x6E\x63\x69\x61\x20\x63\x6F\x72\x72\x65\x74\x61\x2C\x20\x73\x65\x20\x76\x6F\x63\xEA\x20\x74\x69\x76\x65\x72\x20\x63\xE9\x6C\x75\x6C\x61\x73\x20\x6C\x69\x76\x72\x65\x73\x20\x65\x2F\x6F\x75\x20\x70\x69\x6C\x68\x61\x73\x20\x6E\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x20\x73\x75\x66\x69\x63\x69\x65\x6E\x74\x65\x73\x29\x2E\x20\x41\x20\x63\x61\x72\x74\x61\x20\x64\x6F\x20\x74\x6F\x70\x6F\x20\x64\x65\x20\x71\x75\x61\x6C\x71\x75\x65\x72\x20\x70\x69\x6C\x68\x61\x20\x64\x6F\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x20\x74\x61\x6D\x62\xE9\x6D\x20\x70\x6F\x64\x65\x20\x73\x65\x72\x20\x6D\x6F\x76\x69\x64\x61\x20\x70\x61\x72\x61\x20\x71\x75\x61\x6C\x71\x75\x65\x72\x20\x63\xE9\x6C\x75\x6C\x61\x20\x6C\x69\x76\x72\x65\x2E\x20\x43\x61\x64\x61\x20\x63\xE9\x6C\x75\x6C\x61\x20\x6C\x69\x76\x72\x65\x20\x70\x6F\x64\x65\x20\x63\x6F\x6E\x74\x65\x72\x20\x61\x70\x65\x6E\x61\x73\x20\x75\x6D\x61\x20\x63\x61\x72\x74\x61\x2E\x20\x41\x73\x20\x63\x61\x72\x74\x61\x73\x20\x6E\x61\x73\x20\x63\xE9\x6C\x75\x6C\x61\x73\x20\x70\x6F\x64\x65\x6D\x20\x73\x65\x72\x20\x6D\x6F\x76\x69\x64\x61\x73\x20\x70\x61\x72\x61\x20\x61\x73\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x65\x20\x62\x61\x73\x65\x20\x6F\x75\x20\x64\x65\x20\x76\x6F\x6C\x74\x61\x20\x70\x61\x72\x61\x20\x61\x73\x20\x70\x69\x6C\x68\x61\x73\x20\x64\x6F\xA0\x20\x74\x61\x62\x75\x6C\x65\x69\x72\x6F\x2C\x20\x73\x65\x20\x70\x6F\x73\x73\xED\x76\x65\x6C\x2E",
+      "\x4C\x65\x73\x20\x63\x61\x72\x74\x65\x73\x20\x73\x65\x20\x74\x72\x6F\x75\x76\x61\x6E\x74\x20\x61\x75\x20\x73\x6F\x6D\x6D\x65\x74\x20\x64\x65\x73\x20\x70\x69\x6C\x65\x73\x20\x64\x75\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x65\x74\x20\x6C\x65\x73\x20\x63\x61\x72\x74\x65\x73\x20\x73\x65\x20\x74\x72\x6F\x75\x76\x61\x6E\x74\x20\x64\x61\x6E\x73\x20\x6C\x65\x73\x20\x63\x61\x73\x65\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x70\x65\x75\x76\x65\x6E\x74\x20\xEA\x74\x72\x65\x20\x6A\x6F\x75\xE9\x65\x73\x2E\x20\x54\x75\x20\x70\x65\x75\x78\x20\x70\x6C\x61\x63\x65\x72\x20\x6C\x65\x73\x20\x63\x61\x72\x74\x65\x73\x20\x73\x75\x72\x20\x6C\x65\x73\x20\x70\x69\x6C\x65\x73\x20\x64\x75\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x65\x6E\x20\x6F\x72\x64\x72\x65\x20\x64\x65\x73\x63\x65\x6E\x64\x61\x6E\x74\x20\x65\x74\x20\x65\x6E\x20\x73\x75\x69\x74\x65\x73\x2E\x20\x55\x6E\x65\x20\x73\x65\x75\x6C\x65\x20\x63\x61\x72\x74\x65\x20\xE0\x20\x6C\x61\x20\x66\x6F\x69\x73\x20\x70\x65\x75\x74\x20\xEA\x74\x72\x65\x20\x64\xE9\x70\x6C\x61\x63\xE9\x65\x20\x28\x6D\x61\x69\x73\x20\x74\x75\x20\x70\x65\x75\x78\x20\x64\xE9\x70\x6C\x61\x63\x65\x72\x20\x64\x65\x73\x20\x67\x72\x6F\x75\x70\x65\x73\x20\x64\x65\x20\x63\x61\x72\x74\x65\x73\x20\x65\x6E\x20\x72\x65\x73\x70\x65\x63\x74\x61\x6E\x74\x20\x6C\x65\x20\x62\x6F\x6E\x20\x6F\x72\x64\x72\x65\x20\x73\x69\x20\x74\x75\x20\x64\x69\x73\x70\x6F\x73\x65\x73\x20\x64\x65\x20\x73\x75\x66\x66\x69\x73\x61\x6D\x6D\x65\x6E\x74\x20\x64\x65\x20\x63\x61\x73\x65\x73\x20\x6C\x69\x62\x72\x65\x73\x20\x65\x74\x2F\x20\x6F\x75\x20\x64\x65\x20\x70\x69\x6C\x65\x73\x20\x64\x75\x20\x74\x61\x62\x6C\x65\x61\x75\x29\x2E\x20\x4C\x65\x73\x20\x63\x61\x72\x74\x65\x73\x20\x73\x65\x20\x74\x72\x6F\x75\x76\x61\x6E\x74\x20\x61\x75\x20\x73\x6F\x6D\x6D\x65\x74\x20\x64\x65\x20\x6E\x27\x69\x6D\x70\x6F\x72\x74\x65\x20\x71\x75\x65\x6C\x6C\x65\x20\x70\x69\x6C\x65\x20\x64\x75\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x70\x65\x75\x76\x65\x6E\x74\x20\xE9\x67\x61\x6C\x65\x6D\x65\x6E\x74\x20\xEA\x74\x72\x65\x20\x64\xE9\x70\x6C\x61\x63\xE9\x65\x73\x20\x76\x65\x72\x73\x20\x6E\x27\x69\x6D\x70\x6F\x72\x74\x65\x2D\x71\x75\x65\x6C\x6C\x65\x20\x63\x61\x73\x65\x20\x6C\x69\x62\x72\x65\x2E\x20\x43\x68\x61\x71\x75\x65\x20\x63\x61\x73\x65\x20\x6C\x69\x62\x72\x65\x20\x70\x65\x75\x74\x20\x6E\x65\x20\x63\x6F\x6E\x74\x65\x6E\x69\x72\x20\x71\x75\x27\x75\x6E\x65\x20\x73\x65\x75\x6C\x65\x20\x63\x61\x72\x74\x65\x2E\x20\x4C\x65\x73\x20\x63\x61\x72\x74\x65\x73\x20\x73\x65\x20\x74\x72\x6F\x75\x76\x61\x6E\x74\x20\x64\x61\x6E\x73\x20\x6C\x65\x73\x20\x63\x61\x73\x65\x73\x20\x70\x65\x75\x76\x65\x6E\x74\x20\xEA\x74\x72\x65\x20\x64\xE9\x70\x6C\x61\x63\xE9\x65\x73\x20\x73\x75\x72\x20\x6C\x65\x73\x20\x70\x69\x6C\x65\x73\x20\x64\x65\x20\x62\x61\x73\x65\x20\x6F\x75\x20\x72\x65\x6D\x69\x73\x65\x73\x20\x73\x75\x72\x20\x6C\x65\x73\x20\x70\x69\x6C\x65\x73\x20\x64\x75\x20\x74\x61\x62\x6C\x65\x61\x75\x20\x6C\x6F\x72\x73\x71\x75\x65\x20\x63\x65\x6C\x61\x20\x65\x73\x74\x20\x70\x6F\x73\x73\x69\x62\x6C\x65\x2E",
+      "\x50\x65\x72\x20\x67\x69\x6F\x63\x61\x72\x65\x20\x70\x75\x6F\x69\x20\x75\x73\x61\x72\x65\x20\x6C\x65\x20\x63\x61\x72\x74\x65\x20\x69\x6E\x20\x63\x69\x6D\x61\x20\x61\x69\x20\x6D\x75\x63\x63\x68\x69\x20\x73\x75\x6C\x20\x74\x61\x76\x6F\x6C\x6F\x20\x65\x20\x6C\x65\x20\x63\x61\x72\x74\x65\x20\x6E\x65\x6C\x6C\x65\x20\x43\x65\x6C\x6C\x65\x20\x6C\x69\x62\x65\x72\x65\x2E\x20\x50\x75\x6F\x69\x20\x63\x72\x65\x61\x72\x65\x20\x6D\x75\x63\x63\x68\x69\x20\x73\x75\x6C\x20\x74\x61\x76\x6F\x6C\x6F\x20\x64\x61\x6C\x6C\x61\x20\x63\x61\x72\x74\x61\x20\x70\x69\xF9\x20\x61\x6C\x74\x61\x20\x65\x20\x70\x65\x72\x20\x73\x65\x6D\x65\x2E\x20\x50\x75\x6F\x69\x20\x73\x70\x6F\x73\x74\x61\x72\x65\x20\x73\x6F\x6C\x6F\x20\x75\x6E\x61\x20\x63\x61\x72\x74\x61\x20\x61\x6C\x6C\x61\x20\x76\x6F\x6C\x74\x61\x20\x28\x6D\x61\x20\x70\x75\x6F\x69\x20\x73\x70\x6F\x73\x74\x61\x72\x65\x20\x75\x6E\x20\x67\x72\x75\x70\x70\x6F\x20\x64\x69\x20\x63\x61\x72\x74\x65\x20\x6E\x65\x6C\x6C\x61\x20\x73\x65\x71\x75\x65\x6E\x7A\x61\x20\x63\x6F\x72\x72\x65\x74\x74\x61\x20\x73\x65\x20\x63\x69\x20\x73\x6F\x6E\x6F\x20\x73\x75\x66\x66\x69\x63\x69\x65\x6E\x74\x69\x20\x63\x65\x6C\x6C\x65\x20\x6C\x69\x62\x65\x72\x65\x20\x65\x2F\x6F\x20\x6D\x75\x63\x63\x68\x69\x20\x73\x75\x6C\x20\x74\x61\x76\x6F\x6C\x6F\x29\x2E\x20\x4C\x61\x20\x63\x61\x72\x74\x61\x20\x69\x6E\x20\x63\x69\x6D\x61\x20\x61\x20\x71\x75\x61\x6C\x73\x69\x61\x73\x69\x20\x6D\x75\x63\x63\x68\x69\x6F\x20\x73\x75\x6C\x20\x74\x61\x76\x6F\x6C\x6F\x20\x70\x75\xF2\x20\x65\x73\x73\x65\x72\x65\x20\x73\x70\x6F\x73\x74\x61\x74\x61\x20\x73\x75\x20\x71\x75\x61\x6C\x73\x69\x61\x73\x69\x20\x63\x65\x6C\x6C\x61\x20\x6C\x69\x62\x65\x72\x61\x2E\x20\x43\x69\x61\x73\x63\x75\x6E\x61\x20\x63\x65\x6C\x6C\x61\x20\x6C\x69\x62\x65\x72\x61\x20\x70\x75\xF2\x20\x63\x6F\x6E\x74\x65\x6E\x65\x72\x65\x20\x73\x6F\x6C\x6F\x20\x75\x6E\x61\x20\x63\x61\x72\x74\x61\x2E\x20\x4C\x65\x20\x63\x61\x72\x74\x65\x20\x6E\x65\x6C\x6C\x65\x20\x63\x65\x6C\x6C\x65\x20\x70\x6F\x73\x73\x6F\x6E\x6F\x20\x65\x73\x73\x65\x72\x65\x20\x73\x70\x6F\x73\x74\x61\x74\x65\x20\x6E\x65\x69\x20\x6D\x75\x63\x63\x68\x69\x20\x64\x69\x20\x62\x61\x73\x65\x20\x69\x6E\x20\x61\x6C\x74\x6F\x20\x6F\x20\x72\x69\x70\x6F\x72\x74\x61\x74\x65\x20\x6E\x65\x69\x20\x6D\x75\x63\x63\x68\x69\x20\x73\x75\x6C\x20\x74\x61\x76\x6F\x6C\x6F\x2C\x20\x73\x65\x20\x70\x6F\x73\x73\x69\x62\x69\x6C\x65\x2E",
+      "\x44\x69\x65\x20\x6F\x62\x65\x72\x73\x74\x65\x6E\x20\x4B\x61\x72\x74\x65\x6E\x20\x64\x65\x72\x20\x41\x62\x6C\x61\x67\x65\x73\x74\x61\x70\x65\x6C\x20\x75\x6E\x64\x20\x64\x69\x65\x20\x4B\x61\x72\x74\x65\x6E\x20\x61\x75\x66\x20\x64\x65\x6E\x20\u201E\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\u201C\x20\x6B\xF6\x6E\x6E\x65\x6E\x20\x67\x65\x73\x70\x69\x65\x6C\x74\x20\x77\x65\x72\x64\x65\x6E\x2E\x20\x44\x75\x20\x6B\x61\x6E\x6E\x73\x74\x20\x4B\x61\x72\x74\x65\x6E\x20\x61\x75\x66\x20\x41\x62\x6C\x61\x67\x65\x73\x74\x61\x70\x65\x6C\x6E\x20\x69\x6E\x20\x61\x62\x73\x74\x65\x69\x67\x65\x6E\x64\x65\x72\x20\x52\x65\x69\x68\x65\x6E\x66\x6F\x6C\x67\x65\x20\x6E\x61\x63\x68\x20\x46\x61\x72\x62\x65\x20\x61\x62\x6C\x65\x67\x65\x6E\x2E\x20\x4E\x75\x72\x20\x65\x69\x6E\x65\x20\x4B\x61\x72\x74\x65\x20\x6B\x61\x6E\x6E\x20\x70\x72\x6F\x20\x53\x70\x69\x65\x6C\x7A\x75\x67\x20\x76\x65\x72\x73\x63\x68\x6F\x62\x65\x6E\x20\x77\x65\x72\x64\x65\x6E\x20\x28\x61\x62\x65\x72\x20\x64\x75\x20\x6B\x61\x6E\x6E\x73\x74\x20\x47\x72\x75\x70\x70\x65\x6E\x20\x76\x6F\x6E\x20\x4B\x61\x72\x74\x65\x6E\x20\x69\x6E\x20\x64\x65\x72\x20\x72\x69\x63\x68\x74\x69\x67\x65\x6E\x20\x52\x65\x69\x68\x65\x6E\x66\x6F\x6C\x67\x65\x20\x76\x65\x72\x73\x63\x68\x69\x65\x62\x65\x6E\x2C\x20\x77\x65\x6E\x6E\x20\x64\x75\x20\u201E\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\u201C\x20\x75\x6E\x64\x2F\x6F\x64\x65\x72\x20\x41\x62\x6C\x61\x67\x65\x73\x74\x61\x70\x65\x6C\x20\x68\x61\x73\x74\x29\x2E\x20\x44\x69\x65\x20\x6F\x62\x65\x72\x73\x74\x65\x20\x4B\x61\x72\x74\x65\x20\x6A\x65\x64\x65\x73\x20\x41\x62\x6C\x61\x67\x65\x73\x74\x61\x70\x65\x6C\x73\x20\x6B\x61\x6E\x6E\x20\x61\x75\x63\x68\x20\x69\x6E\x20\x65\x69\x6E\x65\x20\u201E\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\u201C\x20\x76\x65\x72\x73\x63\x68\x6F\x62\x65\x6E\x20\x77\x65\x72\x64\x65\x6E\x2E\x20\x4A\x65\x64\x65\x20\u201E\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\u201C\x20\x6B\x61\x6E\x6E\x20\x61\x75\x63\x68\x20\x6E\x75\x72\x20\x65\x69\x6E\x65\x20\x65\x69\x6E\x7A\x69\x67\x65\x20\x4B\x61\x72\x74\x65\x20\x65\x6E\x74\x68\x61\x6C\x74\x65\x6E\x2E\x20\x4B\x61\x72\x74\x65\x6E\x20\x69\x6E\x20\x64\x65\x6E\x20\u201E\x46\x72\x65\x65\x20\x43\x65\x6C\x6C\x73\u201C\x20\x6B\xF6\x6E\x6E\x65\x6E\x20\x61\x75\x66\x20\x64\x69\x65\x20\x5A\x69\x65\x6C\x73\x74\xF6\xDF\x65\x20\x76\x65\x72\x73\x63\x68\x6F\x62\x65\x6E\x20\x6F\x64\x65\x72\x20\x7A\x75\x72\xFC\x63\x6B\x20\x61\x75\x66\x20\x64\x69\x65\x20\x41\x62\x6C\x61\x67\x65\x73\x74\x61\x70\x65\x6C\x20\x76\x65\x72\x73\x63\x68\x6F\x62\x65\x6E\x20\x77\x65\x72\x64\x65\x6E\x2C\x20\x77\x65\x6E\x6E\x20\x64\x69\x65\x73\x20\x6D\xF6\x67\x6C\x69\x63\x68\x20\x69\x73\x74\x2E\x20",
+      "\u0412\x20\u0438\u0433\u0440\u0435\x20\u0443\u0447\u0430\u0441\u0442\u0432\u0443\u044E\u0442\x20\u043A\u0430\u0440\u0442\u044B\x20\u0441\u0442\u043E\u043F\u043E\u043A\x20\u0442\u0430\u0431\u043B\u043E\x20\u0438\x20\u043A\u0430\u0440\u0442\u044B\x20\u0438\u0437\x20\u0441\u0432\u043E\u0431\u043E\u0434\u043D\u044B\u0445\x20\u044F\u0447\u0435\u0435\u043A\x2E\x20\u0421\u0442\u043E\u043F\u043A\u0438\x20\u0442\u0430\u0431\u043B\u043E\x20\u043C\u043E\u0436\u043D\u043E\x20\u0443\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0442\u044C\x20\u043F\u043E\x20\u043D\u0438\u0441\u0445\u043E\u0434\u044F\u0449\u0435\u0439\x20\u043B\u0438\u043D\u0438\u0438\x20\u0438\x20\u043F\u043E\x20\u043C\u0430\u0441\u0442\u0438\x2E\x20\u0420\u0430\u0437\u0440\u0435\u0448\u0430\u0435\u0442\u0441\u044F\x20\u0434\u0432\u0438\u0433\u0430\u0442\u044C\x20\u0442\u043E\u043B\u044C\u043A\u043E\x20\u043E\u0434\u043D\u0443\x20\u043A\u0430\u0440\u0442\u0443\x20\u0437\u0430\x20\u0440\u0430\u0437\x20\x28\u043C\u043E\u0436\u043D\u043E\x20\u0434\u0432\u0438\u0433\u0430\u0442\u044C\x20\u0433\u0440\u0443\u043F\u043F\u0443\x20\u043A\u0430\u0440\u0442\x20\u0432\x20\u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u043E\u0439\x20\u043F\u043E\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u0438\x20\u0438\x20\u043F\u0440\u0438\x20\u043D\u0430\u043B\u0438\u0447\u0438\u0438\x20\u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u044B\u0445\x20\u0441\u0432\u043E\u0431\u043E\u0434\u043D\u044B\u0445\x20\u044F\u0447\u0435\u0435\u043A\x20\u0438\x2F\u0438\u043B\u0438\x20\u0441\u0442\u043E\u043F\u043E\u043A\x20\u0442\u0430\u0431\u043B\u043E\x29\x2E\x20\u0412\u0435\u0440\u0445\u043D\u044E\u044E\x20\u043A\u0430\u0440\u0442\u0443\x20\u043B\u044E\u0431\u043E\u0439\x20\u0441\u0442\u043E\u043F\u043A\u0438\x20\u0442\u0430\u0431\u043B\u043E\x20\u043C\u043E\u0436\u043D\u043E\x20\u0442\u0430\u043A\u0436\u0435\x20\u0434\u0432\u0438\u0433\u0430\u0442\u044C\x20\u0432\x20\u043B\u044E\u0431\u0443\u044E\x20\u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0443\u044E\x20\u044F\u0447\u0435\u0439\u043A\u0443\x2E\x20\u0412\x20\u043A\u0430\u0436\u0434\u043E\u0439\x20\u0441\u0432\u043E\u0431\u043E\u0434\u043D\u043E\u0439\x20\u044F\u0447\u0435\u0439\u043A\u0435\x20\u0434\u043E\u043F\u0443\u0441\u043A\u0430\u0435\u0442\u0441\u044F\x20\u0442\u043E\u043B\u044C\u043A\u043E\x20\u043E\u0434\u043D\u0430\x20\u043A\u0430\u0440\u0442\u0430\x2E\x20\u041A\u0430\u0440\u0442\u044B\x20\u044F\u0447\u0435\u0435\u043A\x20\u043C\u043E\u0436\u043D\u043E\x20\u043F\u043E\x20\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438\x20\u0434\u0432\u0438\u0433\u0430\u0442\u044C\x20\u043D\u0430\x20\u0431\u0430\u0437\u043E\u0432\u044B\u0435\x20\u0441\u0442\u043E\u043F\u043A\u0438\x20\u0438\u043B\u0438\x20\u043D\u0430\u0437\u0430\u0434\x20\u043D\u0430\x20\u0441\u0442\u043E\u043F\u043A\u0438\x20\u0442\u0430\u0431\u043B\u043E",
+      "\x44\x6F\x20\x67\x72\x79\x20\x73\u0142\x75\u017C\u0105\x20\x6B\x61\x72\x74\x79\x20\x7A\x20\x67\xF3\x72\x79\x20\x70\x69\x6F\x6E\x6F\x77\x79\x63\x68\x20\x6B\x6F\x6C\x75\x6D\x6E\x20\x69\x20\x6B\x61\x72\x74\x79\x20\x7A\x20\x77\x6F\x6C\x6E\x79\x63\x68\x20\x6B\x6F\x6D\xF3\x72\x65\x6B\x2E\x20\x4D\x6F\u017C\x65\x73\x7A\x20\x75\x6B\u0142\x61\x64\x61\u0107\x20\x70\x69\x6F\x6E\x6F\x77\x65\x20\x6B\x6F\x6C\x75\x6D\x6E\x79\x20\x6D\x61\x6C\x65\x6A\u0105\x63\x6F\x20\x69\x20\x77\x20\x6A\x65\x64\x6E\x79\x6D\x20\x6B\x6F\x6C\x6F\x72\x7A\x65\x2E\x20\x4D\x6F\u017C\x6E\x61\x20\x70\x72\x7A\x65\u0142\x6F\u017C\x79\u0107\xA0\x74\x79\x6C\x6B\x6F\x20\x6A\x65\x64\x6E\u0105\x20\x6B\x61\x72\x74\u0119\x20\x6E\x61\x20\x72\x61\x7A\x20\x28\x61\x6C\x62\x6F\x20\x67\x72\x75\x70\u0119\x20\x6B\x61\x72\x74\x20\x6F\x20\x77\u0142\x61\u015B\x63\x69\x77\x65\x6A\x20\x73\x65\x6B\x77\x65\x6E\x63\x6A\x69\x2C\x20\x6A\x65\u017C\x65\x6C\x69\x20\x6D\x61\x73\x7A\x20\x77\x79\x73\x74\x61\x72\x63\x7A\x61\x6A\u0105\x63\u0105\x20\x69\x6C\x6F\u015B\u0107\x20\x77\x6F\x6C\x6E\x79\x63\x68\x20\x6B\x6F\x6D\xF3\x72\x65\x6B\x20\x69\x2F\x6C\x75\x62\x20\x70\x69\x6F\x6E\x6F\x77\x79\x63\x68\x20\x6B\x6F\x6C\x75\x6D\x6E\x29\x2E\x20\x4E\x61\x6A\x77\x79\u017C\x73\x7A\u0105\x20\x6B\x61\x72\x74\u0119\x20\x77\x20\x6B\x6F\x6C\x75\x6D\x6E\x69\x65\x20\x6D\x6F\u017C\x6E\x61\x20\x74\x65\u017C\x20\x70\x72\x7A\x65\x6E\x69\x65\u015B\u0107\x20\x64\x6F\x20\x77\x6F\x6C\x6E\x65\x6A\x20\x6B\x6F\x6D\xF3\x72\x6B\x69\x2E\x20\x4B\x61\u017C\x64\x61\x20\x77\x6F\x6C\x6E\x61\x20\x6B\x6F\x6D\xF3\x72\x6B\x61\x20\x6D\x6F\u017C\x65\x20\x7A\x61\x77\x69\x65\x72\x61\u0107\x20\x74\x79\x6C\x6B\x6F\x20\x31\x20\x6B\x61\x72\x74\u0119\x2E\x20\x4B\x61\x72\x74\x79\x20\x7A\x20\x6B\x6F\x6D\xF3\x72\x65\x6B\x20\x6D\x6F\u017C\x6E\x61\x20\x70\x72\x7A\x65\x6E\x6F\x73\x69\u0107\x20\x64\x6F\x20\x70\xF3\x6C\x20\x70\x6F\x64\x73\x74\x61\x77\x6F\x77\x79\x63\x68\x20\x6C\x75\x62\x2C\x20\x6A\x65\u015B\x6C\x69\x20\x74\x6F\x20\x6D\x6F\u017C\x6C\x69\x77\x65\x2C\x20\x7A\x20\x70\x6F\x77\x72\x6F\x74\x65\x6D\x20\x64\x6F\x20\x6B\x6F\x6C\x75\x6D\x6E\x2E",
+      "\x53\u0131\x72\x61\x6C\x61\x72\u0131\x6E\x20\x65\x6E\x20\xFC\x73\x74\xFC\x6E\x64\x65\x6B\x69\x20\x6B\x61\x72\x74\x6C\x61\x72\x20\x76\x65\x20\x53\x65\x72\x62\x65\x73\x74\x20\x48\xFC\x63\x72\x65\x6C\x65\x72\x64\x65\x6B\x69\x20\x6B\x61\x72\x74\x6C\x61\x72\x6C\x61\x20\x6F\x79\x6E\x61\x6E\x61\x62\x69\x6C\x69\x72\x2E\x20\x53\u0131\x72\x61\x6C\x61\x72\u0131\x20\x6B\x61\u011F\u0131\x74\x20\x67\x72\x75\x62\x75\x6E\x61\x20\x67\xF6\x72\x65\x20\x61\u015F\x61\u011F\u0131\x20\x75\x7A\x61\x74\x61\x62\x69\x6C\x69\x72\x73\x69\x6E\x69\x7A\x2E\x20\x42\x69\x72\x20\x73\x65\x66\x65\x72\x64\x65\x20\x62\x69\x72\x20\x6B\x61\x72\x74\x20\x74\x61\u015F\u0131\x79\x61\x62\x69\x6C\x69\x72\x73\x69\x6E\x69\x7A\x20\x28\x61\x6E\x63\x61\x6B\x20\x79\x65\x74\x65\x72\x6C\x69\x20\x53\x65\x72\x62\x65\x73\x74\x20\x48\xFC\x63\x72\x65\x6E\x69\x7A\x20\x76\x65\x2F\x76\x65\x79\x61\x20\x73\u0131\x72\x61\x6E\u0131\x7A\x20\x76\x61\x72\x73\x61\x20\x75\x79\x67\x75\x6E\x20\x73\u0131\x72\x61\x64\x61\x20\x64\x69\x7A\x69\x6C\x6D\x69\u015F\x20\x62\x69\x72\x20\x67\x72\x75\x70\x20\x6B\x61\x72\x74\u0131\x20\x74\x61\u015F\u0131\x79\x61\x62\x69\x6C\x69\x72\x73\x69\x6E\x69\x7A\x29\x2E\x20\x48\x65\x72\x68\x61\x6E\x67\x69\x20\x62\x69\x72\x20\x73\u0131\x72\x61\x6E\u0131\x6E\x20\x65\x6E\x20\xFC\x73\x74\xFC\x6E\x64\x65\x6B\x69\x20\x6B\x61\x72\x74\u0131\x20\x68\x65\x72\x68\x61\x6E\x67\x69\x20\x62\x69\x72\x20\x53\x65\x72\x62\x65\x73\x74\x20\x48\xFC\x63\x72\x65\x79\x65\x20\x64\x65\x20\x74\x61\u015F\u0131\x79\x61\x62\x69\x6C\x69\x72\x73\x69\x6E\x69\x7A\x2E\x20\x48\x65\x72\x20\x53\x65\x72\x62\x65\x73\x74\x20\x48\xFC\x63\x72\x65\x64\x65\x20\x73\x61\x64\x65\x63\x65\x20\x62\x69\x72\x20\x6B\x61\x72\x74\x20\x62\x75\x6C\x75\x6E\x61\x62\x69\x6C\x69\x72\x2E\x20\x48\xFC\x63\x72\x65\x6C\x65\x72\x64\x65\x6B\x69\x20\x6B\x61\x72\x74\x6C\x61\x72\x20\x74\x65\x6D\x65\x6C\x20\x68\xFC\x63\x72\x65\x6C\x65\x72\x65\x20\x74\x61\u015F\u0131\x6E\x61\x62\x69\x6C\x65\x63\x65\u011F\x69\x20\x67\x69\x62\x69\x20\x6D\xFC\x6D\x6B\xFC\x6E\x73\x65\x20\x73\u0131\x72\x61\x6C\x61\x72\x61\x20\x67\x65\x72\x69\x20\x64\x65\x20\x74\x61\u015F\u0131\x6E\x61\x62\x69\x6C\x69\x72\x2E",
+    ],
+    d_Yes: [
+      "\x59\x65\x73",
+      "\x59\x65\x73",
+      "\x48\x61\x61\x6E",
+      "\x4A\x61",
+      "\u662F",
+      "\x53\xED",
+      "\x53\xED",
+      "\x53\xED",
+      "\x53\x69\x6D",
+      "\x53\x69\x6D",
+      "\x4F\x75\x69",
+      "\x53\x69",
+      "\x4A\x61",
+      "\u0434\u0430",
+      "\x54\x61\x6B",
+      "\x45\x76\x65\x74",
+    ],
+    d_No: [
+      "\x4E\x6F",
+      "\x4E\x6F",
+      "\x4E\x61\x68\x69",
+      "\x4E\x65\x65",
+      "\u5426",
+      "\x6E\x6F",
+      "\x6E\x6F",
+      "\x6E\x6F",
+      "\x4E\xE3\x6F",
+      "\x4E\xE3\x6F",
+      "\x4E\x6F\x6E",
+      "\x4E\x6F",
+      "\x4E\x65\x69\x6E",
+      "\u043D\u0435\u0442",
+      "\x4E\x69\x65",
+      "\x48\x61\x79\u0131\x72",
+    ],
+    d_Restart_: [
+      "\x52\x65\x73\x74\x61\x72\x74\x3F",
+      "\x52\x65\x73\x74\x61\x72\x74\x3F",
+      "\x50\x75\x6E\x61\x68\x20\x73\x74\x61\x72\x74\x20\x6B\x61\x72\x65\x6E\x3F",
+      "\x53\x74\x61\x72\x74\x20\x6F\x70\x6E\x69\x65\x75\x77\x3F",
+      "\u91CD\u65B0\u5F00\u59CB\x3F",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72\x3F",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72\x3F",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72\x3F",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72\x3F",
+      "\x52\x65\x69\x6E\x69\x63\x69\x61\x72\x3F",
+      "\x52\x65\x64\xE9\x6D\x61\x72\x72\x65\x72\x3F",
+      "\x52\x69\x63\x6F\x6D\x69\x6E\x63\x69\x61\x3F",
+      "\x4E\x65\x75\x20\x73\x74\x61\x72\x74\x65\x6E\x3F",
+      "\u0417\u0430\u043D\u043E\u0432\u043E\x3F",
+      "\x5A\x61\x63\x7A\x6E\x69\x6A\x20\x70\x6F\x6E\x6F\x77\x6E\x69\x65\x3F",
+      "\x59\x65\x6E\x69\x64\x65\x6E\x20\x42\x61\u015F\x6C\x61\x74\x3F",
+    ],
+    d_Cards: [
+      "\x43\x61\x72\x64\x73",
+      "\x43\x61\x72\x64\x73",
+      "\u092A\u0924\u094D\u0924\u0947",
+      "\x4B\x61\x61\x72\x74\x65\x6E",
+      "\u724C\u9762",
+      "\x43\x61\x72\x74\x61\x73",
+      "\x43\x61\x72\x74\x61\x73",
+      "\x43\x61\x72\x74\x61\x73",
+      "\x43\x61\x72\x74\x61\x73",
+      "\x43\x61\x72\x74\x61\x73",
+      "\x43\x61\x72\x74\x65\x73",
+      "\x43\x61\x72\x74\x65",
+      "\x4B\x61\x72\x74\x65\x6E",
+      "\u041A\u0430\u0440\u0442\u044B",
+      "\x4B\x61\x72\x74\x79",
+      "\x4B\x61\x72\x74\x6C\x61\x72",
+    ],
+  };
+  GameSound = {
+    ua: navigator.userAgent,
+    useWebAudioBGM: true,
+    playSoundFX: true,
+    soundHowl: null,
+    musicHowl: null,
+    musicMuted: false,
+    soundMuted: false,
+    loopSoundId: null,
+    musicPlaying: false,
+    loopPlaying: null,
+    sprite: null,
+    loadScript: _0x12980,
+    init: _0x129B9,
+    ping: _0x129F2,
+    playSound: _0x12A2B,
+    playMusic: _0x12A64,
+    stopMusic: _0x12A9D,
+    muteMusic: _0x12AD6,
+    muteSound: _0x12B0F,
+    setIdle: _0x12B48,
+  };
+  document.addEventListener(
+    "\x67\x61\x6D\x65\x72\x65\x61\x64\x79",
+    _0x12B81,
+    false
+  );
+})();
